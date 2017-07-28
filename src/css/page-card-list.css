@@ -1,0 +1,16 @@
+.page-card-list {
+}
+
+@media (--small-viewport) {
+  .page-card-list {
+    columns: 2;
+    column-gap: var(--gutter-width);
+  }
+}
+
+@media (--medium-viewport) {
+  .page-card-list {
+    columns: 3;
+    column-gap: var(--gutter-width-medium-up);
+  }
+}

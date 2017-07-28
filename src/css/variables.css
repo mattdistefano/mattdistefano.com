@@ -1,0 +1,24 @@
+:root {
+  --color-text: #444;
+  --color-text-light: #777;
+  --color-primary: #ff004e;
+  --color-primary-alt: #ff004e;
+  --color-lightest-grey: #fafafa;
+  --color-light-grey: #efefef;
+  --font-size-base: 16px;
+  --line-height-base: 1.9;
+  --font-raleway: 'Raleway', sans-serif;
+  --font-open-sans: 'Open Sans', sans-serif;
+  --gutter-width: .75rem;
+  --gutter-width-medium-up: 2rem;
+  --transition-duration: 0.15s;
+  --transition-timing-function: ease;
+}
+
+@custom-media --small-viewport (min-width: 35em);
+
+@custom-media --medium-viewport (min-width: 55em);
+
+@custom-media --large-viewport (min-width: 70em);
+
+@custom-media --xlarge-viewport (min-width: 90em);

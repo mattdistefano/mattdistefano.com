@@ -1,0 +1,39 @@
+main {
+  font-size: 0.95rem;
+  padding: 4rem var(--gutter-width) var(--gutter-width) var(--gutter-width);
+  position: relative;
+  z-index: 10;
+  flex-grow: 1;
+}
+
+@media (--small-viewport) {
+  .layout {
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .layout__right {
+    min-height: 100vh;
+    margin-left: 10rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    padding: 9rem var(--gutter-width-medium-up) 2rem
+      var(--gutter-width-medium-up);
+    border-right: 1px solid #efefef;
+  }
+}
+
+@media (--large-viewport) {
+  .layout {
+    max-width: 1000px;
+  }
+}
+
+@media (--xlarge-viewport) {
+  .layout {
+    max-width: 1400px;
+  }
+}

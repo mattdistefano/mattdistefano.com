@@ -1,0 +1,25 @@
+.site-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  background:#fff;
+}
+
+@media (--small-viewport) {
+  .site-content {
+    margin-left: 10rem;
+    padding-top: 11rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.0.2);
+    /* border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px; */
+  }
+}
+
+@media (--large-viewport) {
+  .site-content {
+    padding-top: 7rem;
+  }
+}

@@ -1,0 +1,16 @@
+
+.action-icon {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform var(--transition-timing-function) var(--transition-duration);
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+  margin-bottom: 0.65rem;
+}
+
+.action-icon:hover,
+.action-icon:focus {
+  transform: scale(1.2);
+  text-decoration: none;
+}

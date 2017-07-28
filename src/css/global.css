@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-open-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: var(--line-height-base);
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+.h1 {
+  font-family: var(--font-raleway);
+  font-weight: 900;
+  font-size: 2rem;
+  line-height: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+h2,
+.h2 {
+  font-family: var(--font-raleway);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h3,
+.h3 {
+  font-family: var(--font-raleway);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 2rem;
+}
+
+h4,
+.h4 {
+  font-family: var(--font-raleway);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5rem;
+}
+
+h5,
+.h5 {
+  font-family: var(--font-raleway);
+  font-weight: 100;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5rem;
+}
+
+h6,
+.h6 {
+  font-family: var(--font-raleway);
+  font-weight: 100;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5rem;
+}
+
+main {
+  font-size: 0.95rem;
+  padding: var(--gutter-width);
+  position: relative;
+  z-index: 10;
+}
+
+p {
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+  line-height: 1.5rem;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+li {
+  margin-bottom: 1rem;
+  break-inside: avoid;
+}
+
+blockquote {
+  padding-left: 0.5rem;
+  border-left: 4px solid #efefef;
+  font-weight: 300;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  margin-left: 0;
+}
+
+@media (--small-viewport) {
+  html {
+    background: linear-gradient(135deg, #ff004e 0%, #ff366c 70vh);
+    background: radial-gradient(ellipse at center top,#ff004e,#ef3265 95%);
+    background: radial-gradient(ellipse at center top,#f93a74, #ff004e 150%);
+    background: linear-gradient(to bottom,#ff004e,#ff2265 95vh);
+  }
+
+  main {
+    padding: var(--gutter-width-medium-up);
+    flex-grow: 1;
+  }
+
+  blockquote {
+    padding-left: 1.5rem;
+  }
+}

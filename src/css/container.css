@@ -1,0 +1,18 @@
+@media (--small-viewport) {
+  .container {
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
+@media (--large-viewport) {
+  .container {
+    max-width: 1000px;
+  }
+}
+
+@media (--xlarge-viewport) {
+  .container {
+    max-width: 1400px;
+  }
+}
