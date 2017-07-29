@@ -126,8 +126,7 @@ export class AppComponent extends React.Component<AppProps, AppState> {
               <Route
                 path="/"
                 exact
-                render={props =>
-                  this._renderPage(WrappedHomePage, '/index')}
+                render={props => this._renderPage(WrappedHomePage, '/index')}
               />
               <Route
                 path="/blog/:slug"

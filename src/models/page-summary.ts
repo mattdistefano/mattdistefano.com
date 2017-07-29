@@ -9,4 +9,8 @@ export interface PageSummary {
   modified?: string;
   /** The summary of the page */
   summary?: string;
+
+  children?: PageSummary[];
+
+  pages?: PageSummary[];
 }

@@ -23,8 +23,5 @@ export interface IndexPage {
   /** The list of pages in this folder */
   pages?: PageSummary[];
 
-  children?: [{
-    path: string;
-    children: PageSummary[]
-  }]
+  children?: PageSummary[];
 }

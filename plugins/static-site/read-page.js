@@ -4,7 +4,7 @@ const blockImagePlugin = require('markdown-it-block-image');
 const prism = require('prismjs');
 const matter = require('gray-matter');
 const extractTitle = require('./extract-title');
-const readFile = require('./read-file');
+const readFile = require('./fs/read-file');
 
 const prismHighlighter = (str, lang) => {
   if (lang && prism.languages[lang]) {
@@ -38,6 +38,7 @@ const toIsoDate = dateString => {
 };
 
 module.exports = async (pagePath, basePath) => {
+  //console.log(pagePath);
   const markdown = await readFile(pagePath);
 
   const fm = matter(markdown);
