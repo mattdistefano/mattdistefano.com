@@ -91,7 +91,7 @@ class WebpackStaticSitePlugin {
       const dir = await readPages(absDataPath);
 
       for (let page of dir) {
-        compilation.assets[page.path.slice(1) + '.json'] = toJsonAsset(page);
+        compilation.assets[page.path.slice(1) + '.json'] = toStringAsset(JSON.stringify(page));
       }
 
       const asset = findAsset(
