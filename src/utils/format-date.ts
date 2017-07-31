@@ -14,6 +14,10 @@ export const months = [
 ];
 
 export const formatDate = (d: Date | string) => {
+  if (!d) {
+    return '';
+  }
+
   if (typeof d === 'string') {
     d = new Date(d);
   }
