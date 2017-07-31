@@ -10,6 +10,7 @@ interface Prerendered {
     title: string;
     description: string;
     content: string;
+    state?: string;
   };
 }
 
@@ -34,6 +35,7 @@ export default (pages: Page[]) =>
     prev[curr.path] = {
       title: `mattdistefano.com | ${curr.titleText || ''}`,
       description: curr.summary || '',
+      state: JSON.stringify({ initialPageCache }).replace(/</g, '\\u003c'),
       content: ReactDOMServer.renderToString(
         <div>
           <StaticRouter context={{}} location={url}>

@@ -1,6 +1,5 @@
 const path = require('path');
 const evaluate = require('eval');
-const toJsonAsset = require('./to-json-asset');
 const toStringAsset = require('./to-string-asset');
 const readPages = require('./read-pages');
 
@@ -55,7 +54,13 @@ const getRenderer = source => {
 
 const insertIntoHtml = (html, rendered) =>
   html
-    .replace('<div id="app"></div>', `<div id="app">${rendered.content}</div>`)
+    .replace(
+      '<div id="app"></div>',
+      `
+    <div id="app">${rendered.content}</div> 
+    <script>window.__PRELOADED_STATE__ = ${rendered.state}</script>
+    `
+    )
     .replace('<title></title>', `<title>${rendered.title}</title>`)
     .replace(
       '<meta name="description" content="">',
