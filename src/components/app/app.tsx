@@ -54,7 +54,7 @@ export class AppComponent extends React.Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    window && window.scrollTo(0, 0);
+    typeof window !== 'undefined' && window.scrollTo(0, 0);
 
     const page = this.state.pageCache[path];
 
