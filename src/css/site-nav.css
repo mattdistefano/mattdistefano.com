@@ -1,5 +1,14 @@
+.site-nav {
+  margin-top: 3rem;
+  background: #fff;
+}
+
 .site-nav__list {
   display: flex;
+}
+
+.site-nav__list-item {
+  flex-grow: 1;
 }
 
 .site-nav__list-item + .site-nav__list-item {
@@ -33,6 +42,7 @@
     left: 12rem;
     top: 8rem;
     z-index: 100;
+    margin-top: 0;
   }
 }
 
