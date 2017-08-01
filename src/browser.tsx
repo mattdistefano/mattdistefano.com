@@ -1,14 +1,25 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
-
-import { Page, IndexPage, PageCache } from './models';
+import { PageCache } from './models';
 import { AppComponent } from './components/app/app';
 
-export default () =>
+export default (cache: PageCache) => {
+  let appInstance: AppComponent = null;
+
   ReactDOM.render(
-    <BrowserRouter>
-      <AppComponent />
-    </BrowserRouter>,
+    <AppContainer>
+      <BrowserRouter>
+        <AppComponent
+          initialPageCache={cache}
+          ref={app => (appInstance = app)}
+        />
+      </BrowserRouter>
+    </AppContainer>,
     document.getElementById('app')
   );
+
+  return appInstance;
+};
+

@@ -57,9 +57,9 @@ const insertIntoHtml = (html, rendered) =>
     .replace(
       '<div id="app"></div>',
       `
-    <div id="app">${rendered.content}</div> 
-    <script>window.__PRELOADED_STATE__ = ${rendered.state}</script>
-    `
+      <div id="app">${rendered.content}</div> 
+      <script>window.__PRELOADED_STATE__ = ${rendered.state}</script>
+      `
     )
     .replace('<title></title>', `<title>${rendered.title}</title>`)
     .replace(
@@ -77,10 +77,9 @@ class WebpackStaticSitePlugin {
       html: null
     };
 
-    const absDataPath = path.resolve(
-      compiler.options.context,
-      this.options.dataPath
-    );
+    const absDataPath = path.isAbsolute(this.options.dataPath)
+      ? this.options.dataPath
+      : path.resolve(compiler.options.context, this.options.dataPath);
 
     compiler.plugin('this-compilation', function(compilation) {
       compilation.plugin('html-webpack-plugin-after-emit', function(
@@ -96,7 +95,14 @@ class WebpackStaticSitePlugin {
       const dir = await readPages(absDataPath);
 
       for (let page of dir) {
-        compilation.assets[page.path.slice(1) + '.json'] = toStringAsset(JSON.stringify(page));
+        compilation.assets[page.path.slice(1) + '.json'] = toStringAsset(
+          JSON.stringify(page)
+        );
+      }
+
+      if (!this.options.prerender) {
+        done();
+        return;
       }
 
       const asset = findAsset(

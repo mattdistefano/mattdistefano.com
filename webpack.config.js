@@ -1,21 +1,37 @@
+const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackStaticSitePlugin = require('./plugins/static-site');
 
-module.exports = {
-  entry: './src/index.ts',
+const entry = './index.ts';
+
+const assets = '_assets';
+
+const hmrEntry = [
+  'react-hot-loader/patch',
+  'webpack-dev-server/client?http://localhost:3000',
+  'webpack/hot/only-dev-server',
+  entry
+];
+
+module.exports = (env = {}) => ({
+  entry: env.production ? entry : hmrEntry,
   output: {
-    filename: 'bundle.js',
+    filename: env.production
+      ? `${assets}/bundle.[chunkhash].js`
+      : `${assets}bundle.js`,
     path: __dirname + '/dist',
     libraryTarget: 'umd',
     publicPath: '/'
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
   },
+  context: path.resolve(__dirname, 'src'),
   module: {
     rules: [
       {
@@ -33,7 +49,7 @@ module.exports = {
         ],
         loader: require.resolve('file-loader'),
         options: {
-          name: '[name].[hash:8].[ext]'
+          name: `${assets}/[name].[hash].[ext]`
         }
       },
       {
@@ -41,7 +57,7 @@ module.exports = {
         loader: require.resolve('url-loader'),
         options: {
           limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: `${assets}/[name].[hash].[ext]`
         }
       },
       {
@@ -61,7 +77,7 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader']
       },
       {
         enforce: 'pre',
@@ -71,17 +87,48 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(
+        env.production ? 'production' : 'development'
+      )
     }),
-    new CopyWebpackPlugin([{ from: 'data', ignore: '*.md' }]),
+    new ExtractTextPlugin({
+      filename: `${assets}/styles.[contenthash].css`,
+      disable: !env.production
+    }),
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'data'),
+        // TODO ignore dotfiles?
+        ignore: ['*.md']
+      }
+    ]),
     new CleanWebpackPlugin(['dist']),
-    new ExtractTextPlugin('styles.css'),
     new WebpackStaticSitePlugin({
-      dataPath: 'data'
+      dataPath: path.resolve(__dirname, 'data'),
+      prerender: env.production
     })
-  ],
+  ].concat(
+    env.production
+      ? [
+          new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            parallel: true
+          })
+        ]
+      : [
+          new webpack.NamedModulesPlugin(),
+          new webpack.HotModuleReplacementPlugin()
+        ]
+  ),
+
   devServer: {
-    historyApiFallback: true
+    hot: true,
+    historyApiFallback: true,
+    host: 'localhost',
+    port: 3000
   }
-};
+});
