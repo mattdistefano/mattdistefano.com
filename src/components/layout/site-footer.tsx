@@ -25,14 +25,13 @@ const SiteFooterContactLink = (props: SiteFooterContactLinkProps) =>
     {props.icon}
   </a>;
 
+const year = new Date().getFullYear();
+
 export const SiteFooterComponent = () =>
   <footer className="site-footer">
-    <h2 className="site-footer__heading">About</h2>
+    <h2 className="site-footer__heading">&copy; {year} Matt Distefano</h2>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
+      Built with a whole buncha stuff. <a href="https://github.com/mattdistefano/mattdistefano.com">Check me out on github</a>.
     </p>
     <ul className="contact-links list-unstyled">
       {footerLinks.map((link, index) =>
