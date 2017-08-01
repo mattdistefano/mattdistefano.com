@@ -3,7 +3,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
 import { Page, IndexPage, PageCache } from './models';
-import { AppComponent, AppProps } from './components/app/app';
+import { AppComponent, AppProps } from './components/app';
 
 interface Prerendered {
   [path: string]: {

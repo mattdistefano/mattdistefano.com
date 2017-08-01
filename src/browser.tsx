@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { PageCache } from './models';
-import { AppComponent } from './components/app/app';
+import { AppComponent } from './components/app';
 
 export default (cache: PageCache) => {
   let appInstance: AppComponent = null;
