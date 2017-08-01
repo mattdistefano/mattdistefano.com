@@ -70,6 +70,29 @@ const insertIntoHtml = (html, rendered) =>
 class WebpackStaticSitePlugin {
   constructor(options) {
     this.options = options;
+    this.startTime = Date.now();
+    this.prevTimestamps = {};
+  }
+
+  hasChanges(compilation) {
+    const keys = Object.keys(compilation.fileTimestamps);
+
+    if (keys.length === 0) {
+      // assume first run
+      return true;
+    }
+
+    const changedFiles = keys.filter(
+      watchfile =>
+        watchfile.startsWith(this.absDataPath) &&
+        watchfile.endsWith('.md') &&
+        (this.prevTimestamps[watchfile] || this.startTime) <
+          (compilation.fileTimestamps[watchfile] || Infinity)
+    );
+
+    this.prevTimestamps = compilation.fileTimestamps;
+
+    return changedFiles.length > 0;
   }
 
   apply(compiler) {
@@ -77,24 +100,31 @@ class WebpackStaticSitePlugin {
       html: null
     };
 
-    const absDataPath = path.isAbsolute(this.options.dataPath)
+    this.absDataPath = path.isAbsolute(this.options.dataPath)
       ? this.options.dataPath
       : path.resolve(compiler.options.context, this.options.dataPath);
 
-    compiler.plugin('this-compilation', function(compilation) {
-      compilation.plugin('html-webpack-plugin-after-emit', function(
-        htmlPluginData,
-        callback
-      ) {
-        cache.html = htmlPluginData.html.source();
-        callback(null, htmlPluginData);
-      });
+    compiler.plugin('this-compilation', compilation => {
+      compilation.plugin(
+        'html-webpack-plugin-after-emit',
+        (htmlPluginData, callback) => {
+          cache.html = htmlPluginData.html.source();
+          callback(null, htmlPluginData);
+        }
+      );
     });
 
     compiler.plugin('emit', async (compilation, done) => {
-      const dir = await readPages(absDataPath);
+      if (!this.hasChanges(compilation)) {
+        // only run if we have changes in the files we care about
+        done();
+        return;
+      }
+
+      const dir = await readPages(this.absDataPath);
 
       for (let page of dir) {
+        // add json assets for each page
         compilation.assets[page.path.slice(1) + '.json'] = toStringAsset(
           JSON.stringify(page)
         );
@@ -114,16 +144,12 @@ class WebpackStaticSitePlugin {
       const source = asset.source();
 
       try {
-        // when the dev server is running, we get its client code in our chunk
-        // which doesn't play nice w/ evaluating the code in node
-        // realistically we don't need to run this in the dev server anyway
-        // for now just swallow the error
-        // TODO - either make this a separate plugin or skip when in dev mode
         const renderer = getRenderer(source);
 
         const rendered = renderer(dir);
 
         for (let key in rendered) {
+          // add html assets for each pre-rendered page
           compilation.assets[key.slice(1) + '.html'] = toStringAsset(
             insertIntoHtml(cache.html, rendered[key])
           );
@@ -136,8 +162,8 @@ class WebpackStaticSitePlugin {
     });
 
     compiler.plugin('after-emit', (compilation, done) => {
-      if (!compilation.contextDependencies.find(d => d === absDataPath)) {
-        compilation.contextDependencies.push(absDataPath);
+      if (!compilation.contextDependencies.find(d => d === this.absDataPath)) {
+        compilation.contextDependencies.push(this.absDataPath);
       }
 
       done();
