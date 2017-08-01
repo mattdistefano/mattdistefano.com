@@ -18,12 +18,14 @@ export const PageContentComponent = (props: PageContentProps) => {
   const title = { __html: page && page.titleHtml };
   const content = { __html: page && page.content };
 
+  const time = page.created ? <time className="page-content__date" dateTime={page.created}>
+    {formatDate(page.created)}
+  </time> : null;
+
   return (
     <div className="page-content fade-in">
       <header>
-        <time className="page-content__date" dateTime={page.created}>
-          {formatDate(page.created)}
-        </time>
+        {time}
         <h1 className="page-content__title" dangerouslySetInnerHTML={title} />
       </header>
       <div className="page-content__body" dangerouslySetInnerHTML={content} />
