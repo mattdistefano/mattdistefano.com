@@ -8,10 +8,12 @@ export interface PageCardListProps {
 
 export const PageCardListComponent = (props: PageCardListProps) =>
   <div>
-    <div className="page-card-list">
+    <ul className="list-unstyled page-card-list">
       {props.pages &&
         props.pages.map((page, index) =>
-          <PageCardComponent page={page} key={index} />
+          <li className="page-card-list__item" key={index}>
+            <PageCardComponent page={page} className="page-card-list__link" />
+          </li>
         )}
-    </div>
+    </ul>
   </div>;

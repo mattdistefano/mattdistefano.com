@@ -1,16 +1,23 @@
 .page-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: calc(-var(--gutter-width) / 2);
+}
+
+.page-card-list__item {
+  flex-basis: 100%;
+  padding: calc(var(--gutter-width) / 2);
+  display: flex;
 }
 
 @media (--small-viewport) {
-  .page-card-list {
-    columns: 2;
-    column-gap: var(--gutter-width);
+  .page-card-list__item {
+    flex-basis: 50%;
   }
 }
 
 @media (--medium-viewport) {
-  .page-card-list {
-    columns: 3;
-    column-gap: var(--gutter-width-medium-up);
+  .page-card-list__item {
+    flex-basis: 33.3333333%;
   }
 }

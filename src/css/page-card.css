@@ -8,7 +8,6 @@
   text-decoration: none;
   display: block;
   padding: 0.5rem;
-  margin-bottom: 1.5rem;
   transition: all linear 0.1s;
   background: var(--color-lightest-grey);
   break-inside: avoid;
