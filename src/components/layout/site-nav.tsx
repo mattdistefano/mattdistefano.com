@@ -15,7 +15,7 @@ export const SiteNavComponent = () =>
         </NavLink>
       </li>
       <li className="site-nav__list-item">
-        <NavLink exact className="site-nav__link" to="/about/">
+        <NavLink exact className="site-nav__link" to="/about">
           About
         </NavLink>
       </li>
