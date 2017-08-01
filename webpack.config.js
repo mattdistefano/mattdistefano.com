@@ -22,7 +22,7 @@ module.exports = (env = {}) => ({
   output: {
     filename: env.production
       ? `${assets}/bundle.[chunkhash].js`
-      : `${assets}bundle.js`,
+      : `${assets}/bundle.js`,
     path: __dirname + '/dist',
     libraryTarget: 'umd',
     publicPath: '/'
