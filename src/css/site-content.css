@@ -14,7 +14,7 @@
   }
 }
 
-@media (--large-viewport) {
+@media (--medium-viewport) {
   .site-content {
     padding-top: 7rem;
   }

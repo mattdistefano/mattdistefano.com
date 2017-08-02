@@ -47,9 +47,17 @@
   }
 }
 
+@media (--medium-viewport) {
+  .site-nav {
+    left: 570px;
+    top: 60px;
+  }
+}
+
 @media (--large-viewport) {
   .site-nav {
     left: 592px;
     top: 60px;
   }
 }
+

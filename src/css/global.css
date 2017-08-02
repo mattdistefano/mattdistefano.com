@@ -87,6 +87,7 @@ main {
   padding: var(--gutter-width);
   position: relative;
   z-index: 10;
+  flex-grow: 1;
 }
 
 p {
@@ -147,7 +148,6 @@ blockquote {
 
   main {
     padding: var(--gutter-width-medium-up);
-    flex-grow: 1;
   }
 
   blockquote {

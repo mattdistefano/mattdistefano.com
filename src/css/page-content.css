@@ -24,29 +24,8 @@
   line-height: 1.75rem;
   font-weight: 100;
   margin-top: 0;
-  column-span: all;
-}
-
-.page-content__body h2,
-.page-content__body .image-container,
-.page-content__body pre {
-  column-span: all;
-}
-
-.page-content__body h3,
-.page-content__body h4,
-.page-content__body h5,
-.page-content__body h6 {
-  break-after: avoid;
 }
 
 .page-content__body img {
   margin: 8px 0;
-}
-
-@media (--large-viewport) {
-  .page-content__body {
-    columns: 2;
-    column-gap: 32px;
-  }
 }
