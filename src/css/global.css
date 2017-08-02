@@ -9,7 +9,7 @@
 
 html {
   font-family: var(--font-open-sans);
-  font-size: var(--font-size-base);
+  font-size: 14px;
   color: var(--color-text);
   line-height: var(--line-height-base);
   margin: 0;
@@ -26,7 +26,7 @@ h1,
 .h1 {
   font-family: var(--font-raleway);
   font-weight: 900;
-  font-size: 2rem;
+  font-size: 1.75rem;
   line-height: 3rem;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
@@ -136,10 +136,13 @@ blockquote {
 
 @media (--small-viewport) {
   html {
-    background: linear-gradient(135deg, #ff004e 0%, #ff366c 70vh);
-    background: radial-gradient(ellipse at center top,#ff004e,#ef3265 95%);
-    background: radial-gradient(ellipse at center top,#f93a74, #ff004e 150%);
-    background: linear-gradient(to bottom,#ff004e,#ff2265 95vh);
+    font-size: 16px;
+    background: linear-gradient(to bottom, #ff004e, #ff2265 95vh);
+  }
+
+  h1,
+  .h1 {
+    font-size: 2rem;
   }
 
   main {
