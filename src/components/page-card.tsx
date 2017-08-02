@@ -10,7 +10,7 @@ export interface PageCardProps {
 
 export const PageCardComponent = (props: PageCardProps) =>
   <Link className={`page-card fade-in ${props.className || ''}`} to={props.page.path}>
-    <time className="page-card__date">{formatDate(props.page.created)}</time>
+    <time dateTime={props.page.created} className="page-card__date">{formatDate(props.page.created)}</time>
     <div className="page-card__title">
       {props.page.title}
     </div>
