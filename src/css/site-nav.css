@@ -9,6 +9,7 @@
 
 .site-nav__list-item {
   flex-grow: 1;
+  text-align: center;
 }
 
 .site-nav__list-item + .site-nav__list-item {

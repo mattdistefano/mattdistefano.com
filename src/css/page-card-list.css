@@ -10,9 +10,14 @@
   display: flex;
 }
 
+.page-card-list__link {
+  flex-basis: 100%;
+}
+
 @media (--small-viewport) {
   .page-card-list__item {
     flex-basis: 50%;
+    width: auto;
   }
 }
 
