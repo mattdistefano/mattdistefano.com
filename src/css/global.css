@@ -135,6 +135,17 @@ blockquote {
   margin-left: 0;
 }
 
+code {
+  background: var(--color-lightest-grey);
+  font-size: 0.8rem;
+  font-family: monospace;
+  display: block;
+  margin: calc(-var(--gutter-width) / 2);
+  padding: calc(var(--gutter-width) / 2);
+  overflow-y: scroll;
+  border-radius: 2px;
+}
+
 @media (--small-viewport) {
   html {
     font-size: 16px;

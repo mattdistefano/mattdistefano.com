@@ -17,7 +17,7 @@ const prismHighlighter = (str, lang) => {
 };
 
 const markdownItOptions = {
-  highlight: prismHighlighter
+  // highlight: prismHighlighter
 };
 
 const md = new MarkdownIt('commonmark', markdownItOptions);
