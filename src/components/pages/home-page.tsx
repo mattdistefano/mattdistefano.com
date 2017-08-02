@@ -14,7 +14,7 @@ export const HomePageComponent = (props: HomePageProps) => {
   return (
     <div className="home-page">
       <h1 className="sr-only">mattdistefano.com home</h1>
-      <h2 className="home-page__heading h1">Recent blog posts..</h2>
+      <h2 className="home-page__heading h1">Recent blog posts...</h2>
       <PageCardListComponent pages={blogPosts && blogPosts.pages} />
     </div>
   );
