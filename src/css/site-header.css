@@ -53,9 +53,10 @@
   .site-header::after {
     width: 459px;
     height: 208px;
-    left: 91px;
+    left: 10rem;
     top: 42px;
     margin-left: 0;
+    margin-left: -69px;
     background-image: url('../img/md-shadow.svg');
     background-position: top left;
   }

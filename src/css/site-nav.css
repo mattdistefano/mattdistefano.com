@@ -40,8 +40,8 @@
 @media (--small-viewport) {
   .site-nav {
     position: absolute;
-    left: 12rem;
-    top: 8rem;
+    left: 192px;
+    top: 128px;
     z-index: 100;
     margin-top: 0;
   }
@@ -49,7 +49,7 @@
 
 @media (--large-viewport) {
   .site-nav {
-    left: 37rem;
-    top: 3.75rem;
+    left: 592px;
+    top: 60px;
   }
 }
