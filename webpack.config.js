@@ -114,6 +114,7 @@ module.exports = (env = {}) => ({
   ].concat(
     env.production
       ? [
+          new webpack.HashedModuleIdsPlugin(),
           new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             parallel: true
