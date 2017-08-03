@@ -16,12 +16,8 @@ export interface IndexPage {
   path: string;
   /** The HTML content of the page */
   content: string;
-  /** The path to the previous page */
-  next?: string;
-  /** The path to the next page */
-  previous?: string;
   /** The list of pages in this folder */
   pages?: PageSummary[];
-
+  /** The contents of any sub folders */
   children?: PageSummary[];
 }
