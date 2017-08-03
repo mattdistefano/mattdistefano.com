@@ -6,6 +6,7 @@ import { formatDate } from '../utils/format-date';
 
 export interface PageContentProps {
   page?: Page;
+  hideDate?: boolean;
 }
 
 export const PageContentComponent = (props: PageContentProps) => {
@@ -18,16 +19,18 @@ export const PageContentComponent = (props: PageContentProps) => {
   const title = { __html: page && page.titleHtml };
   const content = { __html: page && page.content };
 
-  const time = page.created ? <time className="page-content__date" dateTime={page.created}>
-    {formatDate(page.created)}
-  </time> : null;
+  const time = !props.hideDate && page.created
+    ? <time className="page-content__date" dateTime={page.created}>
+        {formatDate(page.created)}
+      </time>
+    : null;
 
   return (
     <div className="page-content fade-in">
-      <header>
+      <h1 className="page-content__title">
         {time}
-        <h1 className="page-content__title" dangerouslySetInnerHTML={title} />
-      </header>
+        <div dangerouslySetInnerHTML={title} />
+      </h1>
       <div className="page-content__body" dangerouslySetInnerHTML={content} />
     </div>
   );
