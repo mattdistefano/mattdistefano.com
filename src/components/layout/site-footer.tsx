@@ -31,7 +31,7 @@ export const SiteFooterComponent = () =>
   <footer className="site-footer">
     <h2 className="site-footer__heading">&copy; {year} Matt Distefano</h2>
     <p>
-      Built with a whole buncha stuff. <a href="https://github.com/mattdistefano/mattdistefano.com">Check me out on github</a>.
+      Site built with a whole buncha stuff. <a href="https://github.com/mattdistefano/mattdistefano.com">Check it out on github</a>.
     </p>
     <ul className="contact-links list-unstyled">
       {footerLinks.map((link, index) =>
