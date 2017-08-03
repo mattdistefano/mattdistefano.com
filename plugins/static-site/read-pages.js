@@ -11,7 +11,7 @@ const removeIndex = pages => {
   const indexIndex = pages.findIndex(indexPredicate);
 
   if (indexIndex !== -1) {
-    return pages.splice(indexIndex, 0)[0];
+    return pages.splice(indexIndex, 1)[0];
   }
 
   return null;
