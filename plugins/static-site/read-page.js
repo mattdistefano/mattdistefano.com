@@ -5,6 +5,7 @@ const prism = require('prismjs');
 const matter = require('gray-matter');
 const extractTitle = require('./extract-title');
 const readFile = require('./fs/read-file');
+const stat = require('./fs/stat');
 
 const prismHighlighter = (str, lang) => {
   if (lang && prism.languages[lang]) {
@@ -31,30 +32,33 @@ const toIsoDate = dateString => {
   const d = new Date(dateString);
 
   if (isNaN(d.getTime())) {
-    throw 'Invalid date';
+    return null;
   }
 
   return d.toISOString();
 };
 
 module.exports = async (pagePath, basePath) => {
-  //console.log(pagePath);
+  const stats = await stat(pagePath);
+
   const markdown = await readFile(pagePath);
 
   const fm = matter(markdown);
 
-  const html = md.render(fm.content);
+  const { titleHtml, titleText, html: content } = extractTitle(
+    md.render(fm.content)
+  );
 
-  const title = extractTitle(html);
+  const created = toIsoDate(fm.data.created) || toIsoDate(stats.ctime);
 
-  let created = fm.data.created;
+  const modified = toIsoDate(fm.data.modified) || toIsoDate(stats.mtime);
 
   return Object.assign({}, fm.data, {
     path: `/${path.relative(basePath, pagePath).slice(0, -3)}`,
-    titleText: title.titleText,
-    titleHtml: title.titleHtml,
-    content: title.html,
-    created: fm.data.created && toIsoDate(fm.data.created),
-    modified: fm.data.modified && toIsoDate(fm.data.modified)
+    titleText,
+    titleHtml,
+    content,
+    created,
+    modified
   });
 };

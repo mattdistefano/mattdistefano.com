@@ -18,12 +18,12 @@ const removeIndex = pages => {
 };
 
 const populateIndex = (index, pages, children) => {
-  const siblings =
+  const pagesSelection =
     typeof index.pagesLimit === 'number'
       ? pages.slice(0, index.pagesLimit)
       : pages;
 
-  index.pages = siblings.map(createSummary);
+  index.pages = pagesSelection.map(createSummary);
 
   index.children = children.map(child => child.find(indexPredicate));
 };
@@ -31,29 +31,29 @@ const populateIndex = (index, pages, children) => {
 const processDir = async (dirPath, basePath) => {
   const dir = await readDirRecursive(dirPath);
 
-  const dirPages = await Promise.all(
+  const files = await Promise.all(
     dir.files
       .filter(file => file.name.endsWith('.md'))
       .map(file => readPage(file.path, basePath))
   );
 
-  const dirChildren = await Promise.all(
+  const folders = await Promise.all(
     dir.folders.map(folder => processDir(folder.path, basePath))
   );
 
-  const index = removeIndex(dirPages) || {
+  const index = removeIndex(files) || {
     path: '/' + path.join(path.relative(basePath, dirPath), 'index')
   };
 
-  sortPages(dirPages);
+  sortPages(files);
 
-  linkPages(dirPages);
+  linkPages(files);
 
-  populateIndex(index, dirPages, dirChildren);
+  populateIndex(index, files, folders);
 
-  const allPages = [index, ...dirPages];
+  const allPages = [index, ...files];
 
-  dirChildren.forEach(child => {
+  folders.forEach(child => {
     allPages.push(...child);
   });
 
