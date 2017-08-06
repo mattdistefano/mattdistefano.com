@@ -1,55 +1,46 @@
 const path = require('path');
-const evaluate = require('eval');
+const vm = require('vm');
+const sortChunks = require('webpack-sort-chunks').default;
 const toStringAsset = require('./to-string-asset');
 const readPages = require('./read-pages');
 
-// borrowed from https://github.com/markdalgleish/static-site-generator-webpack-plugin
-const findAsset = (src, compilation, webpackStatsJson) => {
-  if (!src) {
-    const chunkNames = Object.keys(webpackStatsJson.assetsByChunkName);
+const getRenderer = chunks => {
+  const sandbox = {
+    allExports: {}
+  };
 
-    src = chunkNames[0];
+  // add window as an alias of the sandbox itself
+  // this is necessary as webpack basically expects window to be the global
+  // i.e. webpackJsonp is set on window, but accessed as a global
+  sandbox.window = sandbox;
+
+  // generate a script containing the content of all our chunks
+  // with each chunk wrapped in an IEFE that provides a separate
+  // module and exports object for the UMD wrapper
+  // then aggregate the exports
+  const code = chunks
+    .map(
+      (chunk, i) => `
+      const chunk${i}Module = { exports: {} };
+      
+      (function(module, exports) {
+        ${chunk};
+      })(chunk${i}Module, chunk${i}Module.exports);
+
+      Object.assign(allExports, chunk${i}Module.exports);
+    `
+    )
+    .join('');
+
+  const result = vm.runInNewContext(code, sandbox);
+
+  // finally, look for an exported function named __PRERENDERER
+  // the expectation being that one of the chunks will contain it
+  if (typeof result.__PRERENDERER !== 'function') {
+    throw new Error('No chunk exports a __PRERENDERER function');
   }
 
-  const asset = compilation.assets[src];
-
-  if (asset) {
-    return asset;
-  }
-
-  let chunkValue = webpackStatsJson.assetsByChunkName[src];
-
-  if (!chunkValue) {
-    return null;
-  }
-  // Webpack outputs an array for each chunk when using sourcemaps
-  if (chunkValue instanceof Array) {
-    // Is the main bundle always the first element?
-    chunkValue = chunkValue[0];
-  }
-
-  return compilation.assets[chunkValue];
-};
-
-const getRenderer = source => {
-  let renderer = evaluate(
-    source,
-    null,
-    {
-      window: {}
-    },
-    true
-  );
-
-  if (renderer.hasOwnProperty('default')) {
-    renderer = renderer['default'];
-  }
-
-  if (typeof renderer !== 'function') {
-    throw new Error('Default export is not a function');
-  }
-
-  return renderer;
+  return result.__PRERENDERER;
 };
 
 const insertIntoHtml = (html, rendered) =>
@@ -117,8 +108,7 @@ class WebpackStaticSitePlugin {
     compiler.plugin('emit', async (compilation, done) => {
       if (!this.hasChanges(compilation)) {
         // only run if we have changes in the files we care about
-        done();
-        return;
+        return done();
       }
 
       const dir = await readPages(this.absDataPath);
@@ -131,21 +121,25 @@ class WebpackStaticSitePlugin {
       }
 
       if (!this.options.prerender) {
-        done();
-        return;
+        return done();
       }
 
-      const asset = findAsset(
-        null,
-        compilation,
-        compilation.getStats().toJson()
+      const stats = compilation.getStats().toJson();
+
+      // get the chunks in order by dependency
+      const sortedChunks = sortChunks(stats.chunks);
+
+      // extract the source of each chunk
+      // TODO is this the right way to use chunk.files?
+      const chunkAssets = sortedChunks.map(chunk =>
+        compilation.assets[chunk.files[0]].source()
       );
 
-      const source = asset.source();
-
       try {
-        const renderer = getRenderer(source);
+        // obtain a renderer function from the chunks
+        const renderer = getRenderer(chunkAssets);
 
+        // use the function to pre-render the html for the directory tree
         const rendered = renderer(dir);
 
         for (let key in rendered) {

@@ -26,4 +26,4 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export default prerender;
+export const __PRERENDERER = prerender;

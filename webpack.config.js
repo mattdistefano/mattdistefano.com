@@ -21,8 +21,8 @@ module.exports = (env = {}) => ({
   entry: env.production ? entry : hmrEntry,
   output: {
     filename: env.production
-      ? `${assets}/bundle.[chunkhash].js`
-      : `${assets}/bundle.js`,
+      ? `${assets}/[name].[chunkhash].js`
+      : `${assets}/[name].js`,
     path: __dirname + '/dist',
     libraryTarget: 'umd',
     publicPath: '/'
@@ -118,6 +118,10 @@ module.exports = (env = {}) => ({
           new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             parallel: true
+          }),
+          new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: ({ resource }) => /node_modules/.test(resource)
           })
         ]
       : [
