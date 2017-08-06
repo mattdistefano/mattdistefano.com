@@ -7,7 +7,7 @@ export interface PageCardListProps {
 }
 
 export const PageCardListComponent = (props: PageCardListProps) =>
-  <div>
+  <div className="fade-in">
     <ul className="list-unstyled page-card-list">
       {props.pages &&
         props.pages.map((page, index) =>
