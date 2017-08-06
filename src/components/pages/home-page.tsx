@@ -10,16 +10,18 @@ export interface HomePageProps {
 export const HomePageComponent = (props: HomePageProps) => {
   const page = props.page.data;
 
-  const blogPosts =
+  const blogIndex =
     page &&
     page.children &&
     page.children.find(child => child.path === '/blog/index');
+  
+  const blogPosts = blogIndex && blogIndex.pages;
 
   return (
     <div className="home-page">
       <PageContentComponent page={page} hideDate={true} />
       <h2 className="h3">Recent blog posts...</h2>
-      <PageCardListComponent pages={blogPosts && blogPosts.pages} />
+      <PageCardListComponent pages={blogPosts} />
     </div>
   );
 };

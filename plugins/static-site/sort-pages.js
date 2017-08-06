@@ -12,7 +12,7 @@ module.exports = pages =>
       return 1;
     }
     if (a.created && b.created) {
-      return a.created.localeCompare(b.created);
+      return b.created.localeCompare(a.created);
     }
     return a.path.localeCompare(b.path);
   });
