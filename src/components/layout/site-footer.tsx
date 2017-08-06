@@ -5,6 +5,10 @@ interface SiteFooterContactLinkProps {
   icon: string;
 }
 
+interface SiteFooterProps {
+  className?: string;
+}
+
 const footerLinks: SiteFooterContactLinkProps[] = [
   {
     href: 'https://github.com/mattdistefano',
@@ -27,8 +31,8 @@ const SiteFooterContactLink = (props: SiteFooterContactLinkProps) =>
 
 const year = new Date().getFullYear();
 
-export const SiteFooterComponent = () =>
-  <footer className="site-footer">
+export const SiteFooterComponent = (props: SiteFooterProps) =>
+  <footer className={`site-footer ${props.className || ''}`}>
     <h2 className="site-footer__heading">&copy; {year} Matt Distefano</h2>
     <p>
       Site built with a whole buncha stuff. <a href="https://github.com/mattdistefano/mattdistefano.com">Check it out on github</a>.

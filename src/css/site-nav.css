@@ -57,6 +57,7 @@
     margin-top: 0;
     padding-left: 2rem;
     width: 100%;
+    animation: fade ease-in 0.3s 0.3s both;
   }
 
   .site-nav::after {
