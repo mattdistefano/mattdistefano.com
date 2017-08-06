@@ -15,7 +15,7 @@ const getRenderer = chunks => {
   sandbox.window = sandbox;
 
   // generate a script containing the content of all our chunks
-  // with each chunk wrapped in an IEFE that provides a separate
+  // with each chunk wrapped in an IIFE that provides a separate
   // module and exports object for the UMD wrapper
   // then aggregate the exports
   const code = chunks
