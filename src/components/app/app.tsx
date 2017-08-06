@@ -54,7 +54,9 @@ export class AppComponent extends React.Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    typeof window !== 'undefined' && window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    }
 
     const page = this.state.pageCache[path];
 

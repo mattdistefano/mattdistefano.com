@@ -1,3 +1,4 @@
+import './polyfills';
 import browserRender from './browser';
 import prerender from './prerender';
 import { PageCache } from './models';
