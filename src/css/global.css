@@ -139,11 +139,15 @@ code {
   background: var(--color-lightest-grey);
   font-size: 0.8rem;
   font-family: monospace;
+  border-radius: 2px;
+  padding: 2px 4px;
+}
+
+pre > code {
   display: block;
   margin: calc(-var(--gutter-width) / 2);
   padding: calc(var(--gutter-width) / 2);
   overflow-y: scroll;
-  border-radius: 2px;
 }
 
 @media (--small-viewport) {
