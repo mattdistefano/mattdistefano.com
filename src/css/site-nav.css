@@ -1,6 +1,17 @@
 .site-nav {
   margin-top: 3rem;
-  background: #fff;
+  background: rgba(255,255,255,0.95);
+  position: relative;
+}
+
+.site-nav::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #efefef;
 }
 
 .site-nav__list {
@@ -40,24 +51,21 @@
 @media (--small-viewport) {
   .site-nav {
     position: absolute;
-    left: 192px;
+    left: 0;
     top: 128px;
     z-index: 100;
     margin-top: 0;
+    padding-left: 2rem;
+    width: 100%;
   }
-}
 
-@media (--medium-viewport) {
-  .site-nav {
-    left: 570px;
-    top: 60px;
+  .site-nav::after {
+    left: 2rem;
+    right: 2rem;
   }
-}
 
-@media (--large-viewport) {
-  .site-nav {
-    left: 592px;
-    top: 60px;
+  .site-nav__list {
+    float: left;
   }
 }
 

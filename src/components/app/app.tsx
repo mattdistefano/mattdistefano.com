@@ -118,25 +118,27 @@ export class AppComponent extends React.Component<AppProps, AppState> {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <SiteHeaderComponent />
-        <div className="site-content">
-          <main>
-            <Switch>
-              <Route
-                path="/"
-                exact
-                render={props => this._renderPage(WrappedHomePage, '/index')}
-              />
-              <Route
-                path="/blog/:slug"
-                render={props =>
-                  this._renderPage(WrappedBlogPage, props.match.url)}
-              />
-              <Route path="*" render={props => this._renderDefault(props)} />
-            </Switch>
-          </main>
-          <SiteFooterComponent />
+        <div className="container">
+          <div className="site-content">
+            <main>
+              <Switch>
+                <Route
+                  path="/"
+                  exact
+                  render={props => this._renderPage(WrappedHomePage, '/index')}
+                />
+                <Route
+                  path="/blog/:slug"
+                  render={props =>
+                    this._renderPage(WrappedBlogPage, props.match.url)}
+                />
+                <Route path="*" render={props => this._renderDefault(props)} />
+              </Switch>
+            </main>
+            <SiteFooterComponent />
+          </div>
         </div>
       </div>
     );
