@@ -80,7 +80,7 @@
   .site-header__banner::after {
     top: 128px;
     left: 0;
-    margin-top: 12px;
+    margin-top: 10px;
     margin-left: -67px;
     opacity: 0;
     transition: none;
