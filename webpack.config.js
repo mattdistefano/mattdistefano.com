@@ -81,6 +81,14 @@ module.exports = (env = {}) => ({
         loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader']
       },
       {
+        test: /\.tsx?$/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: {
+          
+        }
+      },
+      {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader'
