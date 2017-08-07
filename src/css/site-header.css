@@ -6,11 +6,7 @@
   z-index: 100;
 }
 
-.site-header__banner {
-  position: relative;
-}
-
-.site-header__banner::before {
+.site-header::before {
   display: block;
   content: '';
   position: absolute;
@@ -48,6 +44,10 @@
     background: none;
   }
 
+  .site-header::before {
+    display: none;
+  }
+
   .site-header.fixed {
     position: fixed;
     top: -128px;
@@ -62,6 +62,9 @@
   }
 
   .site-header__banner::before {
+    display: block;
+    content: '';
+    position: absolute;
     box-shadow: none;
     width: 459px;
     height: 208px;
