@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackStaticSitePlugin = require('./plugins/static-site');
 
 const entry = './index.ts';
@@ -98,6 +99,9 @@ module.exports = (env = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: './index.html'
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'defer'
     }),
     new CopyWebpackPlugin([
       {
