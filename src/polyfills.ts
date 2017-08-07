@@ -1,5 +1,6 @@
 import * as smoothscroll from 'smoothscroll-polyfill';
+import isBrowserEnv from './utils/is-browser-env';
 
-if (typeof window !== 'undefined') {
+if (isBrowserEnv) {
   smoothscroll.polyfill();
 }

@@ -6,7 +6,8 @@ const readPages = require('./read-pages');
 
 const getRenderer = chunks => {
   const sandbox = {
-    allExports: {}
+    allExports: {},
+    document: {},
   };
 
   // add window as an alias of the sandbox itself

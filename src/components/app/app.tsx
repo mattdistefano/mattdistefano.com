@@ -20,6 +20,8 @@ import {
   HomePageComponent
 } from '../pages';
 
+import isBrowserEnv from '../../utils/is-browser-env';
+
 import { wrapPageComponent, WrappedProps } from './wrap-page-component';
 
 import {
@@ -54,7 +56,7 @@ export class AppComponent extends React.Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    if (typeof window !== 'undefined') {
+    if (isBrowserEnv) {
       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }
 

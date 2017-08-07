@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { SiteNavComponent } from './site-nav';
+import isBrowserEnv from '../../utils/is-browser-env';
 
 interface SiteHeaderProps {}
 interface SiteHeaderState {
@@ -35,7 +36,7 @@ export class SiteHeaderComponent extends Component<
   }
 
   componentDidMount() {
-    if (typeof window === 'undefined') {
+    if (!isBrowserEnv) {
       return;
     }
     // TODO passive listener
@@ -43,7 +44,7 @@ export class SiteHeaderComponent extends Component<
   }
 
   componentWillUnmount() {
-    if (typeof window === 'undefined') {
+    if (!isBrowserEnv) {
       return;
     }
     window.removeEventListener('scroll', this._onScroll);

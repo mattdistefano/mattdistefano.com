@@ -3,6 +3,7 @@ import browserRender from './browser';
 import prerender from './prerender';
 import { PageCache } from './models';
 import { AppComponent } from './components/app/app';
+import isBrowserEnv from './utils/is-browser-env';
 
 import './css/index.css';
 
@@ -12,7 +13,7 @@ declare global {
   }
 }
 
-if (typeof document !== 'undefined') {
+if (isBrowserEnv) {
   const initialPageCache: PageCache = JSON.parse(
     window.__PRELOADED_STATE__ || '{}'
   ).initialPageCache;

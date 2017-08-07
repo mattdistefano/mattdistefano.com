@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
+import isBrowserEnv from '../../utils/is-browser-env';
 
 export interface WithMetaProps {
   title: string;
@@ -16,7 +17,7 @@ export const withMeta = <TProps extends {}>(
     private _description: HTMLMetaElement;
 
     private _initDescription() {
-      if (typeof document === 'undefined') {
+      if (!isBrowserEnv) {
         return;
       }
 
