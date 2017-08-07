@@ -5,6 +5,7 @@ interface SiteNavProps {
   className?: string;
 }
 
+// tslint:disable-next-line:variable-name
 export const SiteNavComponent = (props: SiteNavProps) =>
   <nav className={`site-nav ${props.className || ''}`}>
     <ul className="list-unstyled site-nav__list">

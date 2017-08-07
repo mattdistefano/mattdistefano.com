@@ -9,6 +9,7 @@ export interface WithMetaProps {
 
 // TODO just use react helmet?
 export const withMeta = <TProps extends {}>(
+  // tslint:disable-next-line:variable-name
   Wrapped: ComponentType<TProps>
 ) => {
   type WithMetaPropTypes = TProps & WithMetaProps;

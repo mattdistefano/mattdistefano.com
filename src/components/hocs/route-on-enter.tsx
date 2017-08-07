@@ -9,6 +9,7 @@ export interface WithRouteOnEnterProps {
 }
 
 export const withRouteOnEnter = <TProps extends {}>(
+  // tslint:disable-next-line:variable-name
   Wrapped: ComponentType<TProps>
 ) => {
   type RouteOnEnterPropsType = TProps & WithRouteOnEnterProps;

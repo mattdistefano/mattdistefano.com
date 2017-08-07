@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
-import { Page, IndexPage, PageCache } from './models';
 import { AppComponent, AppProps } from './components/app';
+import { IndexPage, Page, PageCache } from './models';
 
 interface Prerendered {
   [path: string]: {
@@ -42,7 +42,7 @@ export default (pages: Page[]) =>
             <AppComponent initialPageCache={initialPageCache} />
           </StaticRouter>
         </div>
-      )
+      ),
     };
     return prev;
   }, {});

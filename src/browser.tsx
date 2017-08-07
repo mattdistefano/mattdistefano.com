@@ -22,4 +22,3 @@ export default (cache: PageCache) => {
 
   return appInstance;
 };
-

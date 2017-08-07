@@ -85,7 +85,7 @@ module.exports = (env = {}) => ({
         enforce: 'pre',
         loader: 'tslint-loader',
         options: {
-          
+          configFile: 'tslint.json'
         }
       },
       {

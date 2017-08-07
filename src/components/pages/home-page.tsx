@@ -7,6 +7,7 @@ export interface HomePageProps {
   page: AsyncData<IndexPage>;
 }
 
+// tslint:disable-next-line:variable-name
 export const HomePageComponent = (props: HomePageProps) => {
   const page = props.page.data;
 
@@ -14,7 +15,7 @@ export const HomePageComponent = (props: HomePageProps) => {
     page &&
     page.children &&
     page.children.find(child => child.path === '/blog/index');
-  
+
   const blogPosts = blogIndex && blogIndex.pages;
 
   return (

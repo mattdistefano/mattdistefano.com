@@ -4,15 +4,11 @@ import { NavLink, Link } from 'react-router-dom';
 import { SiteNavComponent } from './site-nav';
 import isBrowserEnv from '../../utils/is-browser-env';
 
-interface SiteHeaderProps {}
 interface SiteHeaderState {
   isFixed: boolean;
 }
 
-export class SiteHeaderComponent extends Component<
-  SiteHeaderProps,
-  SiteHeaderState
-> {
+export class SiteHeaderComponent extends Component<{}, SiteHeaderState> {
   constructor() {
     super();
 

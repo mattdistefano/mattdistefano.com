@@ -6,6 +6,7 @@ export interface StandardIndexPageProps {
   page: AsyncData<IndexPage>;
 }
 
+// tslint:disable-next-line:variable-name
 export const StandardIndexPageComponent = (props: StandardIndexPageProps) =>
   <div className="standard-index-page">
     <PageCardListComponent

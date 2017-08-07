@@ -6,6 +6,7 @@ export interface StandardPageProps {
   page?: AsyncData<Page>;
 }
 
+// tslint:disable-next-line:variable-name
 export const StandardPageComponent = (props: StandardPageProps) =>
   <div className="standard-page">
     <PageContentComponent page={props.page && props.page.data} />

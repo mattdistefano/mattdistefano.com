@@ -31,6 +31,7 @@ import {
   onPageLoadingFailed
 } from './app-state';
 
+// tslint:disable:variable-name
 const WrappedStandardPage = wrapPageComponent(StandardPageComponent);
 
 const WrappedStandardIndexPage = wrapPageComponent(StandardIndexPageComponent);
@@ -38,6 +39,7 @@ const WrappedStandardIndexPage = wrapPageComponent(StandardIndexPageComponent);
 const WrappedBlogPage = wrapPageComponent(BlogPageComponent);
 
 const WrappedHomePage = wrapPageComponent(HomePageComponent);
+// tslint:enable:variable-name
 
 export interface AppProps {
   initialPageCache?: PageCache;
@@ -78,7 +80,7 @@ export class AppComponent extends React.Component<AppProps, AppState> {
 
     let title: string;
     let description: string;
-    let found = page && page.status !== 'notfound';
+    const found = page && page.status !== 'notfound';
 
     if (!found) {
       title = 'mattdistefano.com | Not Found!';
@@ -103,6 +105,7 @@ export class AppComponent extends React.Component<AppProps, AppState> {
 
   // TODO might be losing too much of the value of type-checking here
   private _renderPage<T extends WrappedProps>(
+    // tslint:disable-next-line:variable-name
     Component: ComponentType<T>,
     path: string,
     props = {}

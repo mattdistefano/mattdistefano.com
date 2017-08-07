@@ -9,6 +9,7 @@ export interface PageContentProps {
   hideDate?: boolean;
 }
 
+// tslint:disable-next-line:variable-name
 export const PageContentComponent = (props: PageContentProps) => {
   const page = props.page;
 

@@ -6,8 +6,10 @@ export interface WithNotFoundProps {
 }
 
 export const withNotFound = <TProps extends {}>(
+  // tslint:disable:variable-name
   NotFound: ComponentType,
   Wrapped: ComponentType<TProps>
+  // tslint:enable:variable-name
 ) => {
   type WithNotFoundPropTypes = TProps & WithNotFoundProps;
 

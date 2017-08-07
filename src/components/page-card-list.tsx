@@ -6,6 +6,7 @@ export interface PageCardListProps {
   pages: PageSummary[];
 }
 
+// tslint:disable-next-line:variable-name
 export const PageCardListComponent = (props: PageCardListProps) =>
   <div className="fade-in">
     <ul className="list-unstyled page-card-list">

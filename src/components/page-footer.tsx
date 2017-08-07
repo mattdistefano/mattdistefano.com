@@ -7,6 +7,7 @@ export interface PageFooterProps {
   page?: Page;
 }
 
+// tslint:disable-next-line:variable-name
 export const PageFooterComponent = (props: PageFooterProps) => {
   const page = props.page;
 
