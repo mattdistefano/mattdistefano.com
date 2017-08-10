@@ -135,7 +135,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <SiteHeaderComponent />
+        <Route component={SiteHeaderComponent} />
         <div className="container">
           <div className="site-content">
             <main className="site-content__animated">

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
+import { PureComponent } from 'react';
+import { RouteComponentProps } from 'react-router';
 import { NavLink, Link } from 'react-router-dom';
 import { SiteNavComponent } from './site-nav';
 import isBrowserEnv from '../../utils/is-browser-env';
@@ -8,7 +9,10 @@ interface SiteHeaderState {
   isFixed: boolean;
 }
 
-export class SiteHeaderComponent extends Component<{}, SiteHeaderState> {
+export class SiteHeaderComponent extends PureComponent<
+  RouteComponentProps<{}>,
+  SiteHeaderState
+> {
   constructor() {
     super();
 

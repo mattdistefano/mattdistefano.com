@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { PureComponent } from 'react';
 
 interface SiteFooterContactLinkProps {
   href: string;
@@ -33,22 +34,27 @@ const SiteFooterContactLink = (props: SiteFooterContactLinkProps) =>
 const year = new Date().getFullYear();
 
 // tslint:disable-next-line:variable-name
-export const SiteFooterComponent = (props: SiteFooterProps) =>
-  <footer className={`site-footer ${props.className || ''}`}>
-    <h2 className="site-footer__heading">
-      &copy; {year} Matt Distefano
-    </h2>
-    <p>
-      Site built with a whole buncha stuff.{' '}
-      <a href="https://github.com/mattdistefano/mattdistefano.com">
-        Check it out on github
-      </a>.
-    </p>
-    <ul className="contact-links list-unstyled">
-      {footerLinks.map((link, index) =>
-        <li key={index} className="contact-links__item">
-          <SiteFooterContactLink {...link} />
-        </li>
-      )}
-    </ul>
-  </footer>;
+export class SiteFooterComponent extends PureComponent<SiteFooterProps> {
+  render() {
+    return (
+      <footer className={`site-footer ${this.props.className || ''}`}>
+        <h2 className="site-footer__heading">
+          &copy; {year} Matt Distefano
+        </h2>
+        <p>
+          Site built with a whole buncha stuff.{' '}
+          <a href="https://github.com/mattdistefano/mattdistefano.com">
+            Check it out on github
+          </a>.
+        </p>
+        <ul className="contact-links list-unstyled">
+          {footerLinks.map((link, index) =>
+            <li key={index} className="contact-links__item">
+              <SiteFooterContactLink {...link} />
+            </li>
+          )}
+        </ul>
+      </footer>
+    );
+  }
+}
