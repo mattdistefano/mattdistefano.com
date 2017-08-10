@@ -2,6 +2,7 @@ import * as React from 'react';
 import { match } from 'react-router';
 import { Link } from 'react-router-dom';
 import { IndexPage, AsyncData, PageSummary } from '../../../models';
+import { PageContentComponent } from '../../page-content';
 import { PageCardListComponent } from '../../page-card-list';
 
 export interface BlogIndexMatchParams {
@@ -25,30 +26,26 @@ const flattenAll = (page: IndexPage | PageSummary): PageSummary[] =>
 
 // tslint:disable-next-line:variable-name
 export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
-  if (!props.page || !props.page.data) {
+  const page = props.page && props.page.data;
+
+  if (!page) {
     return <div>Loading!</div>;
   }
 
-  // const pages = flattenAll(props.page.data)
-  //   .sort((a, b) => b.created.localeCompare(a.created))
-  //   .slice(0, 8);
-
   const pages =
-    props.page.data.queries &&
-    props.page.data.queries.recent &&
-    props.page.data.queries.recent.results;
+    page.queries && page.queries.recent && page.queries.recent.results;
 
   const archivePages =
-    props.page.data.queries &&
-    props.page.data.queries.archive &&
-    props.page.data.queries.archive.results.map(child => ({
+    page.queries &&
+    page.queries.archive &&
+    page.queries.archive.results.map(child => ({
       url: child.path.slice(0, -5),
       year: child.path.slice(-10, -6)
     }));
 
   return (
-    <div className="standard-index-page">
-      <h1>Recent blog posts</h1>
+    <div className="blog-index-page">
+      <PageContentComponent page={page} hideDate={true} />
       <PageCardListComponent pages={pages} />
       <h2>Archive</h2>
       {archivePages.map(p =>
