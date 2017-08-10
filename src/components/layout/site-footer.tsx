@@ -35,10 +35,14 @@ const year = new Date().getFullYear();
 // tslint:disable-next-line:variable-name
 export const SiteFooterComponent = (props: SiteFooterProps) =>
   <footer className={`site-footer ${props.className || ''}`}>
-    <h2 className="site-footer__heading">&copy; {year} Matt Distefano</h2>
+    <h2 className="site-footer__heading">
+      &copy; {year} Matt Distefano
+    </h2>
     <p>
-      Site built with a whole buncha stuff.
-      <a href="https://github.com/mattdistefano/mattdistefano.com">Check it out on github</a>.
+      Site built with a whole buncha stuff.{' '}
+      <a href="https://github.com/mattdistefano/mattdistefano.com">
+        Check it out on github
+      </a>.
     </p>
     <ul className="contact-links list-unstyled">
       {footerLinks.map((link, index) =>
