@@ -11,7 +11,8 @@ import {
   isStale
 } from '../../models';
 
-import { SiteHeaderComponent, SiteFooterComponent } from '../layout';
+import { SiteHeaderComponent } from './site-header';
+import { SiteFooterComponent } from './site-footer';
 
 import {
   StandardPageComponent,
@@ -68,7 +69,7 @@ export class AppComponent extends Component<AppProps, AppState> {
 
   private _onRouteEnter(path: string) {
     if (isBrowserEnv) {
-      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      window.scroll({ top: 128, left: 0, behavior: 'smooth' });
     }
 
     const page = this.state.pageCache[path];
