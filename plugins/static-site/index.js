@@ -8,6 +8,7 @@ const getRenderer = chunks => {
   const sandbox = {
     allExports: {},
     document: {},
+    console,
   };
 
   // add window as an alias of the sandbox itself
