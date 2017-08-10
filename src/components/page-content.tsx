@@ -5,27 +5,21 @@ import { PageFooterComponent } from './page-footer';
 import { formatDate } from '../utils/format-date';
 
 export interface PageContentProps {
-  page?: Page;
-  hideDate?: boolean;
+  title?: string;
+  date?: string;
+  content?: string;
 }
 
 // tslint:disable-next-line:variable-name
 export const PageContentComponent = (props: PageContentProps) => {
-  const page = props.page;
+  const title = { __html: props.title };
+  const content = { __html: props.content };
 
-  if (!page) {
-    return <div>Loading!</div>;
-  }
-
-  const title = { __html: page.titleHtml };
-  const content = { __html: page.content };
-
-  const time =
-    !props.hideDate && page.created
-      ? <time className="page-content__date" dateTime={page.created}>
-          {formatDate(page.created)}
-        </time>
-      : null;
+  const time = props.date
+    ? <time className="page-content__date" dateTime={props.date}>
+        {formatDate(props.date)}
+      </time>
+    : null;
 
   return (
     <div className="page-content fade-in">

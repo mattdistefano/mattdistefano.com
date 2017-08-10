@@ -3,6 +3,7 @@ import { match } from 'react-router';
 import { Link } from 'react-router-dom';
 import { formatDate, months } from '../../../utils/format-date';
 import { IndexPage, AsyncData, PageSummary } from '../../../models';
+import { PageContentComponent } from '../../page-content';
 import { PageCardListComponent } from '../../page-card-list';
 
 export interface BlogArchiveIndexMatchParams {
@@ -28,55 +29,55 @@ export const BlogArchiveIndexPageComponent = (
   }
 
   if (props.match.params.day) {
+    const title = `Blog posts on ${props.match.params.year}/${props.match.params
+      .month}/${props.match.params.day}`;
+
     return (
       <div className="blog-archive-index-page">
-        <div className="page-content fade-in">
-          <h1 className="page-content__title">
-            Blog posts on {props.match.params.year}/{props.match.params.month}/{props.match.params.day}
-          </h1>
-          <PageCardListComponent pages={props.page.data.pages} />
-        </div>
+        <PageContentComponent title={title} />
+        <PageCardListComponent pages={props.page.data.pages} />
       </div>
     );
   }
 
-  const month = months[parseInt(props.match.params.month, 10) - 1];
-
   if (props.match.params.month) {
+    const month = months[parseInt(props.match.params.month, 10) - 1];
+
     const pages = flattenChildren(props.page.data);
+
+    const title = `Blog posts in ${month}, ${props.match.params.year}`;
 
     return (
       <div className="blog-archive-index-page">
-        <div className="page-content fade-in">
-          <h1 className="page-content__title">
-            Blog posts in {month}, {props.match.params.year}
-          </h1>
-          <PageCardListComponent pages={pages} />
-        </div>
+        <PageContentComponent title={title} />
+        <PageCardListComponent pages={props.page.data.pages} />
       </div>
     );
   }
 
   if (props.match.params.year) {
+    const title = `Blog posts in ${props.match.params.year}`;
+
     return (
       <div className="blog-archive-index-page">
-        <div className="page-content fade-in">
-          <h1 className="page-content__title">
-            Blog posts in {props.match.params.year}
-          </h1>
-          {props.page.data.children.map((child, idx) => {
-            const pages = flattenChildren(child);
+        <PageContentComponent title={title} />
+        {props.page.data.children.map((child, idx) => {
+          const monthPath = child.path.slice(
+            props.page.data.path.length - 5,
+            -6
+          );
 
-            return (
-              <div key={idx}>
-                <h2>
-                  {month}
-                </h2>
-                <PageCardListComponent pages={pages} />
-              </div>
-            );
-          })}
-        </div>
+          const month = months[parseInt(monthPath, 10) - 1];
+
+          return (
+            <div key={idx}>
+              <h2>
+                {month}, {props.match.params.year}
+              </h2>
+              <PageCardListComponent pages={flattenChildren(child)} />
+            </div>
+          );
+        })}
       </div>
     );
   }

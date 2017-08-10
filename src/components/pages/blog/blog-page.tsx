@@ -8,8 +8,17 @@ export interface BlogPageProps {
 }
 
 // tslint:disable-next-line:variable-name
-export const BlogPageComponent = (props: BlogPageProps) =>
-  <div className="blog-page">
-    <PageContentComponent page={props.page && props.page.data} />
-    <PageFooterComponent page={props.page && props.page.data} />
-  </div>;
+export const BlogPageComponent = (props: BlogPageProps) => {
+  const page = props.page && props.page.data;
+
+  if (!page) {
+    return <div>Loading!</div>;
+  }
+
+  return (
+    <div className="blog-page">
+      <PageContentComponent title={page.titleHtml} content={page.content} date={page.created} />
+      <PageFooterComponent page={props.page && props.page.data} />
+    </div>
+  );
+};
