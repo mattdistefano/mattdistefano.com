@@ -68,7 +68,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    if (isBrowserEnv) {
+    if (isBrowserEnv && window.scrollY > 128) {
       window.scroll({ top: 128, left: 0, behavior: 'smooth' });
     }
 
