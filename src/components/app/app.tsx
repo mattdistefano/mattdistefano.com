@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComponentType } from 'react';
+import { Component, ComponentType } from 'react';
 import { Route, RouteProps, RouteComponentProps, Switch } from 'react-router';
 
 import {
@@ -54,7 +54,7 @@ export interface AppProps {
   initialPageCache?: PageCache;
 }
 
-export class AppComponent extends React.Component<AppProps, AppState> {
+export class AppComponent extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
 
@@ -115,11 +115,11 @@ export class AppComponent extends React.Component<AppProps, AppState> {
   // TODO might be losing too much of the value of type-checking here
   private _renderPage<T extends WrappedProps>(
     // tslint:disable-next-line:variable-name
-    Component: ComponentType<T>,
+    PageComponent: ComponentType<T>,
     path: string,
     props = {}
   ) {
-    return <Component {...this._getStandardProps(path)} {...props} />;
+    return <PageComponent {...this._getStandardProps(path)} {...props} />;
   }
 
   private _renderDefault(props: RouteComponentProps<any>) {
