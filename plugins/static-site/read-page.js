@@ -55,9 +55,9 @@ module.exports = async (pagePath, basePath) => {
 
   return Object.assign({}, fm.data, {
     path: `/${path.relative(basePath, pagePath).slice(0, -3)}`,
-    titleText,
-    titleHtml,
-    content,
+    titleText: titleText && titleText.trim(),
+    titleHtml: titleHtml && titleHtml.trim(),
+    content: content && content.trim(),
     created,
     modified
   });
