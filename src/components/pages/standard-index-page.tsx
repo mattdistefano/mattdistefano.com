@@ -3,7 +3,7 @@ import { IndexPage, AsyncData } from '../../models';
 import { PageCardListComponent } from '../page-card-list';
 
 export interface StandardIndexPageProps {
-  page: AsyncData<IndexPage>;
+  page?: AsyncData<IndexPage>;
 }
 
 // tslint:disable-next-line:variable-name

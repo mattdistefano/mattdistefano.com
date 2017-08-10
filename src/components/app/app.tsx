@@ -15,7 +15,10 @@ import { SiteHeaderComponent, SiteFooterComponent } from '../layout';
 
 import {
   StandardPageComponent,
+  StandardPageProps,
   StandardIndexPageComponent,
+  BlogArchiveIndexPageComponent,
+  BlogIndexPageComponent,
   BlogPageComponent,
   HomePageComponent
 } from '../pages';
@@ -37,6 +40,12 @@ const WrappedStandardPage = wrapPageComponent(StandardPageComponent);
 const WrappedStandardIndexPage = wrapPageComponent(StandardIndexPageComponent);
 
 const WrappedBlogPage = wrapPageComponent(BlogPageComponent);
+
+const WrappedBlogIndexPageComponent = wrapPageComponent(BlogIndexPageComponent);
+
+const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
+  BlogArchiveIndexPageComponent
+);
 
 const WrappedHomePage = wrapPageComponent(HomePageComponent);
 // tslint:enable:variable-name
@@ -137,7 +146,27 @@ export class AppComponent extends React.Component<AppProps, AppState> {
                   render={props => this._renderPage(WrappedHomePage, '/index')}
                 />
                 <Route
-                  path="/blog/:slug"
+                  path="/blog/"
+                  exact
+                  render={props =>
+                    this._renderPage(
+                      WrappedBlogIndexPageComponent,
+                      props.match.url + 'index',
+                      props
+                    )}
+                />
+                <Route
+                  path="/blog/:year/:month?/:day?/"
+                  exact
+                  render={props =>
+                    this._renderPage(
+                      WrappedBlogArchiveIndexPageComponent,
+                      props.match.url + 'index',
+                      props
+                    )}
+                />
+                <Route
+                  path="/blog/:year/:month/:day/:slug"
                   render={props =>
                     this._renderPage(WrappedBlogPage, props.match.url)}
                 />

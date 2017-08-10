@@ -1,5 +1,6 @@
 import { Page } from './page';
 import { PageSummary } from './page-summary';
+import { Query } from './query';
 
 export interface IndexPage {
   /** The title of the page w/ HTML stripped */
@@ -16,8 +17,14 @@ export interface IndexPage {
   path: string;
   /** The HTML content of the page */
   content: string;
+  /** Flag indicating whether pages is intentionally empty */
+  skipPages?: boolean;
+  /** Flag indicating whether children is intentionally empty */
+  skipChildren?: boolean;
   /** The list of pages in this folder */
   pages?: PageSummary[];
   /** The contents of any sub folders */
   children?: PageSummary[];
+  /** Custom selections of child content */
+  queries?: Query;
 }

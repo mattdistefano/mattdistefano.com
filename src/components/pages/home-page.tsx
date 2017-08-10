@@ -11,12 +11,8 @@ export interface HomePageProps {
 export const HomePageComponent = (props: HomePageProps) => {
   const page = props.page.data;
 
-  const blogIndex =
-    page &&
-    page.children &&
-    page.children.find(child => child.path === '/blog/index');
-
-  const blogPosts = blogIndex && blogIndex.pages;
+  const blogPosts =
+    page && page.queries && page.queries.blog && page.queries.blog.results;
 
   return (
     <div className="home-page">

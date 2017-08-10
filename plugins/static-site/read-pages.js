@@ -4,6 +4,7 @@ const readPage = require('./read-page');
 const sortPages = require('./sort-pages');
 const linkPages = require('./link-pages');
 const createSummary = require('./create-summary');
+const query = require('./query');
 
 const indexPredicate = page => page.path.endsWith('/index');
 
@@ -18,14 +19,11 @@ const removeIndex = pages => {
 };
 
 const populateIndex = (index, pages, children) => {
-  const pagesSelection =
-    typeof index.pagesLimit === 'number'
-      ? pages.slice(0, index.pagesLimit)
-      : pages;
+  index.pages = index.skipPages ? null : pages.map(createSummary);
 
-  index.pages = pagesSelection.map(createSummary);
-
-  index.children = children.map(child => child.find(indexPredicate));
+  index.children = index.skipChildren
+    ? null
+    : children.map(child => child.find(indexPredicate));
 };
 
 const processDir = async (dirPath, basePath) => {
@@ -37,17 +35,19 @@ const processDir = async (dirPath, basePath) => {
       .map(file => readPage(file.path, basePath))
   );
 
-  const folders = await Promise.all(
-    dir.folders.map(folder => processDir(folder.path, basePath))
-  );
-
   const index = removeIndex(files) || {
     path: '/' + path.join(path.relative(basePath, dirPath), 'index')
   };
 
   sortPages(files);
 
-  linkPages(files);
+  if (!index.linkRoot) {
+    linkPages(files);
+  }
+
+  const folders = await Promise.all(
+    dir.folders.map(folder => processDir(folder.path, basePath))
+  );
 
   populateIndex(index, files, folders);
 
@@ -57,7 +57,22 @@ const processDir = async (dirPath, basePath) => {
     allPages.push(...child);
   });
 
+  if (index.linkRoot) {
+    sortPages(allPages);
+    linkPages(allPages.filter(page => !indexPredicate(page)));
+  }
+
   return allPages;
 };
 
-module.exports = async dataPath => await processDir(dataPath, dataPath);
+module.exports = async dataPath => {
+  const pages = await processDir(dataPath, dataPath);
+
+  pages.filter(indexPredicate).forEach(index => {
+    if (index.queries) {
+      query(index, pages);
+    }
+  });
+
+  return pages;
+};
