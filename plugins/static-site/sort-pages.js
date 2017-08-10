@@ -6,13 +6,13 @@ module.exports = pages =>
     const bBaseName = path.basename(b.path);
 
     if (aBaseName === 'index') {
-      return path.basename(b.path) === 'index' ? 0 : -1;
+      return bBaseName === 'index' ? 0 : -1;
     }
     if (bBaseName === 'index') {
       return 1;
     }
-    if (a.created && b.created) {
+    if (a.created && b.created && a.created !== b.created) {
       return b.created.localeCompare(a.created);
     }
-    return a.path.localeCompare(b.path);
+    return b.path.localeCompare(a.path);
   });

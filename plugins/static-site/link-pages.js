@@ -4,8 +4,8 @@ module.exports = pages => {
   let last = null;
   for (let page of pages) {
     if (last) {
-      last.next = createSummary(page);
-      page.prev = createSummary(last);
+      last.prev = createSummary(page);
+      page.next = createSummary(last);
     }
     last = page;
   }
