@@ -3,7 +3,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
 import { AppComponent, AppProps } from './components/app';
-import { IndexPage, Page, PageCache } from './models';
+import { IndexPage, Page, HtmlMetaData, PageCache } from './models';
 
 interface Prerendered {
   [path: string]: {
@@ -14,17 +14,17 @@ interface Prerendered {
   };
 }
 
+const pathToUrl = (path: string) =>
+  path.endsWith('/index') ? path.slice(0, -5) : path;
+
 const buildCache = (page: Page) =>
   ({
-    [page.path]: {
+    [pathToUrl(page.path)]: {
       status: 'loaded',
       data: page,
       timestamp: Date.now()
     }
   } as PageCache);
-
-const pathToUrl = (path: string) =>
-  path.endsWith('/index') ? path.slice(0, -5) : path;
 
 export default (pages: Page[]) =>
   pages.reduce((prev: Prerendered, curr: Page) => {
@@ -33,16 +33,24 @@ export default (pages: Page[]) =>
     const url = pathToUrl(curr.path);
 
     prev[curr.path] = {
-      title: `mattdistefano.com | ${curr.titleText || ''}`,
-      description: curr.summary || '',
-      state: JSON.stringify({ initialPageCache }).replace(/</g, '\\u003c'),
-      content: ReactDOMServer.renderToString(
-        <div>
-          <StaticRouter context={{}} location={url}>
-            <AppComponent initialPageCache={initialPageCache} />
-          </StaticRouter>
-        </div>
-      ),
+      title: null,
+      description: null,
+      content: null,
+      state: JSON.stringify({ initialPageCache }).replace(/</g, '\\u003c')
     };
+
+    const setMeta = ({ title, description }: HtmlMetaData) => {
+      prev[curr.path].title = title;
+      prev[curr.path].description = description;
+    };
+
+    prev[curr.path].content = ReactDOMServer.renderToString(
+      <div>
+        <StaticRouter context={{}} location={url}>
+          <AppComponent initialPageCache={initialPageCache} onMeta={setMeta} />
+        </StaticRouter>
+      </div>
+    );
+
     return prev;
   }, {});

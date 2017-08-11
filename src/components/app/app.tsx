@@ -5,6 +5,7 @@ import { Route, RouteProps, RouteComponentProps, Switch } from 'react-router';
 import {
   Page,
   IndexPage,
+  HtmlMetaData,
   AsyncData,
   PageCache,
   getPage,
@@ -53,6 +54,7 @@ const WrappedHomePage = wrapPageComponent(HomePageComponent);
 
 export interface AppProps {
   initialPageCache?: PageCache;
+  onMeta?: (meta: HtmlMetaData) => void;
 }
 
 export class AppComponent extends Component<AppProps, AppState> {
@@ -85,14 +87,14 @@ export class AppComponent extends Component<AppProps, AppState> {
       .catch(() => this.setState(onPageLoadingFailed(path, this.state)));
   }
 
-  private _getStandardProps<T extends Page | IndexPage>(path: string) {
+  // TODO this could be a utility method elsewhere?
+  private _setMeta<T extends Page | IndexPage>(path: string) {
     const page = this.state.pageCache[path] as AsyncData<T>;
 
     let title: string;
     let description: string;
-    const found = page && page.status !== 'notfound';
 
-    if (!found) {
+    if (!page || page.status === 'notfound') {
       title = 'mattdistefano.com | Not Found!';
       description = '';
     } else if (page.status === 'loading') {
@@ -103,11 +105,22 @@ export class AppComponent extends Component<AppProps, AppState> {
       description = page.data.summary;
     }
 
+    if (this.props.onMeta) {
+      this.props.onMeta({
+        title,
+        description
+      });
+    }
+  }
+
+  private _getStandardProps<T extends Page | IndexPage>(path: string) {
+    const page = this.state.pageCache[path] as AsyncData<T>;
+
+    const found = page && page.status !== 'notfound';
+
     return {
       routeKey: path,
       onEnter: this._onRouteEnter,
-      title,
-      description,
       page,
       found
     };
@@ -120,6 +133,8 @@ export class AppComponent extends Component<AppProps, AppState> {
     path: string,
     props = {}
   ) {
+    this._setMeta(path);
+
     return <PageComponent {...this._getStandardProps(path)} {...props} />;
   }
 
