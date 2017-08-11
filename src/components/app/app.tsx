@@ -114,15 +114,10 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _getStandardProps<T extends Page | IndexPage>(path: string) {
-    const page = this.state.pageCache[path] as AsyncData<T>;
-
-    const found = page && page.status !== 'notfound';
-
     return {
       routeKey: path,
       onEnter: this._onRouteEnter,
-      page,
-      found
+      page: this.state.pageCache[path] as AsyncData<T>
     };
   }
 

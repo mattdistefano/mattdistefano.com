@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
+import { AsyncData, Page, IndexPage } from '../../models';
 
 export interface WithNotFoundProps {
-  found: boolean;
+  page: AsyncData<Page | IndexPage>;
 }
 
 export const withNotFound = <TProps extends {}>(
@@ -15,7 +16,9 @@ export const withNotFound = <TProps extends {}>(
 
   class WithNotFoundComponent extends Component<WithNotFoundPropTypes> {
     render() {
-      return this.props.found ? <Wrapped {...this.props} /> : <NotFound />;
+      return this.props.page && this.props.page.status !== 'notfound'
+        ? <Wrapped {...this.props} />
+        : <NotFound />;
     }
   }
 
