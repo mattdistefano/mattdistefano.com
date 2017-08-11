@@ -63,8 +63,8 @@ export const BlogArchiveIndexPageComponent = (
         <PageContentComponent title={title} />
         {props.page.data.children.map((child, idx) => {
           const monthPath = child.path.slice(
-            props.page.data.path.length - 5,
-            -6
+            props.page.data.path.length,
+            -1
           );
 
           const month = months[parseInt(monthPath, 10) - 1];

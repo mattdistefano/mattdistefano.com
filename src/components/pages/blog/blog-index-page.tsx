@@ -39,8 +39,8 @@ export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
     page.queries &&
     page.queries.archive &&
     page.queries.archive.results.map(child => ({
-      url: child.path.slice(0, -5),
-      year: child.path.slice(-10, -6)
+      url: child.path,
+      year: child.path.slice(-5, -1)
     }));
 
   return (

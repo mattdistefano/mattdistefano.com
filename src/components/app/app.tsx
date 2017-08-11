@@ -127,7 +127,7 @@ export class AppComponent extends Component<AppProps, AppState> {
     const path = props.match.url;
 
     if (path.endsWith('/')) {
-      return this._renderPage(WrappedStandardIndexPage, path + 'index');
+      return this._renderPage(WrappedStandardIndexPage, path);
     }
 
     return this._renderPage(WrappedStandardPage, path);
@@ -144,7 +144,7 @@ export class AppComponent extends Component<AppProps, AppState> {
                 <Route
                   path="/"
                   exact
-                  render={props => this._renderPage(WrappedHomePage, '/index')}
+                  render={props => this._renderPage(WrappedHomePage, '/')}
                 />
                 <Route
                   path="/blog/"
@@ -152,7 +152,7 @@ export class AppComponent extends Component<AppProps, AppState> {
                   render={props =>
                     this._renderPage(
                       WrappedBlogIndexPageComponent,
-                      props.match.url + 'index',
+                      props.match.url,
                       props
                     )}
                 />
@@ -162,7 +162,7 @@ export class AppComponent extends Component<AppProps, AppState> {
                   render={props =>
                     this._renderPage(
                       WrappedBlogArchiveIndexPageComponent,
-                      props.match.url + 'index',
+                      props.match.url,
                       props
                     )}
                 />
