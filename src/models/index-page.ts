@@ -3,6 +3,7 @@ import { PageSummary } from './page-summary';
 import { Query } from './query';
 
 export interface IndexPage {
+  type: 'index';
   /** The title of the page w/ HTML stripped */
   titleText: string;
   /** The title of the page including any HTML */

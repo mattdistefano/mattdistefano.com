@@ -24,6 +24,8 @@ const populateIndex = (index, pages, children) => {
   index.children = index.skipChildren
     ? null
     : children.map(child => child.find(indexPredicate));
+  
+  index.type = 'index';
 };
 
 const processDir = async (dirPath, basePath) => {

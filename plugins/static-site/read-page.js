@@ -58,6 +58,8 @@ module.exports = async (pagePath, basePath) => {
     titleText: titleText && titleText.trim(),
     titleHtml: titleHtml && titleHtml.trim(),
     content: content && content.trim(),
+    // TODO could also check for index here
+    type: 'page',
     created,
     modified
   });

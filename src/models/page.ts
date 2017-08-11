@@ -1,6 +1,7 @@
 import { PageSummary } from './page-summary';
 
 export interface Page {
+  type: 'page';
   /** The title of the page w/ HTML stripped */
   titleText: string;
   /** The title of the page including any HTML */
