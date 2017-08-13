@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Page, AsyncData } from '../../../models';
-import { PageContentComponent } from '../../page-content';
-import { PageFooterComponent } from '../../page-footer';
+import { PageContentComponent, PageFooterComponent } from '../../content';
 
 export interface BlogPageProps {
   page?: AsyncData<Page>;

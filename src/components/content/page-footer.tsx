@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Page } from '../models';
+import { Page } from '../../models';
 import { PageCardComponent } from './page-card';
 
 export interface PageFooterProps {

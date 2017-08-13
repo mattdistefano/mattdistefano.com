@@ -2,8 +2,7 @@ import * as React from 'react';
 import { match } from 'react-router';
 import { Link } from 'react-router-dom';
 import { IndexPage, AsyncData, PageSummary } from '../../../models';
-import { PageContentComponent } from '../../page-content';
-import { PageCardListComponent } from '../../page-card-list';
+import { PageContentComponent, PageCardListComponent } from '../../content';
 
 export interface BlogIndexMatchParams {
   year?: string;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Page } from '../models';
+import { Page } from '../../models';
+import { formatDate } from '../../utils/format-date';
 import { PageFooterComponent } from './page-footer';
-import { formatDate } from '../utils/format-date';
 
 export interface PageContentProps {
   title?: string;

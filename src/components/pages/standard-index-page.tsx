@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IndexPage, AsyncData } from '../../models';
-import { PageCardListComponent } from '../page-card-list';
+import { PageCardListComponent } from '../content';
 
 export interface StandardIndexPageProps {
   page?: AsyncData<IndexPage>;

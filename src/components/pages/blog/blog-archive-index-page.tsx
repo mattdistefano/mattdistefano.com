@@ -3,8 +3,7 @@ import { match } from 'react-router';
 import { Link } from 'react-router-dom';
 import { formatDate, months } from '../../../utils/format-date';
 import { IndexPage, AsyncData, PageSummary } from '../../../models';
-import { PageContentComponent } from '../../page-content';
-import { PageCardListComponent } from '../../page-card-list';
+import { PageContentComponent, PageCardListComponent } from '../../content';
 
 export interface BlogArchiveIndexMatchParams {
   year?: string;

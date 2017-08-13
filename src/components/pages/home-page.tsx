@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { IndexPage, AsyncData } from '../../models';
-import { PageContentComponent } from '../page-content';
-import { PageCardListComponent } from '../page-card-list';
+import { PageContentComponent, PageCardListComponent } from '../content';
 
 export interface HomePageProps {
   page: AsyncData<IndexPage>;

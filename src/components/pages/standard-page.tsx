@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Page, AsyncData } from '../../models';
-import { PageContentComponent } from '../page-content';
+import { PageContentComponent } from '../content';
 
 export interface StandardPageProps {
   page?: AsyncData<Page>;

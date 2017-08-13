@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PageContentComponent } from '../page-content';
+import { PageContentComponent } from '../content';
 
 // tslint:disable-next-line:variable-name
 export const NotFoundPageComponent = () =>
