@@ -11,7 +11,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid var(--color-lighter-grey);
 }
 
 .site-nav__list {
@@ -39,13 +39,13 @@
 
 .site-nav__link:hover,
 .site-nav__link:focus {
-  border-bottom: 3px solid #efefef;
+  border-bottom: 3px solid var(--color-lighter-grey);
   text-decoration: none;
 }
 
 .site-nav__link.active {
-  border-bottom: 3px solid #ddd;
-  color: #777;
+  border-bottom: 3px solid var(--color-light-grey);
+  color: var(--color-gray);
 }
 
 @media (--small-viewport) {

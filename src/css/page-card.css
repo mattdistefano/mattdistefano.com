@@ -15,7 +15,7 @@
 
 .page-card:hover,
 .page-card:focus {
-  background: var(--color-light-grey);
+  background: var(--color-lighter-grey);
   text-decoration: none;
 }
 

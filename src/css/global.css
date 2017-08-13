@@ -14,7 +14,7 @@ html {
   line-height: var(--line-height-base);
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: var(--color-white);
 }
 
 body {
@@ -128,7 +128,7 @@ li {
 
 blockquote {
   padding-left: 0.5rem;
-  border-left: 4px solid #efefef;
+  border-left: 4px solid var(--color-lighter-grey);
   font-weight: 300;
   font-size: 1.1rem;
   line-height: 1.5rem;
@@ -153,7 +153,7 @@ pre > code {
 @media (--small-viewport) {
   html {
     font-size: 16px;
-    background: linear-gradient(to bottom, #ff004e, #ff2265 95vh);
+    background: linear-gradient(to bottom, var(--color-primary), #ff2265 95vh);
   }
 
   h1,

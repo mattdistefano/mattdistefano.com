@@ -3,7 +3,12 @@
   position: relative;
   padding: var(--gutter-width);
   font-size: 0.8rem;
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--color-lighter-grey);
+}
+
+.site-footer p {
+  /* TODO better system for this */
+  font-size: inherit;
 }
 
 .site-footer__heading {
@@ -45,7 +50,7 @@
   }
 
   .contact-links__action-icon {
-    color: #fff;
+    color: var(--color-white);
     margin-bottom: .75rem;
   }
 

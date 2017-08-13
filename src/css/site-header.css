@@ -10,7 +10,7 @@
   display: block;
   content: '';
   position: absolute;
-  background-image: linear-gradient(to bottom, #ff004e 0%, #ff366c 70%);
+  background-image: linear-gradient(to bottom, var(--color-primary) 0%, #ff2265 70%);
   box-shadow: inset 0 -7px 10px rgba(0, 0, 0, 0.0.1);
   height: 3rem;
   top: 0;
@@ -57,7 +57,7 @@
   .site-header__inner {
     position: relative;
     margin-left: 10rem;
-    background: #fff;
+    background: var(--color-white);
     height: 10rem;
   }
 
