@@ -53,5 +53,7 @@
         "webpack-dev-server": "^2.5.1",
         "webpack-sort-chunks": "^0.1.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "markdown-it-block-embed": "0.0.3"
+    }
 }

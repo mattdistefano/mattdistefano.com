@@ -1,6 +1,7 @@
 const path = require('path');
 const MarkdownIt = require('markdown-it');
 const blockImagePlugin = require('markdown-it-block-image');
+const blockEmbedPlugin = require("markdown-it-block-embed");
 const prism = require('prismjs');
 const matter = require('gray-matter');
 const extractTitle = require('./extract-title');
@@ -26,6 +27,11 @@ const md = new MarkdownIt('commonmark', markdownItOptions);
 md.use(blockImagePlugin, {
   outputContainer: 'div',
   containerClassName: 'image-container'
+});
+
+md.use(blockEmbedPlugin, {
+  containerClassName: 'video-embed',
+  serviceClassPrefix: 'video-embed--'
 });
 
 const toIsoDate = dateString => {
