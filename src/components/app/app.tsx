@@ -9,6 +9,7 @@ import {
   AsyncData,
   PageCache,
   getPage,
+  getMetaData,
   isStale
 } from '../../models';
 
@@ -87,32 +88,6 @@ export class AppComponent extends Component<AppProps, AppState> {
       .catch(() => this.setState(onPageLoadingFailed(path, this.state)));
   }
 
-  // TODO this could be a utility method elsewhere?
-  private _setMeta<T extends Page | IndexPage>(path: string) {
-    const page = this.state.pageCache[path] as AsyncData<T>;
-
-    let title: string;
-    let description: string;
-
-    if (!page || page.status === 'notfound') {
-      title = 'mattdistefano.com | Not Found!';
-      description = '';
-    } else if (page.status === 'loading') {
-      title = 'mattdistefano.com | Loading...';
-      description = '';
-    } else if (page.status === 'loaded') {
-      title = `mattdistefano.com | ${page.data.titleText || ''}`;
-      description = page.data.summary || '';
-    }
-
-    if (this.props.onMeta) {
-      this.props.onMeta({
-        title,
-        description
-      });
-    }
-  }
-
   // TODO might be losing too much of the value of type-checking here
   private _renderPage<T extends WrappedProps>(
     // tslint:disable-next-line:variable-name
@@ -121,15 +96,13 @@ export class AppComponent extends Component<AppProps, AppState> {
   ) {
     const path = props.match.url || '/';
 
-    this._setMeta(path);
+    const page = this.state.pageCache[path];
 
-    const allProps = {
-      ...props,
-      onEnter: this._onRouteEnter,
-      page: this.state.pageCache[path] as AsyncData<Page | IndexPage>
-    };
+    if (this.props.onMeta) {
+      this.props.onMeta(getMetaData(page));
+    }
 
-    return <PageComponent {...allProps} />;
+    return <PageComponent onEnter={this._onRouteEnter} page={page} {...props} />;
   }
 
   private _renderDefault(props: RouteComponentProps<any>) {
