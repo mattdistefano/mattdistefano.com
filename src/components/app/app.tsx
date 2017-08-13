@@ -102,7 +102,7 @@ export class AppComponent extends Component<AppProps, AppState> {
       description = '';
     } else if (page.status === 'loaded') {
       title = `mattdistefano.com | ${page.data.titleText || ''}`;
-      description = page.data.summary;
+      description = page.data.summary || '';
     }
 
     if (this.props.onMeta) {
@@ -113,34 +113,31 @@ export class AppComponent extends Component<AppProps, AppState> {
     }
   }
 
-  private _getStandardProps<T extends Page | IndexPage>(path: string) {
-    return {
-      routeKey: path,
-      onEnter: this._onRouteEnter,
-      page: this.state.pageCache[path] as AsyncData<T>
-    };
-  }
-
   // TODO might be losing too much of the value of type-checking here
   private _renderPage<T extends WrappedProps>(
     // tslint:disable-next-line:variable-name
     PageComponent: ComponentType<T>,
-    path: string,
-    props = {}
+    props: RouteComponentProps<any>
   ) {
+    const path = props.match.url || '/';
+
     this._setMeta(path);
 
-    return <PageComponent {...this._getStandardProps(path)} {...props} />;
+    const allProps = {
+      ...props,
+      onEnter: this._onRouteEnter,
+      page: this.state.pageCache[path] as AsyncData<Page | IndexPage>
+    };
+
+    return <PageComponent {...allProps} />;
   }
 
   private _renderDefault(props: RouteComponentProps<any>) {
-    const path = props.match.url;
-
-    if (path.endsWith('/')) {
-      return this._renderPage(WrappedStandardIndexPage, path);
+    if (props.match.url.endsWith('/')) {
+      return this._renderPage(WrappedStandardIndexPage, props);
     }
 
-    return this._renderPage(WrappedStandardPage, path);
+    return this._renderPage(WrappedStandardPage, props);
   }
 
   render() {
@@ -154,17 +151,13 @@ export class AppComponent extends Component<AppProps, AppState> {
                 <Route
                   path="/"
                   exact
-                  render={props => this._renderPage(WrappedHomePage, '/')}
+                  render={props => this._renderPage(WrappedHomePage, props)}
                 />
                 <Route
                   path="/blog/"
                   exact
                   render={props =>
-                    this._renderPage(
-                      WrappedBlogIndexPageComponent,
-                      props.match.url,
-                      props
-                    )}
+                    this._renderPage(WrappedBlogIndexPageComponent, props)}
                 />
                 <Route
                   path="/blog/:year/:month?/:day?/"
@@ -172,14 +165,12 @@ export class AppComponent extends Component<AppProps, AppState> {
                   render={props =>
                     this._renderPage(
                       WrappedBlogArchiveIndexPageComponent,
-                      props.match.url,
                       props
                     )}
                 />
                 <Route
                   path="/blog/:year/:month/:day/:slug"
-                  render={props =>
-                    this._renderPage(WrappedBlogPage, props.match.url)}
+                  render={props => this._renderPage(WrappedBlogPage, props)}
                 />
                 <Route path="*" render={props => this._renderDefault(props)} />
               </Switch>

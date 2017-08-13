@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
+import { RouteComponentProps } from 'react-router';
 
-export type onEnterCallback = (routeKey: string) => void;
+export type onEnterCallback = (url: string) => void;
 
-export interface WithRouteOnEnterProps {
-  routeKey: string;
+export interface WithRouteOnEnterProps extends RouteComponentProps<any> {
   onEnter: onEnterCallback;
 }
 
@@ -20,13 +20,15 @@ export const withRouteOnEnter = <TProps extends {}>(
         this.props.onEnter(routeKey);
       }
     }
+
     componentDidMount() {
-      this._onEnter(this.props.routeKey);
+      this._onEnter(this.props.match.url);
     }
 
     componentWillReceiveProps(nextProps: Readonly<RouteOnEnterPropsType>) {
-      if (nextProps.routeKey !== this.props.routeKey) {
-        this._onEnter(nextProps.routeKey);
+      // TODO comparing location works but feels awkward since we're not using it?
+      if (nextProps.location !== this.props.location) {
+        this._onEnter(nextProps.match.url);
       }
     }
 
