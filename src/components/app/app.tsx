@@ -102,7 +102,7 @@ export class AppComponent extends Component<AppProps, AppState> {
       this.props.onMeta(getMetaData(page));
     }
 
-    return <PageComponent onEnter={this._onRouteEnter} page={page} {...props} />;
+    return <PageComponent onEnter={this._onRouteEnter} page={page} {...props} delay={2} key={path} />;
   }
 
   private _renderDefault(props: RouteComponentProps<any>) {

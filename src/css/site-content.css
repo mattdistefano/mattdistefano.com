@@ -12,8 +12,4 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.0.2);
     background: var(--color-white);
   }
-
-  .site-content__animated {
-    animation: fade ease-in 0.3s 0.6s both;
-  }
 }

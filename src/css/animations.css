@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes drop-fade-in {
+@keyframes drop-fade {
   from {
     opacity: 0;
     transform: translateY(-50%);
@@ -17,12 +17,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.fade-in {
-  animation: fade ease-in 0.2s forwards;
-}
-
-.drop-fade-in {
-  animation: drop-fade-in ease-out 0.3s forwards;
 }
