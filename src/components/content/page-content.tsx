@@ -8,6 +8,7 @@ export interface PageContentProps {
   title?: string;
   date?: string;
   content?: string;
+  className?: string;
 }
 
 // tslint:disable-next-line:variable-name
@@ -22,7 +23,7 @@ export const PageContentComponent = (props: PageContentProps) => {
     : null;
 
   return (
-    <div className="page-content fade-in">
+    <div className={`page-content ${props.className || ''}`}>
       <h1 className="page-content__title">
         {time}
         <div dangerouslySetInnerHTML={title} />
