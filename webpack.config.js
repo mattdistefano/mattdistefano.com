@@ -48,14 +48,14 @@ module.exports = (env = {}) => ({
           /\.jpe?g$/,
           /\.png$/
         ],
-        loader: require.resolve('file-loader'),
+        loader: 'file-loader',
         options: {
           name: `${assets}/[name].[hash].[ext]`
         }
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: require.resolve('url-loader'),
+        loader: 'url-loader',
         options: {
           limit: 10000,
           name: `${assets}/[name].[hash].[ext]`
