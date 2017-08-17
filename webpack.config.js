@@ -36,30 +36,38 @@ module.exports = (env = {}) => ({
   module: {
     rules: [
       {
-        exclude: [
-          /\.html$/,
-          /\.ejs$/,
-          /\.(js|jsx)$/,
-          /\.(ts|tsx)$/,
-          /\.css$/,
-          /\.json$/,
-          /\.bmp$/,
-          /\.gif$/,
-          /\.jpe?g$/,
-          /\.png$/
-        ],
+        test: [/\.svg$/, /\.eot$/, /\.woff$/, /\.ttf$/],
+        include: path.resolve(__dirname, 'src', 'fonts'),
         loader: 'file-loader',
         options: {
           name: `${assets}/[name].[hash].[ext]`
         }
       },
       {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: `${assets}/[name].[hash].[ext]`
-        }
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /svg$/],
+        exclude: path.resolve(__dirname, 'src', 'fonts'),
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: `${assets}/[name].[hash].[ext]`
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+              progressive: true,
+              optipng: {
+                optimizationLevel: 7
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
