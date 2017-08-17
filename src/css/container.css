@@ -1,12 +1,6 @@
-@media (--small-viewport) {
-  .container {
+.container {
     margin: 0 auto;
     position: relative;
-  }
-}
-
-@media (--large-viewport) {
-  .container {
     max-width: 1000px;
   }
-}
+  
