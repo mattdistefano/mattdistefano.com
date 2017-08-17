@@ -9,14 +9,14 @@ import './css/index.css';
 
 declare global {
   interface Window {
-    __PRELOADED_STATE__: string;
+    __PRELOADED_STATE__: {
+      initialPageCache: PageCache
+    };
   }
 }
 
 if (isBrowserEnv) {
-  const initialPageCache: PageCache = JSON.parse(
-    window.__PRELOADED_STATE__ || '{}'
-  ).initialPageCache;
+  const initialPageCache = window.__PRELOADED_STATE__ ? window.__PRELOADED_STATE__.initialPageCache : {};
 
   let appInstance = browserRender(initialPageCache);
 

@@ -45,11 +45,9 @@ export default (pages: Page[]) =>
     };
 
     prev[curr.path].content = ReactDOMServer.renderToString(
-      <div>
-        <StaticRouter context={{}} location={url}>
-          <AppComponent initialPageCache={initialPageCache} onMeta={setMeta} />
-        </StaticRouter>
-      </div>
+      <StaticRouter context={{}} location={url}>
+        <AppComponent initialPageCache={initialPageCache} onMeta={setMeta} />
+      </StaticRouter>
     );
 
     return prev;

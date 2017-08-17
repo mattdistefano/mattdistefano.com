@@ -51,7 +51,7 @@ const insertIntoHtml = (html, rendered) =>
       '<div id="app"></div>',
       `
       <div id="app">${rendered.content}</div> 
-      <script>window.__PRELOADED_STATE__ = ${rendered.state}</script>
+      <script>window.__PRELOADED_STATE__ = ${rendered.state};</script>
       `
     )
     .replace('<title></title>', `<title>${rendered.title}</title>`)
