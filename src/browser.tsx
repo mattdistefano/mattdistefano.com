@@ -18,7 +18,7 @@ export default (cache: PageCache) => {
     document.head.appendChild(descriptionElem);
   }
 
-  const setMeta = ({ title, description }: HtmlMetaData) => {
+  const onMeta = ({ title, description }: HtmlMetaData) => {
     document.title = title;
     descriptionElem.content = description;
   };
@@ -28,7 +28,7 @@ export default (cache: PageCache) => {
       <BrowserRouter>
         <AppComponent
           initialPageCache={cache}
-          onMeta={setMeta}
+          onMeta={onMeta}
           ref={app => (appInstance = app)}
         />
       </BrowserRouter>

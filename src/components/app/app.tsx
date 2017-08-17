@@ -63,7 +63,8 @@ export interface AppProps {
 }
 
 export class AppComponent extends Component<AppProps, AppState> {
-  private _mq = isBrowserEnv && window.matchMedia(`(min-width: ${breakpoints.small})`);
+  private _mq = isBrowserEnv &&
+    window.matchMedia(`(min-width: ${breakpoints.small})`);
 
   constructor(props: AppProps) {
     super(props);
@@ -115,6 +116,12 @@ export class AppComponent extends Component<AppProps, AppState> {
 
     if (this.props.onMeta) {
       this.props.onMeta(getMetaData(page));
+    }
+
+    // TODO factor this out to a component or HOC?
+    if (isBrowserEnv && page && page.status !== 'loading') {
+      ga('set', 'page', path);
+      ga('send', 'pageview');
     }
 
     return (
