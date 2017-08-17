@@ -10,7 +10,9 @@ import {
   PageCache,
   getPage,
   getMetaData,
-  isStale
+  isStale,
+  breakpoints,
+  headerHeight
 } from '../../models';
 
 import { SiteHeaderComponent } from './site-header';
@@ -53,12 +55,16 @@ const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
 const WrappedHomePage = wrapPageComponent(HomePageComponent);
 // tslint:enable:variable-name
 
+const headerHeightPx = parseInt(headerHeight, 10);
+
 export interface AppProps {
   initialPageCache?: PageCache;
   onMeta?: (meta: HtmlMetaData) => void;
 }
 
 export class AppComponent extends Component<AppProps, AppState> {
+  private _mq = window.matchMedia(`(min-width: ${breakpoints.small})`);
+
   constructor(props: AppProps) {
     super(props);
 
@@ -71,8 +77,17 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    if (isBrowserEnv && window.scrollY > 128) {
-      window.scroll({ top: 128, left: 0, behavior: 'smooth' });
+    if (isBrowserEnv) {
+      // TODO this is still imperfect
+      // basically need to capture this value *before* navigation
+      // since after navigation the overall page height will be ~100vh
+      // and no scroll
+      // unless the new page content is cached
+      if (this._mq.matches && window.scrollY > headerHeightPx) {
+        window.scroll({ top: headerHeightPx, left: 0, behavior: 'smooth' });
+      } else {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      }
     }
 
     const page = this.state.pageCache[path];
@@ -102,7 +117,15 @@ export class AppComponent extends Component<AppProps, AppState> {
       this.props.onMeta(getMetaData(page));
     }
 
-    return <PageComponent onEnter={this._onRouteEnter} page={page} {...props} delay={2} key={path} />;
+    return (
+      <PageComponent
+        onEnter={this._onRouteEnter}
+        page={page}
+        {...props}
+        delay={2}
+        key={path}
+      />
+    );
   }
 
   private _renderDefault(props: RouteComponentProps<any>) {
