@@ -5,6 +5,9 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack --env.production",
+        "serve": "webpack-dev-server",
+        "serve:production": "concurrently \"webpack --env.production --watch\"  \"http-server dist\"",
         "tslint": "tslint"
     },
     "author": "",
@@ -21,12 +24,14 @@
         "@types/webpack-env": "^1.13.0",
         "awesome-typescript-loader": "^3.2.1",
         "clean-webpack-plugin": "^0.1.16",
+        "concurrently": "^3.5.0",
         "copy-webpack-plugin": "^4.0.1",
         "css-loader": "^0.28.4",
         "extract-text-webpack-plugin": "^3.0.0",
         "file-loader": "^0.11.2",
         "gray-matter": "^3.0.2",
         "html-webpack-plugin": "^2.29.0",
+        "http-server": "^0.10.0",
         "image-webpack-loader": "^3.3.1",
         "js-string-escape": "^1.0.1",
         "markdown-it": "^8.3.1",
@@ -55,5 +60,6 @@
         "webpack": "^3.4.1",
         "webpack-dev-server": "^2.5.1",
         "webpack-sort-chunks": "^0.1.0"
-    }
+    },
+    "dependencies": {}
 }
