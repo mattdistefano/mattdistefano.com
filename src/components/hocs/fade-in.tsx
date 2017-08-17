@@ -17,25 +17,18 @@ export const withFadeIn = <TProps extends {}>(
 
   class WithFadeInComponent extends Component<WithFadeInPropTypes> {
     render() {
-      // TODO need to support server-rendering too
-      // can maybe accomplish by swapping CSSTransitionGroup for a div w/ our own animation class
-      // or maybe just write our own animation wrapper?
+      const delayClassName = this.props.delay
+        ? `transition-delay-${this.props.delay} animation-delay-${this.props.delay}`
+        : '';
       return (
         <CSSTransitionGroup
           transitionName="transition-fade-in"
-          transitionAppearTimeout={900}
           transitionEnterTimeout={900}
           transitionEnter={true}
           transitionLeave={false}
-          transitionAppear={true}
           component="div"
         >
-          <div
-            key={this.props.key}
-            className={
-              this.props.delay ? `transition-delay-${this.props.delay}` : ''
-            }
-          >
+          <div key={this.props.key} className={`animation-fade-in ${delayClassName}`}>
             <Wrapped {...this.props} />
           </div>
         </CSSTransitionGroup>
