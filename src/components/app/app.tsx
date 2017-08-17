@@ -63,7 +63,7 @@ export interface AppProps {
 }
 
 export class AppComponent extends Component<AppProps, AppState> {
-  private _mq = window.matchMedia(`(min-width: ${breakpoints.small})`);
+  private _mq = isBrowserEnv && window.matchMedia(`(min-width: ${breakpoints.small})`);
 
   constructor(props: AppProps) {
     super(props);
@@ -77,7 +77,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    if (isBrowserEnv) {
+    if (this._mq) {
       // TODO this is still imperfect
       // basically need to capture this value *before* navigation
       // since after navigation the overall page height will be ~100vh
