@@ -92,9 +92,8 @@ main {
 
 p {
   font-size: 0.9rem;
-  line-height: 1.5rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  line-height: 1.6666rem;
+  margin-bottom: 1.3333rem;
   margin-top: 0;
 }
 
@@ -119,11 +118,18 @@ ol {
   line-height: 1.5rem;
   font-size: 0.9rem;
   margin-top: 1rem;
+  margin-bottom: 1.3333rem;
 }
 
 li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   break-inside: avoid;
+}
+
+li ul,
+li ol {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
 }
 
 blockquote {
@@ -145,7 +151,7 @@ code {
 
 pre > code {
   display: block;
-  margin: calc(-var(--gutter-width) / 2);
+  margin: 0 calc(-var(--gutter-width) / 2) 1.3333rem calc(-var(--gutter-width) / 2);
   padding: calc(var(--gutter-width) / 2);
   overflow-y: scroll;
 }
