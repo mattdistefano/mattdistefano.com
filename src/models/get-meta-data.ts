@@ -16,7 +16,7 @@ export const getMetaData = (page: AsyncData<Page | IndexPage| PageSummary>): Htm
     title = 'mattdistefano.com | Loading...';
     description = '';
   } else if (page.status === 'loaded') {
-    title = `mattdistefano.com | ${htmlToText(page.data.title) || ''}`;
+    title = `mattdistefano.com | ${htmlToText(page.data.title || '')}`;
     description = page.data.summary || '';
   }
 
