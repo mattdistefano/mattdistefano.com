@@ -21,6 +21,13 @@ export const HomePageComponent = (props: HomePageProps) => {
     page.queries.blog &&
     page.queries.blog.results;
 
+  const articles =
+    page &&
+    page.type === 'index' &&
+    page.queries &&
+    page.queries.articles &&
+    page.queries.articles.results;
+
   return (
     <div className="home-page">
       <PageContentComponent
@@ -29,6 +36,8 @@ export const HomePageComponent = (props: HomePageProps) => {
       />
       <h2 className="h3">Recent blog posts...</h2>
       <PageCardListComponent pages={blogPosts} />
+      <h2 className="h3">Recent articles...</h2>
+      <PageCardListComponent pages={articles} />
     </div>
   );
 };
