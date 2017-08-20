@@ -1,4 +1,5 @@
 export interface PageSummary {
+  type: 'summary';
   /** The path, without extension, of the page, relative to site root */
   path: string;
   /** The title of the page w/ HTML stripped */
@@ -11,10 +12,8 @@ export interface PageSummary {
   modified?: string;
   /** The summary of the page */
   summary?: string;
-
-  children?: PageSummary[];
-
+  /** The list of pages in this folder */
   pages?: PageSummary[];
-
-  type: 'summary';
+  /** The contents of any sub folders */
+  children?: PageSummary[];
 }
