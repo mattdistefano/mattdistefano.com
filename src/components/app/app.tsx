@@ -149,7 +149,7 @@ export class AppComponent extends Component<AppProps, AppState> {
         <Route component={SiteHeaderComponent} />
         <div className="container">
           <div className="site-content">
-            <main className="site-content__animated">
+            <main>
               <Switch>
                 <Route
                   path="/"
@@ -178,7 +178,7 @@ export class AppComponent extends Component<AppProps, AppState> {
                 <Route path="*" render={props => this._renderDefault(props)} />
               </Switch>
             </main>
-            <SiteFooterComponent className="site-content__animated" />
+            <SiteFooterComponent />
           </div>
         </div>
       </div>
