@@ -1,9 +1,10 @@
 import { AsyncData } from './async-data';
 import { IndexPage } from './index-page';
+import { PageSummary } from './page-summary';
 import { Page } from './page';
 import { HtmlMetaData } from './html-meta-data';
 
-export const getMetaData = (page: AsyncData<Page | IndexPage>): HtmlMetaData => {
+export const getMetaData = (page: AsyncData<Page | IndexPage| PageSummary>): HtmlMetaData => {
   let title: string;
   let description: string;
 

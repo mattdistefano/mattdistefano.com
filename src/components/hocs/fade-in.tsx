@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { AsyncData, Page, IndexPage } from '../../models';
 
 export interface WithFadeInProps {
   delay?: number;

@@ -9,13 +9,18 @@ export interface PageCardProps {
 }
 
 // tslint:disable-next-line:variable-name
-export const PageCardComponent = (props: PageCardProps) =>
-  <Link className={`page-card ${props.className || ''}`} to={props.page.path}>
-    <time dateTime={props.page.created} className="page-card__date">{formatDate(props.page.created)}</time>
-    <div className="page-card__title">
-      {props.page.title}
-    </div>
-    <p className="page-card__summary">
-      {props.page.summary}
-    </p>
-  </Link>;
+export const PageCardComponent = (props: PageCardProps) => {
+  const title = { __html: props.page.titleHtml };
+
+  return (
+    <Link className={`page-card ${props.className || ''}`} to={props.page.path}>
+      <time dateTime={props.page.created} className="page-card__date">
+        {formatDate(props.page.created)}
+      </time>
+      <div className="page-card__title" dangerouslySetInnerHTML={title} />
+      <p className="page-card__summary">
+        {props.page.summary}
+      </p>
+    </Link>
+  );
+};

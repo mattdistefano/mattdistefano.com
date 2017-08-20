@@ -93,7 +93,11 @@ export class AppComponent extends Component<AppProps, AppState> {
 
     const page = this.state.pageCache[path];
 
-    if (page && (page.status === 'loading' || !isStale(page))) {
+    if (page && page.status === 'loading') {
+      return;
+    }
+
+    if (page && page.data && page.data.type !== 'summary' && !isStale(page)) {
       return;
     }
 

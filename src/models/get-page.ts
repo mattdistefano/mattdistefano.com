@@ -2,6 +2,7 @@ import { HttpError } from './http-error';
 import { Page } from './page';
 import { IndexPage } from './index-page';
 import { PageSummary } from './page-summary';
+import { walkPage } from './walk-page';
 
 // TODO maybe move this to a different folder?
 
@@ -11,61 +12,11 @@ const toJsonPath = (path: string) =>
 const fromJsonPath = (path: string) =>
   path.endsWith('/index') ? path.slice(0, -5) : path;
 
-const transformSummary = (summary: PageSummary) => {
-  summary.path = fromJsonPath(summary.path);
+const updatePath = (item: Page | IndexPage | PageSummary) =>
+  (item.path = fromJsonPath(item.path));
 
-  if (summary.children) {
-    summary.children.forEach(transformSummary);
-  }
-
-  if (summary.children) {
-    summary.children.forEach(transformSummary);
-  }
-
-  return summary;
-};
-
-const transformPage = (page: Page) => {
-  if (page.type === 'page') {
-    if (page.prev) {
-      transformSummary(page.prev);
-    }
-    if (page.next) {
-      transformSummary(page.next);
-    }
-
-    return page;
-  }
-};
-
-const transformIndexPage = (page: IndexPage) => {
-  if (page.pages) {
-    page.pages.forEach(transformSummary);
-  }
-
-  if (page.children) {
-    page.children.forEach(transformSummary);
-  }
-
-  if (page.queries) {
-    Object.keys(page.queries).forEach(key =>
-      page.queries[key].results.forEach(transformSummary)
-    );
-  }
-
-  return page;
-};
-
-const transformResponse = (page: Page | IndexPage) => {
-  page.path = fromJsonPath(page.path);
-
-  if (page.type === 'index') {
-    transformIndexPage(page);
-  } else {
-    transformPage(page);
-  }
-  return page;
-};
+const transformResponse = (page: Page | IndexPage) =>
+  walkPage(page, updatePath) as Page | IndexPage;
 
 /** Returns a promise that will resolve with the specified page or reject on any error */
 export const getPage = (path: string): Promise<Page | IndexPage> =>

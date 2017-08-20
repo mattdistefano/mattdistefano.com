@@ -9,3 +9,4 @@ export * from './get-meta-data';
 export * from './query';
 export * from './html-meta-data';
 export * from './ui';
+export * from './walk-page';

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Page, AsyncData } from '../../models';
+import { Page, PageSummary, AsyncData } from '../../models';
 import { PageContentComponent } from '../content';
 
 export interface StandardPageProps {
-  page?: AsyncData<Page>;
+  page?: AsyncData<Page | PageSummary>;
 }
 
 // tslint:disable-next-line:variable-name
@@ -18,7 +18,7 @@ export const StandardPageComponent = (props: StandardPageProps) => {
     <div className="standard-page">
       <PageContentComponent
         title={page.titleHtml}
-        content={page.content}
+        content={page.type === 'page' ? page.content : null}
         date={page.created}
       />
     </div>

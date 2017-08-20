@@ -13,7 +13,7 @@ export interface BlogArchiveIndexMatchParams {
 
 export interface BlogArchiveIndexPageProps {
   match: match<BlogArchiveIndexMatchParams>;
-  page?: AsyncData<IndexPage>;
+  page?: AsyncData<IndexPage|PageSummary>;
 }
 
 const flattenChildren = (page: IndexPage | PageSummary) =>

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { IndexPage, AsyncData } from '../../models';
+import { IndexPage, PageSummary, AsyncData } from '../../models';
 import { PageCardListComponent, PageContentComponent } from '../content';
 
 export interface StandardIndexPageProps {
-  page?: AsyncData<IndexPage>;
+  page?: AsyncData<IndexPage | PageSummary>;
 }
 
 // tslint:disable-next-line:variable-name
@@ -16,10 +16,11 @@ export const StandardIndexPageComponent = (props: StandardIndexPageProps) => {
 
   return (
     <div className="standard-index-page">
-      <PageContentComponent title={page.titleHtml} content={page.content} />
-      <PageCardListComponent
-        pages={page.pages}
+      <PageContentComponent
+        title={page.titleHtml}
+        content={page.type === 'index' ? page.content : null}
       />
+      <PageCardListComponent pages={page.pages} />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Page, AsyncData } from '../../../models';
+import { Page, PageSummary, AsyncData } from '../../../models';
 import { PageContentComponent, PageFooterComponent } from '../../content';
 
 export interface BlogPageProps {
-  page?: AsyncData<Page>;
+  page?: AsyncData<Page | PageSummary>;
 }
 
 // tslint:disable-next-line:variable-name
@@ -16,8 +16,12 @@ export const BlogPageComponent = (props: BlogPageProps) => {
 
   return (
     <div className="blog-page">
-      <PageContentComponent title={page.titleHtml} content={page.content} date={page.created} />
-      <PageFooterComponent page={props.page && props.page.data} />
+      <PageContentComponent
+        title={page.titleHtml}
+        content={page.type === 'page' ? page.content : null}
+        date={page.created}
+      />
+      <PageFooterComponent page={page.type === 'page' ? page : null} />
     </div>
   );
 };

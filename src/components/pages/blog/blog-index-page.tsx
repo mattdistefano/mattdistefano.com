@@ -12,7 +12,7 @@ export interface BlogIndexMatchParams {
 
 export interface BlogIndexPageProps {
   match: match<BlogIndexMatchParams>;
-  page?: AsyncData<IndexPage>;
+  page?: AsyncData<IndexPage | PageSummary>;
 }
 
 const flattenAll = (page: IndexPage | PageSummary): PageSummary[] =>
@@ -32,9 +32,13 @@ export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
   }
 
   const pages =
-    page.queries && page.queries.recent && page.queries.recent.results;
+    page.type === 'index' &&
+    page.queries &&
+    page.queries.recent &&
+    page.queries.recent.results;
 
   const archivePages =
+    page.type === 'index' &&
     page.queries &&
     page.queries.archive &&
     page.queries.archive.results.map(child => ({
@@ -44,7 +48,7 @@ export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
 
   return (
     <div className="blog-index-page">
-      <PageContentComponent title={page.titleHtml} content={page.content} />
+      <PageContentComponent title={page.titleHtml} content={page.type === 'index' ? page.content : null} />
       <PageCardListComponent pages={pages} />
       <h2>Archive</h2>
       {archivePages.map(p =>

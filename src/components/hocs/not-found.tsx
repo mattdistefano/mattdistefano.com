@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
-import { AsyncData, Page, IndexPage } from '../../models';
+import { AsyncData, Page, IndexPage, PageSummary } from '../../models';
 
 export interface WithNotFoundProps {
-  page: AsyncData<Page | IndexPage>;
+  page: AsyncData<Page | IndexPage | PageSummary>;
 }
 
 export const withNotFound = <TProps extends {}>(
