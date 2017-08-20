@@ -1,5 +1,5 @@
 .site-nav {
-  margin-top: 3rem;
+  top: 3rem;
   background: rgba(255,255,255,0.95);
   position: relative;
 }
@@ -54,7 +54,6 @@
     left: 0;
     top: 128px;
     z-index: 100;
-    margin-top: 0;
     padding-left: 2rem;
     width: 100%;
     animation: fade ease-in 0.3s 0.3s both;
