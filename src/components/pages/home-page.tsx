@@ -24,7 +24,7 @@ export const HomePageComponent = (props: HomePageProps) => {
   return (
     <div className="home-page">
       <PageContentComponent
-        title={page.titleHtml}
+        title={page.title}
         content={page.type === 'index' && page.content}
       />
       <h2 className="h3">Recent blog posts...</h2>

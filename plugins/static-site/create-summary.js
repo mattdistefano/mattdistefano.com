@@ -1,7 +1,6 @@
 module.exports = page => ({
   path: page.path,
-  titleText: page.titleText,
-  titleHtml: page.titleHtml,
+  title: page.title,
   summary: page.summary,
   created: page.created,
   modified: page.modified,

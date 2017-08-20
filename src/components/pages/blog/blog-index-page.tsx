@@ -48,7 +48,7 @@ export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
 
   return (
     <div className="blog-index-page">
-      <PageContentComponent title={page.titleHtml} content={page.type === 'index' ? page.content : null} />
+      <PageContentComponent title={page.title} content={page.type === 'index' ? page.content : null} />
       <PageCardListComponent pages={pages} />
       <h2>Archive</h2>
       {archivePages.map(p =>

@@ -3,6 +3,7 @@ import { IndexPage } from './index-page';
 import { PageSummary } from './page-summary';
 import { Page } from './page';
 import { HtmlMetaData } from './html-meta-data';
+import htmlToText from '../utils/html-to-text';
 
 export const getMetaData = (page: AsyncData<Page | IndexPage| PageSummary>): HtmlMetaData => {
   let title: string;
@@ -15,7 +16,7 @@ export const getMetaData = (page: AsyncData<Page | IndexPage| PageSummary>): Htm
     title = 'mattdistefano.com | Loading...';
     description = '';
   } else if (page.status === 'loaded') {
-    title = `mattdistefano.com | ${page.data.titleText || ''}`;
+    title = `mattdistefano.com | ${htmlToText(page.data.title) || ''}`;
     description = page.data.summary || '';
   }
 

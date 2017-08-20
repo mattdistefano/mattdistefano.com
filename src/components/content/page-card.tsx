@@ -10,7 +10,7 @@ export interface PageCardProps {
 
 // tslint:disable-next-line:variable-name
 export const PageCardComponent = (props: PageCardProps) => {
-  const title = { __html: props.page.titleHtml };
+  const title = { __html: props.page.title };
 
   return (
     <Link className={`page-card ${props.className || ''}`} to={props.page.path}>

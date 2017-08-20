@@ -1,4 +1,4 @@
-module.exports = html => {
+export default (html: string) => {
   let text = '';
   let inTag = false;
 

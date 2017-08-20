@@ -1,5 +1,3 @@
-const htmlToText = require('./html-to-text');
-
 module.exports = (html) => {
   if (!html) {
     return {};
@@ -15,14 +13,11 @@ module.exports = (html) => {
   }
 
   // get the inner portion of the title, not including the surrounding tag pair  
-  const titleHtml = html.slice(titleStart + 4, titleEnd);
+  const title = html.slice(titleStart + 4, titleEnd);
   // remove the title, including the surrounding tag pair, from the containing html
   html = html.slice(0, titleStart) + html.slice(titleEnd + 5);
 
-  // convert title html to plain text  
-  const titleText = htmlToText(titleHtml);
-
   return {
-    titleHtml, titleText, html
+    title, html
   }
 };

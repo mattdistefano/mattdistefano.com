@@ -17,7 +17,7 @@ export const BlogPageComponent = (props: BlogPageProps) => {
   return (
     <div className="blog-page">
       <PageContentComponent
-        title={page.titleHtml}
+        title={page.title}
         content={page.type === 'page' ? page.content : null}
         date={page.created}
       />

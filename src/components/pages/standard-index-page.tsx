@@ -17,7 +17,7 @@ export const StandardIndexPageComponent = (props: StandardIndexPageProps) => {
   return (
     <div className="standard-index-page">
       <PageContentComponent
-        title={page.titleHtml}
+        title={page.title}
         content={page.type === 'index' ? page.content : null}
       />
       <PageCardListComponent pages={page.pages} />

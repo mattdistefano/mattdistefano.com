@@ -51,7 +51,7 @@ module.exports = async (pagePath, basePath) => {
 
   const fm = matter(markdown);
 
-  const { titleHtml, titleText, html: content } = extractTitle(
+  const { title, html: content } = extractTitle(
     md.render(fm.content)
   );
 
@@ -61,8 +61,7 @@ module.exports = async (pagePath, basePath) => {
 
   return Object.assign({}, fm.data, {
     path: `/${path.relative(basePath, pagePath).slice(0, -3)}`,
-    titleText: titleText && titleText.trim(),
-    titleHtml: titleHtml && titleHtml.trim(),
+    title: title && title.trim(),
     content: content && content.trim(),
     // TODO could also check for index here
     type: 'page',
