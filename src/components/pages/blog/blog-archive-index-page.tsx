@@ -13,7 +13,7 @@ export interface BlogArchiveIndexMatchParams {
 
 export interface BlogArchiveIndexPageProps {
   match: match<BlogArchiveIndexMatchParams>;
-  page?: AsyncData<IndexPage|PageSummary>;
+  page?: AsyncData<IndexPage | PageSummary>;
 }
 
 const flattenChildren = (page: IndexPage | PageSummary) =>
@@ -31,10 +31,13 @@ export const BlogArchiveIndexPageComponent = (
     const title = `Blog posts on ${props.match.params.year}/${props.match.params
       .month}/${props.match.params.day}`;
 
+    const pages =
+      props.page.data.type === 'index' ? props.page.data.pages : null;
+
     return (
       <div className="blog-archive-index-page">
         <PageContentComponent title={title} />
-        <PageCardListComponent pages={props.page.data.pages} />
+        <PageCardListComponent pages={pages} />
       </div>
     );
   }
@@ -42,14 +45,17 @@ export const BlogArchiveIndexPageComponent = (
   if (props.match.params.month) {
     const month = months[parseInt(props.match.params.month, 10) - 1];
 
-    const pages = flattenChildren(props.page.data);
+    const pages =
+      props.page.data.type === 'index'
+        ? flattenChildren(props.page.data)
+        : null;
 
     const title = `Blog posts in ${month}, ${props.match.params.year}`;
 
     return (
       <div className="blog-archive-index-page">
         <PageContentComponent title={title} />
-        <PageCardListComponent pages={props.page.data.pages} />
+        <PageCardListComponent pages={pages} />
       </div>
     );
   }
@@ -60,23 +66,21 @@ export const BlogArchiveIndexPageComponent = (
     return (
       <div className="blog-archive-index-page">
         <PageContentComponent title={title} />
-        {props.page.data.children.map((child, idx) => {
-          const monthPath = child.path.slice(
-            props.page.data.path.length,
-            -1
-          );
+        {props.page.data.type === 'index' &&
+          props.page.data.children.map((child, idx) => {
+            const monthPath = child.path.slice(props.page.data.path.length, -1);
 
-          const month = months[parseInt(monthPath, 10) - 1];
+            const month = months[parseInt(monthPath, 10) - 1];
 
-          return (
-            <div key={idx}>
-              <h2>
-                {month}, {props.match.params.year}
-              </h2>
-              <PageCardListComponent pages={flattenChildren(child)} />
-            </div>
-          );
-        })}
+            return (
+              <div key={idx}>
+                <h2>
+                  {month}, {props.match.params.year}
+                </h2>
+                <PageCardListComponent pages={flattenChildren(child)} />
+              </div>
+            );
+          })}
       </div>
     );
   }
