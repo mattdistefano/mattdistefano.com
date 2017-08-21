@@ -3,13 +3,17 @@
   display: flex;
   flex-direction: column;
   padding-top: 7rem;
+  background: var(--color-white);
 }
 
 @media (--small-viewport) {
+  .site-content-container {
+    background: linear-gradient(to bottom, var(--color-primary), #ff2265 95vh);
+  }
+
   .site-content {
     margin-left: 10rem;
     padding-top: 11rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.0.2);
-    background: var(--color-white);
+    box-shadow: -5px 0 11px 0px rgba(0,0,0,.2);
   }
 }

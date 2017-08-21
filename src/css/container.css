@@ -1,5 +1,12 @@
 .container {
   margin: 0 auto;
   position: relative;
-  max-width: 1000px;
+  max-width: 1200px;
+}
+
+@media (--small-viewport) {
+  .container {
+    border-left: 1px solid var(--color-light-grey);
+    border-right: 1px solid var(--color-light-grey);
+  }
 }

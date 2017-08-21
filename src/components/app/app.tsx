@@ -151,7 +151,7 @@ export class AppComponent extends Component<AppProps, AppState> {
     return (
       <div>
         <Route component={SiteHeaderComponent} />
-        <div className="container">
+        <div className="container site-content-container">
           <div className="site-content">
             <main>
               <Switch>

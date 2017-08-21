@@ -9,12 +9,12 @@
 
 html {
   font-family: var(--font-copy);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--color-text);
   line-height: var(--line-height-base);
   margin: 0;
   padding: 0;
-  background: var(--color-white);
+  background-color: var(--color-lightest-grey);
 }
 
 body {
@@ -157,10 +157,6 @@ pre > code {
 }
 
 @media (--small-viewport) {
-  html {
-    font-size: 16px;
-    background: linear-gradient(to bottom, var(--color-primary), #ff2265 95vh);
-  }
 
   h1,
   .h1 {
