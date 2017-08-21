@@ -17,7 +17,8 @@ const addToCache = (
   status: asyncDataStatus
 ) => {
   walkPage(page, item => {
-    const cached = cache[page.path];
+    const cached = cache[item.path];
+
     if (
       cached &&
       cached.status === 'loaded' &&
@@ -27,7 +28,7 @@ const addToCache = (
       return;
     }
 
-    cache[page.path] = {
+    cache[item.path] = {
       timestamp: Date.now(),
       data: item,
       status
@@ -35,6 +36,7 @@ const addToCache = (
   });
 };
 
+// TODO just combine these?
 const addPageToCache = (
   cache: PageCache,
   path: string,
@@ -55,7 +57,7 @@ const addPageToCache = (
       timestamp: Date.now()
     };
   } else if (status === 'loaded') {
-    walkPage(data, item => addToCache(cloned, item, status));
+    walkPage(data, item => addToCache(cloned, item, 'loaded'));
   }
 
   return cloned;

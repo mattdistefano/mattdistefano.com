@@ -9,17 +9,26 @@ const visitDescendants = (
   onItem: walkPageOnItem
 ) => {
   if (itemWithDescendants.pages) {
-    itemWithDescendants.pages.forEach(onItem);
+    itemWithDescendants.pages.forEach(item => {
+      visitDescendants(item, onItem);
+      onItem(item);
+    });
   }
   if (itemWithDescendants.children) {
-    itemWithDescendants.children.forEach(onItem);
+    itemWithDescendants.children.forEach(item => {
+      visitDescendants(item, onItem);
+      onItem(item);
+    });
   }
 };
 
 const visitQueries = (page: IndexPage, onItem: walkPageOnItem) => {
   if (page.queries) {
     Object.keys(page.queries).forEach(key =>
-      page.queries[key].results.forEach(onItem)
+      page.queries[key].results.forEach(item => {
+        visitDescendants(item, onItem);
+        onItem(item);
+      })
     );
   }
 };
