@@ -11,8 +11,8 @@
   --color-text-light: var(--color-gray);
   --font-size-base: 16px;
   --line-height-base: 1.9;
-  --font-raleway: 'Raleway', sans-serif;
-  --font-open-sans: 'Open Sans', sans-serif;
+  --font-heading: 'Raleway', sans-serif;
+  --font-copy: 'Tahoma', sans-serif;
   --gutter-width: .75rem;
   --gutter-width-medium-up: 2rem;
   --transition-duration: 0.3s;

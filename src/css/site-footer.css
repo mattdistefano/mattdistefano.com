@@ -14,7 +14,7 @@
 .site-footer__heading {
   font-size: 0.7rem;
   text-transform: uppercase;
-  font-family: var(--font-open-sans);
+  font-family: var(--font-copy);
   font-weight: bold;
   margin-top: 0;
 }

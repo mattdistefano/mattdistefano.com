@@ -6,14 +6,6 @@
   transition-delay: .6s !important;
 }
 
-.transition-delay-3 {
-  transition-delay: 0.9s !important;
-}
-
-.transition-delay-4 {
-  transition-delay: 1.2s !important;
-}
-
 .transition-fade-in-appear,
 .transition-fade-in-enter {
   opacity: 0;
