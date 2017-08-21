@@ -123,7 +123,12 @@ export class AppComponent extends Component<AppProps, AppState> {
     }
 
     // TODO factor this out to a component or HOC?
-    if (isBrowserEnv && page && page.status !== 'loading') {
+    if (
+      isBrowserEnv &&
+      page &&
+      page.status !== 'loading' &&
+      (!page.data || page.data.type !== 'summary')
+    ) {
       ga('set', 'page', path);
       ga('send', 'pageview');
     }
