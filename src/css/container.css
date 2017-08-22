@@ -6,7 +6,6 @@
 
 @media (--small-viewport) {
   .container {
-    border-left: 1px solid var(--color-light-grey);
     border-right: 1px solid var(--color-light-grey);
   }
 }

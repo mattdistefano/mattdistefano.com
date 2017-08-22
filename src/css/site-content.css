@@ -7,13 +7,20 @@
 }
 
 @media (--small-viewport) {
-  .site-content-container {
-    background: linear-gradient(to bottom, var(--color-primary), #ff2265 95vh);
-  }
-
   .site-content {
     margin-left: 10rem;
     padding-top: 11rem;
     box-shadow: -5px 0 11px 0px rgba(0,0,0,.2);
+  }
+
+  .site-content::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top:0;
+    left: -300rem;
+    width: 310rem;
+    bottom: 0;
+    background: linear-gradient(to bottom, var(--color-primary), #ff2265 95vh);
   }
 }
