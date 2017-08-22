@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
 
 export interface WithFadeInProps {
   delay?: number;
@@ -17,20 +16,15 @@ export const withFadeIn = <TProps extends {}>(
   class WithFadeInComponent extends Component<WithFadeInPropTypes> {
     render() {
       const delayClassName = this.props.delay
-        ? `transition-delay-${this.props.delay} animation-delay-${this.props.delay}`
+        ? `animation-delay-${this.props.delay}`
         : '';
       return (
-        <CSSTransitionGroup
-          transitionName="transition-fade-in"
-          transitionEnterTimeout={900}
-          transitionEnter={true}
-          transitionLeave={false}
-          component="div"
+        <div
+          key={this.props.key}
+          className={`animation-fade-in ${delayClassName}`}
         >
-          <div key={this.props.key} className={`animation-fade-in ${delayClassName}`}>
-            <Wrapped {...this.props} />
-          </div>
-        </CSSTransitionGroup>
+          <Wrapped {...this.props} />
+        </div>
       );
     }
   }
