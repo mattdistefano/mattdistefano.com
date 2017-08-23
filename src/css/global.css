@@ -103,7 +103,7 @@ img {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-primary-alt);
   text-decoration: none;
 }
 
@@ -157,7 +157,6 @@ pre > code {
 }
 
 @media (--small-viewport) {
-
   h1,
   .h1 {
     font-size: 2rem;

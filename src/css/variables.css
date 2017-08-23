@@ -1,11 +1,11 @@
 :root {
   --color-primary: #ff004e;
-  --color-primary-alt: #ff004e;
+  --color-primary-alt: #e00043;
   --color-white: #fff;
   --color-lightest-grey: #fafafa;
   --color-lighter-grey: #efefef;
   --color-light-grey: #ddd;
-  --color-gray: #777;
+  --color-gray: #707070;
   --color-gray-darker: #444;
   --color-text: var(--color-gray-darker);
   --color-text-light: var(--color-gray);

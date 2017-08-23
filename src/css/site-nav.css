@@ -28,6 +28,7 @@
 }
 
 .site-nav__link {
+  color: var(--color-primary);
   padding: .75rem 1rem;
   min-width: 6rem;
   text-align: center;
