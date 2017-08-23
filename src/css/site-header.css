@@ -40,8 +40,6 @@
     position: absolute;
     z-index: 10;
     text-align: left;
-    box-shadow: none;
-    background: none;
   }
 
   .site-header::before {
