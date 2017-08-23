@@ -1,17 +1,14 @@
 .site-header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  transform: translateY(0);
-  transition: all 0.2s ease-in;
 }
 
 .site-header.fixed {
   position: fixed;
-  top: 0;
-  transform: translateY(-48px);
+  top: -48px;
   z-index: 100;
 }
 
@@ -65,7 +62,6 @@
 
   .site-header.fixed {
     top: -128px;
-    transform: translateY(0);
   }
 
   .site-header__inner {
