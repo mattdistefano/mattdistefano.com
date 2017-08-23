@@ -55,7 +55,7 @@ const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
 const WrappedHomePage = wrapPageComponent(HomePageComponent);
 // tslint:enable:variable-name
 
-const headerHeightPx = parseInt(headerHeight, 10);
+const headerHeightPx = parseInt(headerHeight.medium, 10);
 
 export interface AppProps {
   initialPageCache?: PageCache;

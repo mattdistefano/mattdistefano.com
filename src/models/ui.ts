@@ -5,4 +5,7 @@ export const breakpoints = {
   xlarge: '90em',
 };
 
-export const headerHeight = '128px';
+export const headerHeight = {
+  small: '48px',
+  medium: '128px'
+};

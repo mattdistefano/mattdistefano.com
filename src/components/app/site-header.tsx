@@ -6,7 +6,8 @@ import { SiteNavComponent } from './site-nav';
 import isBrowserEnv from '../../utils/is-browser-env';
 import { headerHeight, breakpoints } from '../../models';
 
-const headerHeightPx = parseInt(headerHeight, 10);
+const headerHeightSmallPx = parseInt(headerHeight.small, 10);
+const headerHeightMediumPx = parseInt(headerHeight.medium, 10);
 
 interface SiteHeaderState {
   isFixed: boolean;
@@ -17,6 +18,7 @@ export class SiteHeaderComponent extends PureComponent<
   SiteHeaderState
 > {
   private _mq: MediaQueryList;
+  private _scrollHeight: number;
 
   constructor() {
     super();
@@ -31,23 +33,19 @@ export class SiteHeaderComponent extends PureComponent<
 
   private _onMediaChange(mq: MediaQueryList) {
     if (mq.matches) {
-      // TODO passive listener
-      window.addEventListener('scroll', this._onScroll);
-      this._onScroll();
+      this._scrollHeight = headerHeightMediumPx;
     } else {
-      window.removeEventListener('scroll', this._onScroll);
-      this.setState({
-        isFixed: false
-      });
+      this._scrollHeight = headerHeightSmallPx;
     }
+    this._onScroll();
   }
 
   private _onScroll() {
-    if (this.state.isFixed && window.scrollY < headerHeightPx) {
+    if (this.state.isFixed && window.scrollY < this._scrollHeight) {
       this.setState({
         isFixed: false
       });
-    } else if (!this.state.isFixed && window.scrollY >= headerHeightPx) {
+    } else if (!this.state.isFixed && window.scrollY >= this._scrollHeight) {
       this.setState({
         isFixed: true
       });
@@ -63,6 +61,8 @@ export class SiteHeaderComponent extends PureComponent<
     this._mq.addListener(this._onMediaChange);
 
     this._onMediaChange(this._mq);
+
+    window.addEventListener('scroll', this._onScroll);
   }
 
   componentWillUnmount() {
