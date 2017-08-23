@@ -3,9 +3,3 @@
   position: relative;
   max-width: 1200px;
 }
-
-@media (--small-viewport) {
-  .container {
-    border-right: 1px solid var(--color-light-grey);
-  }
-}
