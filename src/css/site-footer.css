@@ -23,6 +23,10 @@
   display: inline-block;
 }
 
+.contact-links__action-icon {
+  fill: var(--color-primary);
+}
+
 .contact-links__item + .contact-links__item {
   margin-left: .75rem;
 }
@@ -50,7 +54,7 @@
   }
 
   .contact-links__action-icon {
-    color: var(--color-white);
+    fill: var(--color-white);
     margin-bottom: .75rem;
   }
 

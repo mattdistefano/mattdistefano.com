@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
+import { IconComponent } from '../content';
 
 interface SiteFooterContactLinkProps {
   href: string;
-  icon: string;
+  icon: 'twitter' | 'linkedin' | 'github';
 }
 
 interface SiteFooterProps {
@@ -27,8 +28,12 @@ const footerLinks: SiteFooterContactLinkProps[] = [
 
 // tslint:disable-next-line:variable-name
 const SiteFooterContactLink = (props: SiteFooterContactLinkProps) =>
-  <a className="action-icon contact-links__action-icon icon" href={props.href}>
-    {props.icon}
+  <a className="action-icon contact-links__action-icon" href={props.href}>
+    <IconComponent
+      name={props.icon}
+      title={`matt distefano on ${props.icon}`}
+      size={22}
+    />
   </a>;
 
 const year = new Date().getFullYear();

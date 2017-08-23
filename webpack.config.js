@@ -36,21 +36,12 @@ module.exports = (env = {}) => ({
   module: {
     rules: [
       {
-        test: [/\.svg$/, /\.eot$/, /\.woff$/, /\.ttf$/],
-        include: path.resolve(__dirname, 'src', 'fonts'),
-        loader: 'file-loader',
-        options: {
-          name: `${assets}/[name].[hash].[ext]`
-        }
-      },
-      {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /svg$/],
-        exclude: path.resolve(__dirname, 'src', 'fonts'),
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
+              limit: 7000,
               name: `${assets}/[name].[hash].[ext]`
             }
           },
