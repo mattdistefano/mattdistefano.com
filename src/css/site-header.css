@@ -25,7 +25,6 @@
     var(--color-primary) 0%,
     #ff2265 70%
   );
-  box-shadow: inset 0 -7px 10px rgba(0, 0, 0, 0.0.1);
   height: 48px;
   top: 0;
   left: 0;
@@ -79,14 +78,13 @@
     display: block;
     content: '';
     position: absolute;
-    box-shadow: none;
-    width: 459px;
-    height: 208px;
+    width: 442px;
+    height: 195px;
     left: 0;
     top: 42px;
     margin-left: 0;
-    margin-left: -69px;
-    background-image: url('../img/md-shadow.svg');
+    margin-left: -52px;
+    background-image: url('../img/md.svg');
     background-position: top left;
     opacity: 1;
     transform: translateY(0);
