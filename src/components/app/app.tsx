@@ -68,6 +68,10 @@ export class AppComponent extends Component<AppProps, AppState> {
   private _mq = isBrowserEnv &&
     window.matchMedia(`(min-width: ${breakpoints.small})`);
 
+  private _lastPath: string;
+
+  private _lastScrollY: number;
+
   constructor(props: AppProps) {
     super(props);
 
@@ -79,17 +83,13 @@ export class AppComponent extends Component<AppProps, AppState> {
     };
   }
 
-  private _trackPageView(path: string) {
-    const page = this.state.pageCache[path];
-
-    if (!isBrowserEnv || !page) {
+  private _trackPageView(page: AsyncData<Page | IndexPage | PageSummary>) {
+    if (!isBrowserEnv) {
       return;
     }
 
-    if (isLoaded(page) || page.status === 'notfound') {
-      ga('set', 'page', page);
-      ga('send', 'pageview');
-    }
+    ga('set', 'page', page.path);
+    ga('send', 'pageview');
   }
 
   private _restoreScroll() {
@@ -102,14 +102,14 @@ export class AppComponent extends Component<AppProps, AppState> {
     // since after navigation the overall page height will be ~100vh
     // and no scroll
     // unless the new page content is cached
-    if (this._mq.matches && window.scrollY > headerHeightPx) {
+    if (this._mq.matches && this._lastScrollY > headerHeightPx) {
       window.scroll({ top: headerHeightPx, left: 0, behavior: 'smooth' });
     } else {
       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }
   }
 
-  private _loadPage(path: string) {
+  private _ensurePage(path: string) {
     const page = this.state.pageCache[path];
 
     if (isLoaded(page) && !isStale(page)) {
@@ -126,7 +126,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   private _onRouteEnter(path: string) {
     this._restoreScroll();
 
-    this._loadPage(path);
+    this._ensurePage(path);
   }
 
   // TODO might be losing too much of the value of type-checking here
@@ -137,13 +137,21 @@ export class AppComponent extends Component<AppProps, AppState> {
   ) {
     const path = props.match.url || '/';
 
+    if (path !== this._lastPath) {
+      this._lastPath = path;
+      this._lastScrollY = isBrowserEnv ? window.scrollY : null;
+    }
+
     const page = this.state.pageCache[path];
+
+    if (page && (isLoaded(page) || page.status === 'notfound')) {
+      this._restoreScroll();
+      this._trackPageView(page);
+    }
 
     if (this.props.onMeta) {
       this.props.onMeta(getMetaData(page));
     }
-
-    this._trackPageView(path);
 
     return (
       <PageComponent

@@ -31,6 +31,7 @@ const addToCache = (
     cache[item.path] = {
       timestamp: Date.now(),
       data: item,
+      path: item.path,
       status
     };
   });
@@ -49,12 +50,14 @@ const addPageToCache = (
     cloned[path] = {
       ...cloned[path] || {},
       status: 'loading',
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      path,
     };
   } else if (status === 'notfound') {
     cloned[path] = {
       status: 'notfound',
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      path,
     };
   } else if (status === 'loaded') {
     walkPage(data, item => addToCache(cloned, item, 'loaded'));
