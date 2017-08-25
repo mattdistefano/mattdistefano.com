@@ -158,8 +158,8 @@ export class AppComponent extends Component<AppProps, AppState> {
         onEnter={this._onRouteEnter}
         page={page}
         {...props}
-        delay={2}
-        key={path}
+        animDelay={2}
+        animKey={path}
       />
     );
   }

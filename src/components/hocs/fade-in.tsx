@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Component, ComponentType } from 'react';
 
 export interface WithFadeInProps {
-  delay?: number;
-  key: string;
+  animDelay?: number;
+  animKey: string;
 }
 
 export const withFadeIn = <TProps extends {}>(
@@ -15,12 +15,12 @@ export const withFadeIn = <TProps extends {}>(
 
   class WithFadeInComponent extends Component<WithFadeInPropTypes> {
     render() {
-      const delayClassName = this.props.delay
-        ? `animation-delay-${this.props.delay}`
+      const delayClassName = this.props.animDelay
+        ? `animation-delay-${this.props.animDelay}`
         : '';
       return (
         <div
-          key={this.props.key}
+          key={this.props.animKey}
           className={`animation-fade-in ${delayClassName}`}
         >
           <Wrapped {...this.props} />
