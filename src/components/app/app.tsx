@@ -5,12 +5,14 @@ import { Route, RouteProps, RouteComponentProps, Switch } from 'react-router';
 import {
   Page,
   IndexPage,
+  PageSummary,
   HtmlMetaData,
   AsyncData,
   PageCache,
   getPage,
   getMetaData,
   isStale,
+  isLoaded,
   breakpoints,
   headerHeight
 } from '../../models';
@@ -77,27 +79,40 @@ export class AppComponent extends Component<AppProps, AppState> {
     };
   }
 
-  private _onRouteEnter(path: string) {
-    if (this._mq) {
-      // TODO this is still imperfect
-      // basically need to capture this value *before* navigation
-      // since after navigation the overall page height will be ~100vh
-      // and no scroll
-      // unless the new page content is cached
-      if (this._mq.matches && window.scrollY > headerHeightPx) {
-        window.scroll({ top: headerHeightPx, left: 0, behavior: 'smooth' });
-      } else {
-        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-      }
-    }
-
+  private _trackPageView(path: string) {
     const page = this.state.pageCache[path];
 
-    if (page && page.status === 'loading') {
+    if (!isBrowserEnv || !page) {
       return;
     }
 
-    if (page && page.data && page.data.type !== 'summary' && !isStale(page)) {
+    if (isLoaded(page) || page.status === 'notfound') {
+      ga('set', 'page', page);
+      ga('send', 'pageview');
+    }
+  }
+
+  private _restoreScroll() {
+    if (!this._mq) {
+      return;
+    }
+
+    // TODO this is still imperfect
+    // basically need to capture this value *before* navigation
+    // since after navigation the overall page height will be ~100vh
+    // and no scroll
+    // unless the new page content is cached
+    if (this._mq.matches && window.scrollY > headerHeightPx) {
+      window.scroll({ top: headerHeightPx, left: 0, behavior: 'smooth' });
+    } else {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  }
+
+  private _loadPage(path: string) {
+    const page = this.state.pageCache[path];
+
+    if (isLoaded(page) && !isStale(page)) {
       return;
     }
 
@@ -106,6 +121,12 @@ export class AppComponent extends Component<AppProps, AppState> {
     getPage(path)
       .then(loadedPage => this.setState(onPageLoaded(loadedPage, this.state)))
       .catch(() => this.setState(onPageLoadingFailed(path, this.state)));
+  }
+
+  private _onRouteEnter(path: string) {
+    this._restoreScroll();
+
+    this._loadPage(path);
   }
 
   // TODO might be losing too much of the value of type-checking here
@@ -122,16 +143,7 @@ export class AppComponent extends Component<AppProps, AppState> {
       this.props.onMeta(getMetaData(page));
     }
 
-    // TODO factor this out to a component or HOC?
-    if (
-      isBrowserEnv &&
-      page &&
-      page.status !== 'loading' &&
-      (!page.data || page.data.type !== 'summary')
-    ) {
-      ga('set', 'page', path);
-      ga('send', 'pageview');
-    }
+    this._trackPageView(path);
 
     return (
       <PageComponent
