@@ -60,5 +60,8 @@
         "webpack-dev-server": "^2.5.1",
         "webpack-sort-chunks": "^0.1.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "imagemin-mozjpeg": "^6.0.0",
+        "imagemin-webpack-plugin": "^1.5.0-beta.0"
+    }
 }

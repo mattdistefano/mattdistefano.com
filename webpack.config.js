@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const imageminMozjpeg = require('imagemin-mozjpeg');
 const WebpackStaticSitePlugin = require('./plugins/static-site');
 
 const entry = './index.ts';
@@ -17,6 +19,11 @@ const hmrEntry = [
   'webpack/hot/only-dev-server',
   entry
 ];
+
+const mozjpegOptions = {
+  quality: 75,
+  progressive: true
+};
 
 module.exports = (env = {}) => ({
   entry: env.production ? entry : hmrEntry,
@@ -54,8 +61,9 @@ module.exports = (env = {}) => ({
                 optimizationLevel: 7
               },
               gifsicle: {
-                interlaced: false,
+                interlaced: false
               },
+              mozjpeg: mozjpegOptions,
             }
           }
         ]
@@ -133,6 +141,12 @@ module.exports = (env = {}) => ({
           new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: ({ resource }) => /node_modules/.test(resource)
+          }),
+          new ImageminPlugin({
+            test: '!\_assets/**',
+            plugins: [
+              imageminMozjpeg(mozjpegOptions)
+            ]
           })
         ]
       : [
