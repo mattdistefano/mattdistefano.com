@@ -27,7 +27,7 @@
 
 @media (--xlarge-viewport) {
   .site-content::before {
-    left: 0;
-    width: 10rem;
+    left: -20rem;
+    width: 30rem;
   }
 }
