@@ -30,7 +30,7 @@ h1,
   font-size: 1.75rem;
   line-height: 3rem;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 h2,
@@ -93,8 +93,8 @@ main {
 
 p {
   font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 1.5;
+  line-height: 1.6666rem;
+  margin-bottom: 1.3333rem;
   margin-top: 0;
 }
 
