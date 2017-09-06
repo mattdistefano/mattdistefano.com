@@ -1,0 +1,36 @@
+.page-content {
+}
+
+.page-content__title {
+  margin-top: 0;
+}
+
+.page-content__date {
+  font-weight: normal;
+  font-family: var(--font-copy);
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  display: block;
+  position: relative;
+  margin-left: 2px;
+  line-height: 1rem;
+}
+
+.page-content__date + .page-content__title {
+  margin-top: 1rem;
+}
+
+.page-content__body {
+  margin-bottom: 3rem;
+}
+
+.page-content__body p:first-child {
+  font-size: 1.1rem;
+  line-height: 1.75rem;
+  font-weight: 100;
+  margin-top: 0;
+}
+
+.page-content__body img {
+  margin: 8px 0;
+}

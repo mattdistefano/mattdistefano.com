@@ -1,0 +1,47 @@
+.page-card-list-footer {
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+.page-card {
+  color: var(--color-text);
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+  transition: all linear 0.1s;
+  background: var(--color-lightest-grey);
+  break-inside: avoid;
+}
+
+.page-card:hover,
+.page-card:focus {
+  background: var(--color-lighter-grey);
+  text-decoration: none;
+}
+
+.page-card__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: .75rem;
+  margin-top: .5rem;
+}
+
+.page-card__date {
+  font-size: 0.6rem;
+  color: var(--color-text-light);
+}
+
+.page-card__summary {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.3333rem;
+}
+
+@media (--small-viewport) {
+  .page-card__summary {
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+}
