@@ -10,16 +10,7 @@ const imageminMozjpeg = require('imagemin-mozjpeg');
 const Visualizer = require('webpack-visualizer-plugin');
 const WebpackStaticSitePlugin = require('./plugins/static-site');
 
-const entry = './index.ts';
-
 const assets = '_assets';
-
-const hmrEntry = [
-  'react-hot-loader/patch',
-  'webpack-dev-server/client?http://localhost:3000',
-  'webpack/hot/only-dev-server',
-  entry
-];
 
 const mozjpegOptions = {
   quality: 75,
@@ -27,7 +18,15 @@ const mozjpegOptions = {
 };
 
 module.exports = (env = {}) => ({
-  entry: env.production ? entry : hmrEntry,
+  entry: {
+    main: env.production ? './index.ts' : [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './index.ts'
+    ],
+    prerender: './prerender.tsx'
+  },
   output: {
     filename: env.production
       ? `${assets}/[name].[chunkhash].js`
@@ -114,7 +113,8 @@ module.exports = (env = {}) => ({
       disable: !env.production
     }),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
+      excludeChunks: ['prerender']
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
@@ -148,6 +148,10 @@ module.exports = (env = {}) => ({
             plugins: [
               imageminMozjpeg(mozjpegOptions)
             ]
+          }),
+          new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
           }),
           new Visualizer()
         ]

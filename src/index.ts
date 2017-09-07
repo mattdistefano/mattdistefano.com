@@ -1,6 +1,5 @@
 import './polyfills';
 import browserRender from './browser';
-import prerender from './prerender';
 import { PageCache } from './models';
 import { AppComponent } from './components/app/app';
 import isBrowserEnv from './utils/is-browser-env';
@@ -27,5 +26,3 @@ if (isBrowserEnv) {
     });
   }
 }
-
-export const __PRERENDERER = prerender;

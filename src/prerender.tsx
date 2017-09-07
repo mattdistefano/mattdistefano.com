@@ -26,7 +26,7 @@ const buildCache = (page: Page) =>
     }
   } as PageCache);
 
-export default (pages: Page[]) =>
+export const __PRERENDERER = (pages: Page[]) =>
   pages.reduce((prev: Prerendered, curr: Page) => {
     const initialPageCache = buildCache(curr);
 
