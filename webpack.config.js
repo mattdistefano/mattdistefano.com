@@ -19,12 +19,14 @@ const mozjpegOptions = {
 
 module.exports = (env = {}) => ({
   entry: {
-    main: env.production ? './index.ts' : [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './index.ts'
-    ],
+    main: env.production
+      ? './index.ts'
+      : [
+          'react-hot-loader/patch',
+          'webpack-dev-server/client?http://localhost:3000',
+          'webpack/hot/only-dev-server',
+          './index.ts'
+        ],
     prerender: './prerender.tsx'
   },
   output: {
@@ -63,7 +65,7 @@ module.exports = (env = {}) => ({
               gifsicle: {
                 interlaced: false
               },
-              mozjpeg: mozjpegOptions,
+              mozjpeg: mozjpegOptions
             }
           }
         ]
@@ -139,15 +141,23 @@ module.exports = (env = {}) => ({
             sourceMap: true,
             parallel: true
           }),
+          // anything in node modules that's *not* required solely by the prerender chunk
           new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            minChunks: ({ resource }) => /node_modules/.test(resource)
+            minChunks: (module, count) =>
+              /node_modules/.test(module.resource) &&
+              module.getChunks().some(chunk => chunk.name !== 'prerender')
+          }),
+          // anything in our main chunk
+          new webpack.optimize.CommonsChunkPlugin({
+            name: 'main',
+            chunks: ['main', 'prerender'],
+            minChunks: (module, count) =>
+              module.getChunks().some(chunk => chunk.name === 'main')
           }),
           new ImageminPlugin({
             test: '!\_assets/**',
-            plugins: [
-              imageminMozjpeg(mozjpegOptions)
-            ]
+            plugins: [imageminMozjpeg(mozjpegOptions)]
           }),
           new webpack.LoaderOptionsPlugin({
             minimize: true,
