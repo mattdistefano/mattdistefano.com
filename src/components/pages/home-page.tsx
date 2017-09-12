@@ -29,7 +29,7 @@ export const HomePageComponent = (props: HomePageProps) => {
     page.queries.articles.results;
 
   return (
-    <div className="home-page">
+    <div className="home-page content-container">
       <PageContentComponent
         title={page.title}
         content={page.type === 'index' && page.content}

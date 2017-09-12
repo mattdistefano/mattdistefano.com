@@ -15,7 +15,7 @@ export const BlogPageComponent = (props: BlogPageProps) => {
   }
 
   return (
-    <div className="blog-page">
+    <div className="blog-page content-container">
       <PageContentComponent
         title={page.title}
         content={page.type === 'page' ? page.content : null}

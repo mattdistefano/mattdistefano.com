@@ -3,3 +3,7 @@
   position: relative;
   max-width: 1200px;
 }
+
+.content-container {
+  max-width: 700px;
+}

@@ -15,7 +15,7 @@ export const StandardPageComponent = (props: StandardPageProps) => {
   }
 
   return (
-    <div className="standard-page">
+    <div className="standard-page content-container">
       <PageContentComponent
         title={page.title}
         content={page.type === 'page' ? page.content : null}

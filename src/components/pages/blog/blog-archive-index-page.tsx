@@ -35,7 +35,7 @@ export const BlogArchiveIndexPageComponent = (
       props.page.data.type === 'index' ? props.page.data.pages : null;
 
     return (
-      <div className="blog-archive-index-page">
+      <div className="blog-archive-index-page content-container">
         <PageContentComponent title={title} />
         <PageCardListComponent pages={pages} />
       </div>
@@ -53,7 +53,7 @@ export const BlogArchiveIndexPageComponent = (
     const title = `Blog posts in ${month}, ${props.match.params.year}`;
 
     return (
-      <div className="blog-archive-index-page">
+      <div className="blog-archive-index-page content-container">
         <PageContentComponent title={title} />
         <PageCardListComponent pages={pages} />
       </div>
@@ -64,7 +64,7 @@ export const BlogArchiveIndexPageComponent = (
     const title = `Blog posts in ${props.match.params.year}`;
 
     return (
-      <div className="blog-archive-index-page">
+      <div className="blog-archive-index-page content-container">
         <PageContentComponent title={title} />
         {props.page.data.type === 'index' &&
           props.page.data.children.map((child, idx) => {
