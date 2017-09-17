@@ -1,6 +1,4 @@
-import { Page } from './page';
-import { IndexPage } from './index-page';
-import { PageSummary } from './page-summary';
+import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 import { AsyncData } from './async-data';
 
 // TODO make configurable?

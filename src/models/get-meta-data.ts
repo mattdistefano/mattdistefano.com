@@ -1,7 +1,5 @@
+import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 import { AsyncData } from './async-data';
-import { IndexPage } from './index-page';
-import { PageSummary } from './page-summary';
-import { Page } from './page';
 import { HtmlMetaData } from './html-meta-data';
 import htmlToText from '../utils/html-to-text';
 

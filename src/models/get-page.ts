@@ -1,7 +1,5 @@
+import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 import { HttpError } from './http-error';
-import { Page } from './page';
-import { IndexPage } from './index-page';
-import { PageSummary } from './page-summary';
 import { walkPage } from './walk-page';
 
 // TODO maybe move this to a different folder?

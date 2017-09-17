@@ -1,7 +1,6 @@
+import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
+
 import {
-  Page,
-  IndexPage,
-  PageSummary,
   PageCache,
   walkPage,
   asyncDataStatus

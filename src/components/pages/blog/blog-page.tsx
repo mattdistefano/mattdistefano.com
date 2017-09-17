@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Page, PageSummary, AsyncData } from '../../../models';
+import { Page, PageSummary } from '@mattdistefano/site-generator';
+import { AsyncData } from '../../../models';
 import { PageContentComponent, PageFooterComponent } from '../../content';
 
 export interface BlogPageProps {

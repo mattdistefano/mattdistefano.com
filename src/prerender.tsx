@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-
+import { Page, PageSummary } from '@mattdistefano/site-generator';
+import { PageCache, HtmlMetaData } from './models';
 import { AppComponent, AppProps } from './components/app';
-import { IndexPage, Page, HtmlMetaData, PageCache } from './models';
 
 interface Prerendered {
   [path: string]: {

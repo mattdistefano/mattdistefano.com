@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Page } from '../../models';
+import { Page } from '@mattdistefano/site-generator';
 import { formatDate } from '../../utils/format-date';
 import { PageFooterComponent } from './page-footer';
 

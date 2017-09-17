@@ -1,8 +1,9 @@
 const path = require('path');
 const vm = require('vm');
 const sortChunks = require('webpack-sort-chunks').default;
+const generate = require('@mattdistefano/site-generator').generate;
 const toStringAsset = require('./to-string-asset');
-const readPages = require('./read-pages');
+
 
 const getRenderer = chunks => {
   const sandbox = {
@@ -113,9 +114,9 @@ class WebpackStaticSitePlugin {
         return done();
       }
 
-      const dir = await readPages(this.absDataPath);
+      const pages = await generate(this.absDataPath);
 
-      for (let page of dir) {
+      for (let page of pages) {
         // add json assets for each page
         compilation.assets[page.path.slice(1) + '.json'] = toStringAsset(
           JSON.stringify(page)
@@ -142,7 +143,7 @@ class WebpackStaticSitePlugin {
         const renderer = getRenderer(chunkAssets);
 
         // use the function to pre-render the html for the directory tree
-        const rendered = renderer(dir);
+        const rendered = renderer(pages);
 
         for (let key in rendered) {
           // add html assets for each pre-rendered page

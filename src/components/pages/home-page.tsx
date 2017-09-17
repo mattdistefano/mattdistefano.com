@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IndexPage, PageSummary, AsyncData } from '../../models';
+import { IndexPage, PageSummary } from '@mattdistefano/site-generator';
+import { AsyncData } from '../../models';
 import { PageContentComponent, PageCardListComponent } from '../content';
 
 export interface HomePageProps {

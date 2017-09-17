@@ -2,10 +2,9 @@ import * as React from 'react';
 import { Component, ComponentType } from 'react';
 import { Route, RouteProps, RouteComponentProps, Switch } from 'react-router';
 
+import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
+
 import {
-  Page,
-  IndexPage,
-  PageSummary,
   HtmlMetaData,
   AsyncData,
   PageCache,

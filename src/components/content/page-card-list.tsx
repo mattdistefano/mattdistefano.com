@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PageSummary } from '../../models';
+import { PageSummary } from '@mattdistefano/site-generator';
 import { PageCardComponent } from './page-card';
 
 export interface PageCardListProps {

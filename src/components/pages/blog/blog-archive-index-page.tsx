@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { match } from 'react-router';
 import { Link } from 'react-router-dom';
+import { IndexPage, PageSummary } from '@mattdistefano/site-generator';
 import { formatDate, months } from '../../../utils/format-date';
-import { IndexPage, AsyncData, PageSummary } from '../../../models';
+import { AsyncData } from '../../../models';
 import { PageContentComponent, PageCardListComponent } from '../../content';
 
 export interface BlogArchiveIndexMatchParams {

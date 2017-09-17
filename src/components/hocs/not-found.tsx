@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
-import { AsyncData, Page, IndexPage, PageSummary } from '../../models';
+import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
+import { AsyncData } from '../../models';
 
 export interface WithNotFoundProps {
   page: AsyncData<Page | IndexPage | PageSummary>;

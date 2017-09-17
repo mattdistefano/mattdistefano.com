@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { PageSummary } from '../../models';
+import { PageSummary } from '@mattdistefano/site-generator';
 import { formatDate } from '../../utils/format-date';
 
 export interface PageCardProps {
