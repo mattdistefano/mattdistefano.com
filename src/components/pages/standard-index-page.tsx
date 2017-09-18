@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IndexPage, PageSummary } from '@mattdistefano/site-generator';
 import { AsyncData } from '../../models';
-import { PageCardListComponent, PageContentComponent } from '../content';
+import { PageCardListComponent, PageContentComponent, QueriesComponent } from '../content';
 
 export interface StandardIndexPageProps {
   page?: AsyncData<IndexPage | PageSummary>;
@@ -22,6 +22,7 @@ export const StandardIndexPageComponent = (props: StandardIndexPageProps) => {
         content={page.type === 'index' ? page.content : null}
       />
       <PageCardListComponent pages={page.pages} />
+      <QueriesComponent queries={page.type === 'index' && page.queries} />
     </div>
   );
 };

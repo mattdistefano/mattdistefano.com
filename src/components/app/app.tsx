@@ -8,6 +8,7 @@ import {
   HtmlMetaData,
   AsyncData,
   PageCache,
+  HttpError,
   getPage,
   getMetaData,
   isStale,
@@ -24,9 +25,7 @@ import {
   StandardPageProps,
   StandardIndexPageComponent,
   BlogArchiveIndexPageComponent,
-  BlogIndexPageComponent,
-  BlogPageComponent,
-  HomePageComponent
+  BlogIndexPageComponent
 } from '../pages';
 
 import isBrowserEnv from '../../utils/is-browser-env';
@@ -45,15 +44,12 @@ const WrappedStandardPage = wrapPageComponent(StandardPageComponent);
 
 const WrappedStandardIndexPage = wrapPageComponent(StandardIndexPageComponent);
 
-const WrappedBlogPage = wrapPageComponent(BlogPageComponent);
-
 const WrappedBlogIndexPageComponent = wrapPageComponent(BlogIndexPageComponent);
 
 const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
   BlogArchiveIndexPageComponent
 );
 
-const WrappedHomePage = wrapPageComponent(HomePageComponent);
 // tslint:enable:variable-name
 
 const headerHeightPx = parseInt(headerHeight.medium, 10);
@@ -119,7 +115,15 @@ export class AppComponent extends Component<AppProps, AppState> {
 
     getPage(path)
       .then(loadedPage => this.setState(onPageLoaded(loadedPage, this.state)))
-      .catch(() => this.setState(onPageLoadingFailed(path, this.state)));
+      .catch(e => {
+        if (e instanceof HttpError) {
+          // it's a data error
+          this.setState(onPageLoadingFailed(path, this.state));
+        } else {
+          // it's another - probably rendering - error
+          throw e;
+        }
+      });
   }
 
   private _onRouteEnter(path: string) {
@@ -180,11 +184,6 @@ export class AppComponent extends Component<AppProps, AppState> {
             <main>
               <Switch>
                 <Route
-                  path="/"
-                  exact
-                  render={props => this._renderPage(WrappedHomePage, props)}
-                />
-                <Route
                   path="/blog/"
                   exact
                   render={props =>
@@ -198,10 +197,6 @@ export class AppComponent extends Component<AppProps, AppState> {
                       WrappedBlogArchiveIndexPageComponent,
                       props
                     )}
-                />
-                <Route
-                  path="/blog/:year/:month/:day/:slug"
-                  render={props => this._renderPage(WrappedBlogPage, props)}
                 />
                 <Route path="*" render={props => this._renderDefault(props)} />
               </Switch>

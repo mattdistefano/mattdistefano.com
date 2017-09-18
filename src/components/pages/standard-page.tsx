@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, PageSummary } from '@mattdistefano/site-generator';
 import { AsyncData } from '../../models';
-import { PageContentComponent } from '../content';
+import { PageContentComponent, PageFooterComponent } from '../content';
 
 export interface StandardPageProps {
   page?: AsyncData<Page | PageSummary>;
@@ -22,6 +22,7 @@ export const StandardPageComponent = (props: StandardPageProps) => {
         content={page.type === 'page' ? page.content : null}
         date={page.created}
       />
+      <PageFooterComponent page={page.type === 'page' ? page : null} />
     </div>
   );
 };
