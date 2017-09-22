@@ -36,6 +36,7 @@ export const __PRERENDERER = (pages: Page[]) =>
       title: null,
       description: null,
       content: null,
+      // TODO this should live in the generator?
       state: JSON.stringify({ initialPageCache }).replace(/</g, '\\u003c')
     };
 

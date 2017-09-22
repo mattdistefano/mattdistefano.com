@@ -8,7 +8,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const Visualizer = require('webpack-visualizer-plugin');
-const WebpackStaticSitePlugin = require('./plugins/static-site');
+const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpack-plugin').SiteGeneratorWebpackPlugin;
 
 const assets = '_assets';
 
@@ -129,7 +129,7 @@ module.exports = (env = {}) => ({
       }
     ]),
     new CleanWebpackPlugin(['dist']),
-    new WebpackStaticSitePlugin({
+    new SiteGeneratorWebpackPlugin({
       dataPath: path.resolve(__dirname, 'data'),
       prerender: env.production
     })
