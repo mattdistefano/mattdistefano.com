@@ -8,7 +8,8 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const Visualizer = require('webpack-visualizer-plugin');
-const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpack-plugin').SiteGeneratorWebpackPlugin;
+const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpack-plugin')
+  .SiteGeneratorWebpackPlugin;
 
 const assets = '_assets';
 
@@ -58,7 +59,6 @@ module.exports = (env = {}) => ({
             loader: 'image-webpack-loader',
             options: {
               bypassOnDebug: true,
-              progressive: true,
               optipng: {
                 optimizationLevel: 7
               },
@@ -110,6 +110,11 @@ module.exports = (env = {}) => ({
         env.production ? 'production' : 'development'
       )
     }),
+    new webpack.NormalModuleReplacementPlugin(/^history\//, resource => {
+      // temporary fix for https://github.com/ReactTraining/react-router/issues/5576
+      // to reduce bundle size
+      resource.request = resource.request.replace(/^history/, 'history/es');
+    }),
     new ExtractTextPlugin({
       filename: `${assets}/styles.[contenthash].css`,
       disable: !env.production
@@ -156,7 +161,7 @@ module.exports = (env = {}) => ({
               module.getChunks().some(chunk => chunk.name === 'main')
           }),
           new ImageminPlugin({
-            test: '!\_assets/**',
+            test: '!_assets/**',
             plugins: [imageminMozjpeg(mozjpegOptions)]
           }),
           new webpack.LoaderOptionsPlugin({
