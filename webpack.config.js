@@ -14,7 +14,7 @@ const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpac
 const assets = '_assets';
 
 const mozjpegOptions = {
-  quality: 75,
+  quality: 80,
   progressive: true
 };
 
