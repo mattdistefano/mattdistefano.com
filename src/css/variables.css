@@ -6,22 +6,20 @@
   --color-lighter-grey: #efefef;
   --color-light-grey: #ddd;
   --color-gray: #707070;
-  --color-gray-darker: #444;
+  --color-gray-darker: #404040;
   --color-text: var(--color-gray-darker);
   --color-text-light: var(--color-gray);
   --font-size-base: 16px;
-  --line-height-base: 1.9;
-  --font-heading: 'Raleway', sans-serif;
+  --line-height-base: 1.6;
+  --font-heading: 'Georgia', sans-serif;
   --font-copy: 'Tahoma', sans-serif;
-  --gutter-width: .75rem;
-  --gutter-width-medium-up: 2rem;
   --transition-duration: 0.3s;
   --transition-timing-function: ease;
 }
 
-@custom-media --small-viewport (min-width: 35em);
+@custom-media --small-viewport (min-width: 25em);
 
-@custom-media --medium-viewport (min-width: 55em);
+@custom-media --medium-viewport (min-width: 35em);
 
 @custom-media --large-viewport (min-width: 70em);
 

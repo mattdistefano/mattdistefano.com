@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
 import { Route, RouteProps, RouteComponentProps, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 
@@ -12,18 +13,14 @@ import {
   getPage,
   getMetaData,
   isStale,
-  isLoaded,
-  breakpoints,
-  headerHeight
+  isLoaded
 } from '../../models';
 
-import { SiteHeaderComponent } from './site-header';
 import { SiteFooterComponent } from './site-footer';
 
 import {
   StandardPageComponent,
   StandardPageProps,
-  StandardIndexPageComponent,
   BlogArchiveIndexPageComponent,
   BlogIndexPageComponent
 } from '../pages';
@@ -42,8 +39,6 @@ import {
 // tslint:disable:variable-name
 const WrappedStandardPage = wrapPageComponent(StandardPageComponent);
 
-const WrappedStandardIndexPage = wrapPageComponent(StandardIndexPageComponent);
-
 const WrappedBlogIndexPageComponent = wrapPageComponent(BlogIndexPageComponent);
 
 const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
@@ -52,20 +47,13 @@ const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
 
 // tslint:enable:variable-name
 
-const headerHeightPx = parseInt(headerHeight.medium, 10);
-
 export interface AppProps {
   initialPageCache?: PageCache;
   onMeta?: (meta: HtmlMetaData) => void;
 }
 
 export class AppComponent extends Component<AppProps, AppState> {
-  private _mq = isBrowserEnv &&
-    window.matchMedia(`(min-width: ${breakpoints.small})`);
-
   private _lastPath: string;
-
-  private _lastScrollY: number;
 
   constructor(props: AppProps) {
     super(props);
@@ -88,20 +76,11 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _restoreScroll() {
-    if (!this._mq) {
+    if (!isBrowserEnv) {
       return;
     }
 
-    // TODO this is still imperfect
-    // basically need to capture this value *before* navigation
-    // since after navigation the overall page height will be ~100vh
-    // and no scroll
-    // unless the new page content is cached
-    if (this._mq.matches && this._lastScrollY > headerHeightPx) {
-      window.scroll({ top: headerHeightPx, left: 0, behavior: 'smooth' });
-    } else {
-      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-    }
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   }
 
   private _ensurePage(path: string) {
@@ -142,7 +121,6 @@ export class AppComponent extends Component<AppProps, AppState> {
 
     if (path !== this._lastPath) {
       this._lastPath = path;
-      this._lastScrollY = isBrowserEnv ? window.scrollY : null;
     }
 
     const page = this.state.pageCache[path];
@@ -161,49 +139,44 @@ export class AppComponent extends Component<AppProps, AppState> {
         onEnter={this._onRouteEnter}
         page={page}
         {...props}
-        animDelay={2}
+        animDelay={1}
         animKey={path}
       />
     );
   }
 
-  private _renderDefault(props: RouteComponentProps<any>) {
-    if (props.match.url.endsWith('/')) {
-      return this._renderPage(WrappedStandardIndexPage, props);
-    }
-
-    return this._renderPage(WrappedStandardPage, props);
-  }
-
   render() {
     return (
-      <div>
-        <Route component={SiteHeaderComponent} />
-        <div className="container">
-          <div className="site-content">
-            <main>
-              <Switch>
-                <Route
-                  path="/blog/"
-                  exact
-                  render={props =>
-                    this._renderPage(WrappedBlogIndexPageComponent, props)}
-                />
-                <Route
-                  path="/blog/:year/:month?/:day?/"
-                  exact
-                  render={props =>
-                    this._renderPage(
-                      WrappedBlogArchiveIndexPageComponent,
-                      props
-                    )}
-                />
-                <Route path="*" render={props => this._renderDefault(props)} />
-              </Switch>
-            </main>
-            <SiteFooterComponent />
-          </div>
-        </div>
+      <div className="site">
+        <header className="site-header">
+          <Link to="/" className="site-header__link">
+            <span className="site-header__first">matt</span>distefano.com
+          </Link>
+        </header>
+
+        <main className="site-main">
+          <Switch>
+            <Route
+              path="/blog/"
+              exact
+              render={props =>
+                this._renderPage(WrappedBlogIndexPageComponent, props)
+              }
+            />
+            <Route
+              path="/blog/:year/:month?/:day?/"
+              exact
+              render={props =>
+                this._renderPage(WrappedBlogArchiveIndexPageComponent, props)
+              }
+            />
+            <Route
+              path="*"
+              render={props => this._renderPage(WrappedStandardPage, props)}
+            />
+          </Switch>
+        </main>
+        <SiteFooterComponent />
       </div>
     );
   }

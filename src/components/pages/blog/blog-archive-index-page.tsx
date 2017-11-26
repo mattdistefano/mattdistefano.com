@@ -25,7 +25,7 @@ export const BlogArchiveIndexPageComponent = (
   props: BlogArchiveIndexPageProps
 ) => {
   if (!props.page || !props.page.data) {
-    return <div>Loading!</div>;
+    return <div className="container text-center">Loading!</div>;
   }
 
   if (props.match.params.day) {
@@ -36,8 +36,8 @@ export const BlogArchiveIndexPageComponent = (
       props.page.data.type === 'index' ? props.page.data.pages : null;
 
     return (
-      <div className="blog-archive-index-page content-container">
-        <PageContentComponent title={title} />
+      <div className="blog-archive-index-page container">
+        <h1>{title}</h1>
         <PageCardListComponent pages={pages} />
       </div>
     );
@@ -54,8 +54,8 @@ export const BlogArchiveIndexPageComponent = (
     const title = `Blog posts in ${month}, ${props.match.params.year}`;
 
     return (
-      <div className="blog-archive-index-page content-container">
-        <PageContentComponent title={title} />
+      <div className="blog-archive-index-page container">
+        <h1>{title}</h1>
         <PageCardListComponent pages={pages} />
       </div>
     );
@@ -65,8 +65,8 @@ export const BlogArchiveIndexPageComponent = (
     const title = `Blog posts in ${props.match.params.year}`;
 
     return (
-      <div className="blog-archive-index-page content-container">
-        <PageContentComponent title={title} />
+      <div className="blog-archive-index-page container">
+        <h1>{title}</h1>
         {props.page.data.type === 'index' &&
           props.page.data.children.map((child, idx) => {
             const monthPath = child.path.slice(props.page.data.path.length, -1);

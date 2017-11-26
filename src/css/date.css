@@ -1,0 +1,33 @@
+
+.date {
+  text-align: center;
+  flex-grow: 0;
+  font-weight: normal;
+}
+
+.date__day {
+  font-size: 2rem;
+  display: block;
+  line-height: 1;
+  margin-top: -2px;
+  margin-bottom: 0.25rem;
+}
+
+.date__month-year {
+  font-size: 0.75rem;
+  display: block;
+  color: var(--color-gray);
+  white-space: nowrap;
+}
+
+@media (--medium-viewport) {
+  .date__day { 
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .date.date--small .date__day {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+  }
+}

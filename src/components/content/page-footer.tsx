@@ -24,22 +24,20 @@ export const PageFooterComponent = (props: PageFooterProps) => {
     (page.queries && page.queries.next && page.queries.next.results[0]);
 
   const prev = prevPage ? (
-    <div className="page-footer__item page-footer__prev">
-      <h2 className="h4 page-footer__item-heading">Previously on...</h2>
-      <PageCardComponent className="page-footer__card" page={prevPage} />
+    <div className="card-list__item">
+      <PageCardComponent page={prevPage} headingText="Previous..." />
     </div>
   ) : null;
 
   const next = nextPage ? (
-    <div className="page-footer__item page-footer__next">
-      <h2 className="h4 page-footer__item-heading">Next on...</h2>
-      <PageCardComponent className="page-footer__card" page={nextPage} />
+    <div className="card-list__item">
+      <PageCardComponent page={nextPage} headingText="Next..." />
     </div>
   ) : null;
 
   return (
-    <div className="page-footer">
+    <footer className="card-list">
       {prev} {next}
-    </div>
+    </footer>
   );
 };

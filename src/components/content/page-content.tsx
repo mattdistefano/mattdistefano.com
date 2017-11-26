@@ -1,39 +1,52 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '@mattdistefano/site-generator';
-import { formatDate } from '../../utils/format-date';
-import { PageFooterComponent } from './page-footer';
+import { DateComponent } from './date';
 
 export interface PageContentProps {
   title?: string;
   date?: string;
+  bannerUrl?: string;
+  bannerAlt?: string;
   content?: string;
   className?: string;
+  children?: JSX.Element;
 }
 
 // tslint:disable-next-line:variable-name
 export const PageContentComponent = (props: PageContentProps) => {
+  if (!props.title) {
+    return <div>{props.children}</div>;
+  }
+
   const title = { __html: props.title };
+
+  if (!props.bannerUrl && !props.content) {
+    return <h1 dangerouslySetInnerHTML={title}></h1>;
+  }
+
   const content = { __html: props.content };
 
-  const time = props.date
-    ? <time className="page-content__date" dateTime={props.date}>
-        {formatDate(props.date)}
-      </time>
-    : null;
+  const banner = props.bannerUrl ? (
+    <div>
+      <img src={props.bannerUrl} alt={props.bannerAlt} className="page-header__img" />
+      <div className="page-header__img-meta">{props.bannerAlt}</div>
+    </div>
+  ) : null;
 
   return (
     <div className={`page-content ${props.className || ''}`}>
-      <h1 className="page-content__title">
-        {time}
-        <div dangerouslySetInnerHTML={title} />
-      </h1>
-      {content.__html
-        ? <div
-            className="page-content__body"
-            dangerouslySetInnerHTML={content}
-          />
-        : null}
+      <div className="page-header">
+        <h1 className="page-title">
+          <DateComponent date={props.date} className="page-title__date" />
+          <span dangerouslySetInnerHTML={title} />
+        </h1>
+        {banner}
+      </div>
+      {content.__html ? (
+        <div className="page-content__body" dangerouslySetInnerHTML={content} />
+      ) : null}
+      {props.children}
     </div>
   );
 };

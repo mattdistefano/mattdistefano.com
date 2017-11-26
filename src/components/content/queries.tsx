@@ -15,7 +15,7 @@ interface QueryProps {
 const QueryComponent = (props: QueryProps) =>
   props.query && props.query.results && props.query.results.length > 0 ? (
     <div>
-      <h2 className="h3">{props.title}</h2>
+      <h2 className="h3 text-center">{props.title}</h2>
       <PageCardListComponent pages={props.query.results} />
     </div>
   ) : null;

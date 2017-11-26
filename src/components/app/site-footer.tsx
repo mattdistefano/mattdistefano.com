@@ -27,14 +27,15 @@ const footerLinks: SiteFooterContactLinkProps[] = [
 ];
 
 // tslint:disable-next-line:variable-name
-const SiteFooterContactLink = (props: SiteFooterContactLinkProps) =>
+const SiteFooterContactLink = (props: SiteFooterContactLinkProps) => (
   <a className="action-icon contact-links__action-icon" href={props.href}>
     <IconComponent
       name={props.icon}
       title={`matt distefano on ${props.icon}`}
       size={22}
     />
-  </a>;
+  </a>
+);
 
 const year = new Date().getFullYear();
 
@@ -42,10 +43,13 @@ const year = new Date().getFullYear();
 export class SiteFooterComponent extends PureComponent<SiteFooterProps> {
   render() {
     return (
-      <footer className={`site-footer ${this.props.className || ''}`}>
-        <h2 className="site-footer__heading">
-          &copy; {year} Matt Distefano
-        </h2>
+      <footer className={`site-footer container ${this.props.className || ''}`}>
+        <h2 className="site-footer__heading h5">&copy; {year} Matt Distefano</h2>
+        <p>
+          I'm a web developer with 12 years of experience in the financial
+          industry. I write about many aspects of web development, with a focus
+          on modern frontend stacks, accessibility, and UX design.
+        </p>
         <p>
           Site built with a whole buncha stuff.{' '}
           <a href="https://github.com/mattdistefano/mattdistefano.com">
@@ -53,11 +57,11 @@ export class SiteFooterComponent extends PureComponent<SiteFooterProps> {
           </a>.
         </p>
         <ul className="contact-links list-unstyled">
-          {footerLinks.map((link, index) =>
+          {footerLinks.map((link, index) => (
             <li key={index} className="contact-links__item">
               <SiteFooterContactLink {...link} />
             </li>
-          )}
+          ))}
         </ul>
       </footer>
     );

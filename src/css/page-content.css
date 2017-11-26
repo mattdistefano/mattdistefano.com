@@ -1,36 +1,64 @@
 .page-content {
-}
-
-.page-content__title {
-  margin-top: 0;
-}
-
-.page-content__date {
-  font-weight: normal;
-  font-family: var(--font-copy);
-  font-size: 0.75rem;
-  color: var(--color-text-light);
-  display: block;
-  position: relative;
-  margin-left: 2px;
-  line-height: 1rem;
-}
-
-.page-content__date + .page-content__title {
-  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .page-content__body {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
-.page-content__body p:first-child {
-  font-size: 1.1rem;
-  line-height: 1.75rem;
-  font-weight: 100;
+.page-header {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.page-header__img {
+  display: block;
+}
+
+.page-header__img-meta {
+  font-size: 0.65rem;
+  color: var(--color-text-light);
+  text-align: right;
+  margin-top: 0.25rem;
+  margin-right: 0.5rem;
+  font-style:italic;
+}
+
+.page-title {
+  margin: 1rem 0 2rem 0;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  overflow: hidden;
+}
+
+.page-title:only-child {
   margin-top: 0;
 }
 
-.page-content__body img {
-  margin: 8px 0;
+.page-title--small {
+  font-size: 0.875rem;
+  margin: 1rem 0;
+  line-height: 1.75;
+}
+
+.page-title__date {
+  align-self: flex-start;
+  padding-right: 2rem;
+  position: relative;
+}
+
+.page-title__date:before {
+  /* 
+  even with flexbox the date border ends up not quite right
+  so we fake it with a psueodoelement
+  TODO find a better way to fix this
+  */
+  position: absolute;
+  content: '';
+  display: block;
+  right: 1rem;
+  top: -1rem;
+  bottom: -10rem;
+  border-right: 1px solid var(--color-gray);
 }

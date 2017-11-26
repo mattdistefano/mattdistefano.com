@@ -6,7 +6,7 @@
   text-decoration: none;
   display: inline-block;
   position: relative;
-  transition: all ease 0.1s;
+  transition: all var(--transition-timing-function) var(--transition-duration);
   min-width: 8rem;
   text-align: center;
 }
@@ -22,7 +22,7 @@
   border-width: 5px 0 5px 6px;
   border-color: transparent transparent transparent var(--color-primary-alt);
   opacity: 0;
-  transition: all ease 0.1s;
+  transition: all var(--transition-timing-function) var(--transition-duration);
 }
 
 .button:hover,

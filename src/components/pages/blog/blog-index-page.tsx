@@ -29,7 +29,7 @@ export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
   const page = props.page && props.page.data;
 
   if (!page) {
-    return <div>Loading!</div>;
+    return <div className="container text-center">Loading!</div>;
   }
 
   const pages =
@@ -48,8 +48,8 @@ export const BlogIndexPageComponent = (props: BlogIndexPageProps) => {
     }));
 
   return (
-    <div className="blog-index-page content-container">
-      <PageContentComponent title={page.title} content={page.type === 'index' ? page.content : null} />
+    <div className="blog-index-page container">
+      <h1>{page.title}</h1>
       <PageCardListComponent pages={pages} />
       <h2>Archive</h2>
       {archivePages.map(p =>
