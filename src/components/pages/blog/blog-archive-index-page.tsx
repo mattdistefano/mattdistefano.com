@@ -20,6 +20,109 @@ export interface BlogArchiveIndexPageProps {
 const flattenChildren = (page: IndexPage | PageSummary) =>
   page.children.reduce((a, b) => a.concat(b.pages), [] as PageSummary[]);
 
+interface BlogArchiveDayProps {
+  title: string;
+  pages: PageSummary[];
+}
+
+// tslint:disable-next-line:variable-name
+const BlogArchiveDayComponent = (props: BlogArchiveDayProps) => (
+  <div>
+    <h2>{props.title}</h2>
+    <PageCardListComponent pages={props.pages} />
+  </div>
+);
+
+interface BlogArchiveMonthProps {
+  title: string;
+  pages: PageSummary[];
+}
+
+// tslint:disable-next-line:variable-name
+const BlogArchiveMonthComponent = (props: BlogArchiveMonthProps) => (
+  <div>
+    <h2>{props.title}</h2>
+    <PageCardListComponent pages={props.pages} />
+  </div>
+);
+
+interface BlogArchiveYearProps {
+  year: string;
+  pages: PageSummary[];
+}
+
+// tslint:disable-next-line:variable-name
+const BlogArchiveYearComponent = (props: BlogArchiveYearProps) => (
+  <div>
+    {props.pages.map((page, idx) => {
+      const monthPath = page.path.substr(11, 2);
+
+      const month = months[parseInt(monthPath, 10) - 1];
+
+      return (
+        <BlogArchiveMonthComponent
+          key={idx}
+          title={`${month}, ${props.year}`}
+          pages={flattenChildren(page)}
+        />
+      );
+    })}
+  </div>
+);
+
+const componentForMatch = (props: BlogArchiveIndexPageProps) => {
+  if (props.match.params.day) {
+    const pages =
+      props.page.data.type === 'index' ? props.page.data.pages : null;
+
+    const month = months[parseInt(props.match.params.month, 10) - 1];
+
+    return (
+      <BlogArchiveDayComponent
+        title={`${month} ${props.match.params.day}, ${props.match.params.year}`}
+        pages={pages}
+      />
+    );
+  }
+
+  if (props.match.params.month) {
+    const pages =
+      props.page.data.type === 'index'
+        ? flattenChildren(props.page.data)
+        : null;
+
+    const month = months[parseInt(props.match.params.month, 10) - 1];
+
+    return (
+      <BlogArchiveMonthComponent
+        title={`${month}, ${props.match.params.year}`}
+        pages={pages}
+      />
+    );
+  }
+
+  if (props.match.params.year) {
+    const pages = props.page.data.type === 'index' && props.page.data.children;
+
+    return (
+      <BlogArchiveYearComponent year={props.match.params.year} pages={pages} />
+    );
+  }
+
+  return (
+    <div>
+      {props.page.data.type === 'index' &&
+        props.page.data.children.map(page => (
+          <BlogArchiveYearComponent
+            year={page.path.substr(props.match.url.length, 4)}
+            pages={page.children}
+            key={page.path}
+          />
+        ))}
+    </div>
+  );
+};
+
 // tslint:disable-next-line:variable-name
 export const BlogArchiveIndexPageComponent = (
   props: BlogArchiveIndexPageProps
@@ -28,61 +131,10 @@ export const BlogArchiveIndexPageComponent = (
     return <div className="container text-center">Loading!</div>;
   }
 
-  if (props.match.params.day) {
-    const title = `Blog posts on ${props.match.params.year}/${props.match.params
-      .month}/${props.match.params.day}`;
-
-    const pages =
-      props.page.data.type === 'index' ? props.page.data.pages : null;
-
-    return (
-      <div className="blog-archive-index-page container">
-        <h1>{title}</h1>
-        <PageCardListComponent pages={pages} />
-      </div>
-    );
-  }
-
-  if (props.match.params.month) {
-    const month = months[parseInt(props.match.params.month, 10) - 1];
-
-    const pages =
-      props.page.data.type === 'index'
-        ? flattenChildren(props.page.data)
-        : null;
-
-    const title = `Blog posts in ${month}, ${props.match.params.year}`;
-
-    return (
-      <div className="blog-archive-index-page container">
-        <h1>{title}</h1>
-        <PageCardListComponent pages={pages} />
-      </div>
-    );
-  }
-
-  if (props.match.params.year) {
-    const title = `Blog posts in ${props.match.params.year}`;
-
-    return (
-      <div className="blog-archive-index-page container">
-        <h1>{title}</h1>
-        {props.page.data.type === 'index' &&
-          props.page.data.children.map((child, idx) => {
-            const monthPath = child.path.slice(props.page.data.path.length, -1);
-
-            const month = months[parseInt(monthPath, 10) - 1];
-
-            return (
-              <div key={idx}>
-                <h2>
-                  {month}, {props.match.params.year}
-                </h2>
-                <PageCardListComponent pages={flattenChildren(child)} />
-              </div>
-            );
-          })}
-      </div>
-    );
-  }
+  return (
+    <div className="blog-archive-index-page container">
+      <h1 className="text-center">Blog archive</h1>
+      {componentForMatch(props)}
+    </div>
+  );
 };

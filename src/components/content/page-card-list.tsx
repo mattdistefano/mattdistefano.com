@@ -4,6 +4,7 @@ import { PageCardComponent } from './page-card';
 
 export interface PageCardListProps {
   pages: PageSummary[];
+  children?: JSX.Element;
 }
 
 // tslint:disable-next-line:variable-name
@@ -15,5 +16,10 @@ export const PageCardListComponent = (props: PageCardListProps) =>
           <PageCardComponent page={page} />
         </li>
       ))}
+      {props.children && (
+        <li className="card-list__item card-list__item-more" key="child">
+          {props.children}
+        </li>
+      )}
     </ul>
   ) : null;

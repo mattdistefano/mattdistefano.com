@@ -1,6 +1,6 @@
 .card-list {
   list-style: none;
-  margin: -0.5rem -1rem 0.5rem -1rem;
+  margin: 0 -1rem 2rem -1rem;
   padding: 0;
 }
 
@@ -8,6 +8,11 @@
   padding: 0.5rem;
   max-width: 25rem;
   margin: 0 auto;
+}
+
+.card-list__item.card-list__item-more {
+  text-align: center;
+  align-self: center;
 }
 
 @media (--small-viewport) {

@@ -22,7 +22,6 @@ import {
   StandardPageComponent,
   StandardPageProps,
   BlogArchiveIndexPageComponent,
-  BlogIndexPageComponent
 } from '../pages';
 
 import isBrowserEnv from '../../utils/is-browser-env';
@@ -38,8 +37,6 @@ import {
 
 // tslint:disable:variable-name
 const WrappedStandardPage = wrapPageComponent(StandardPageComponent);
-
-const WrappedBlogIndexPageComponent = wrapPageComponent(BlogIndexPageComponent);
 
 const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
   BlogArchiveIndexPageComponent
@@ -157,14 +154,7 @@ export class AppComponent extends Component<AppProps, AppState> {
         <main className="site-main">
           <Switch>
             <Route
-              path="/blog/"
-              exact
-              render={props =>
-                this._renderPage(WrappedBlogIndexPageComponent, props)
-              }
-            />
-            <Route
-              path="/blog/:year/:month?/:day?/"
+              path="/blog/:year?/:month?/:day?/"
               exact
               render={props =>
                 this._renderPage(WrappedBlogArchiveIndexPageComponent, props)
