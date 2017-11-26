@@ -60,7 +60,7 @@ h2,
   font-family: var(--font-heading);
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  margin-top: 0;
+  margin-top: 1.5rem;
 }
 
 h3,
@@ -68,7 +68,7 @@ h3,
   font-family: var(--font-heading);
   font-size: 1.125rem;
   margin-bottom: 1rem;
-  margin-top: 0;
+  margin-top: 1.5rem;
 }
 
 h4,
@@ -76,7 +76,7 @@ h4,
   font-family: var(--font-heading);
   font-size: 1rem;
   margin-bottom: 1rem;
-  margin-top: 0;
+  margin-top: 1.5rem;
 }
 
 h5,
@@ -84,13 +84,14 @@ h5,
   font-family: var(--font-heading);
   font-size: 0.875rem;
   margin-bottom: 1rem;
-  margin-top: 0;
+  margin-top: 1.5rem;
 }
 
 ul,
 ol {
   padding-left: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  margin-top: 0;
   margin-bottom: 1rem;
 }
 
@@ -118,14 +119,15 @@ pre {
 }
 
 code {
-  background: var(--color-lightest-grey);
-  font-size: 0.8rem;
+  background: var(--color-lighter-grey);
+  font-size: 1rem;
   font-family: monospace;
   border-radius: 2px;
   padding: 2px 4px;
 }
 
 pre > code {
+  font-size: 0.875rem;
   display: block;
   margin: 0 -1rem;
   padding: 0.5rem 1rem;
