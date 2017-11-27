@@ -11,6 +11,10 @@
   flex-direction: column-reverse;
 }
 
+.page-header__img-container {
+  margin: 0 -1.5rem;
+}
+
 .page-header__img {
   display: block;
 }
@@ -21,7 +25,7 @@
   text-align: right;
   margin-top: 0.25rem;
   margin-right: 0.5rem;
-  font-style:italic;
+  font-style: italic;
 }
 
 .page-title {

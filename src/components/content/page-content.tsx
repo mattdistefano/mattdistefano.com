@@ -28,7 +28,7 @@ export const PageContentComponent = (props: PageContentProps) => {
   const content = { __html: props.content };
 
   const banner = props.bannerUrl ? (
-    <div>
+    <div className="page-header__img-container">
       <img src={props.bannerUrl} alt={props.bannerAlt} className="page-header__img" />
       <div className="page-header__img-meta">{props.bannerAlt}</div>
     </div>

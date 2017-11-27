@@ -1,7 +1,7 @@
 .container {
   margin: 0 auto;
   max-width: 700px;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 @media (--xlarge-viewport) {
@@ -19,7 +19,6 @@
 .site-header {
   font-size: 0.875rem;
   text-align: center;
-  padding: 1rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -30,6 +29,8 @@
 }
 
 .site-header__link {
+  padding: 1rem;
+  display: inline-block;
   color: var(--color-text);
   text-decoration: none;
   transition: all var(--transition-timing-function) var(--transition-duration);
@@ -45,7 +46,7 @@
 }
 
 .site-main {
-  padding-top: 66px;
+  padding-top: 55px;
   flex-grow: 1;
 }
 
@@ -56,6 +57,10 @@
   border-top: 1px solid var(--color-light-grey);
   font-size: 0.75rem;
   color: #666;
+}
+
+.site-footer__heading {
+  margin-top: 0;
 }
 
 .contact-links {
