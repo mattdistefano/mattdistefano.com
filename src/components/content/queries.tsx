@@ -15,15 +15,19 @@ interface QueryProps {
 // tslint:disable-next-line:variable-name
 const QueryComponent = (props: QueryProps) =>
   props.query && props.query.results && props.query.results.length > 0 ? (
-    <div>
+    <div className="query">
       <h2 className="h3 text-center">{props.title}</h2>
-      <PageCardListComponent pages={props.query.results}>
+      <PageCardListComponent pages={props.query.results} />
+      <div className="text-center query__more">
         {props.query.linkText && (
-          <Link className="button" to={props.query.root || props.query.path}>
+          <Link
+            className="button"
+            to={props.query.root || props.query.path}
+          >
             {props.query.linkText}
           </Link>
         )}
-      </PageCardListComponent>
+      </div>
     </div>
   ) : null;
 

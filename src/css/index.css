@@ -8,6 +8,7 @@
 @import "action-icon";
 @import "animations";
 @import "video-embed";
+@import "query";
 @import "page-content";
 
 /* .page-list::before {

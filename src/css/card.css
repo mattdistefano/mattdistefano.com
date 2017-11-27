@@ -11,12 +11,6 @@
   margin: 0 auto;
 }
 
-.card-list__item.card-list__item-more {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 @media (--small-viewport) {
   .card-list {
     display: flex;
@@ -48,6 +42,10 @@
 .card.card--link:hover,
 .card.card--link:focus {
   background-color: var(--color-lighter-grey);
+}
+
+.card__heading {
+  margin-top: 0;
 }
 
 .card__image {
