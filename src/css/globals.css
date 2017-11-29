@@ -58,9 +58,9 @@ h1, .h1 {
 h2,
 .h2 {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-bottom: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 h3,
@@ -68,7 +68,7 @@ h3,
   font-family: var(--font-heading);
   font-size: 1.125rem;
   margin-bottom: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 h4,
@@ -76,7 +76,7 @@ h4,
   font-family: var(--font-heading);
   font-size: 1rem;
   margin-bottom: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 h5,
@@ -84,7 +84,7 @@ h5,
   font-family: var(--font-heading);
   font-size: 0.875rem;
   margin-bottom: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 ul,
@@ -96,7 +96,7 @@ ol {
 }
 
 li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   break-inside: avoid;
 }
 

@@ -1,7 +1,7 @@
 .container {
   margin: 0 auto;
   max-width: 700px;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
 @media (--xlarge-viewport) {
