@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '@mattdistefano/site-generator';
 import { DateComponent } from './date';
+import { PreRenderedContentComponent } from './pre-rendered-content';
 
 export interface PageContentProps {
   title?: string;
@@ -25,8 +26,6 @@ export const PageContentComponent = (props: PageContentProps) => {
     return <h1 dangerouslySetInnerHTML={title}></h1>;
   }
 
-  const content = { __html: props.content };
-
   const banner = props.bannerUrl ? (
     <div className="page-header__img-container">
       <img src={props.bannerUrl} alt={props.bannerAlt} className="page-header__img" />
@@ -43,8 +42,8 @@ export const PageContentComponent = (props: PageContentProps) => {
         </h1>
         {banner}
       </div>
-      {content.__html ? (
-        <div className="page-content__body" dangerouslySetInnerHTML={content} />
+      {props.content ? (
+        <PreRenderedContentComponent className="page-content__body" html={props.content} />
       ) : null}
       {props.children}
     </div>
