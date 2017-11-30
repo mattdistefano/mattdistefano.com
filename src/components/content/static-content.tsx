@@ -1,25 +1,32 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { RouterChildContext } from 'react-router';
-import { Link } from 'react-router-dom';
 
-export interface PreRenderedContentProps {
+export interface StaticContentProps {
   html?: string;
   className?: string;
 }
 
-const isModifiedEvent = (e: MouseEvent) =>
+const isModifiedEvent = (e: React.MouseEvent<any>) =>
   !!(e.metaKey || e.altKey || e.ctrlKey || e.shiftKey);
 
-const nearestAnchor = (elem: HTMLElement) => {
-  let candidate = elem;
+const getNearest = (
+  branch: HTMLElement,
+  root: HTMLElement,
+  tagName: string
+) => {
+  let candidate = branch;
 
-  while (candidate && candidate.tagName !== 'A') {
-    candidate = candidate.parentElement;
+  while (candidate && candidate.tagName !== tagName) {
+    candidate =
+      candidate.parentElement === root ? null : candidate.parentElement;
   }
 
   return candidate as HTMLAnchorElement;
 };
+
+const hasTarget = (anchor: HTMLAnchorElement) =>
+  anchor.target && anchor.target !== '_self';
 
 const isSameDomain = (anchor: HTMLAnchorElement) =>
   anchor &&
@@ -28,32 +35,33 @@ const isSameDomain = (anchor: HTMLAnchorElement) =>
   anchor.protocol === window.location.protocol &&
   anchor.host === window.location.host;
 
+const fileRegex = /\.[a-zA-Z0-9]{2,4}$/;
+
+const isProbablyFile = (anchor: HTMLAnchorElement) =>
+  anchor && anchor.pathname && fileRegex.test(anchor.pathname);
+
+const isClientRoutable = (anchor: HTMLAnchorElement) =>
+  anchor &&
+  isSameDomain(anchor) &&
+  !hasTarget(anchor) &&
+  !isProbablyFile(anchor);
+
 // tslint:disable-next-line:variable-name
-export class PreRenderedContentComponent extends React.Component<
-  PreRenderedContentProps,
-  {}
+export class StaticContentComponent extends React.Component<
+  StaticContentProps
 > {
-  private _elem: HTMLElement;
-
-  constructor(props: PreRenderedContentProps, context: RouterChildContext<{}>) {
+  constructor(props: StaticContentProps, context: RouterChildContext<{}>) {
     super(props, context);
-
-    this._onClick = this._onClick.bind(this);
-    this._onRef = this._onRef.bind(this);
   }
 
-  _onClick(e: MouseEvent) {
+  private _onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.defaultPrevented || e.button !== 0 || isModifiedEvent(e)) {
       return;
     }
 
-    const anchor = nearestAnchor(e.target as HTMLElement);
+    const anchor = getNearest(e.target as HTMLElement, e.currentTarget, 'A');
 
-    if (
-      !anchor ||
-      (anchor.target && anchor.target !== '_self') ||
-      !isSameDomain(anchor)
-    ) {
+    if (!isClientRoutable(anchor)) {
       return;
     }
 
@@ -65,30 +73,14 @@ export class PreRenderedContentComponent extends React.Component<
     });
   }
 
-  _onRef(elem: HTMLElement) {
-    this._elem = elem;
-  }
-
-  componentDidMount() {
-    if (this._elem) {
-      this._elem.addEventListener('click', this._onClick);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this._elem) {
-      this._elem.removeEventListener('click', this._onClick);
-    }
-  }
-
   render() {
     const html = { __html: this.props.html };
 
     return (
       <div
         className={this.props.className}
+        onClick={this._onClick}
         dangerouslySetInnerHTML={html}
-        ref={this._onRef}
       />
     );
   }

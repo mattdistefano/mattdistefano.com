@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '@mattdistefano/site-generator';
 import { DateComponent } from './date';
-import { PreRenderedContentComponent } from './pre-rendered-content';
+import { StaticContentComponent } from './static-content';
 
 export interface PageContentProps {
   title?: string;
@@ -43,7 +43,7 @@ export const PageContentComponent = (props: PageContentProps) => {
         {banner}
       </div>
       {props.content ? (
-        <PreRenderedContentComponent className="page-content__body" html={props.content} />
+        <StaticContentComponent className="page-content__body" html={props.content} />
       ) : null}
       {props.children}
     </div>
