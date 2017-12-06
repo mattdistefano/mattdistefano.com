@@ -23,11 +23,11 @@
 @media (--medium-viewport) {
   .date__day { 
     font-size: 3rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
   }
 
   .date.date--small .date__day {
     font-size: 1.75rem;
-    margin-bottom: 0;
+    margin-bottom: 0.05rem;
   }
 }
