@@ -17,15 +17,6 @@ export const PageCardComponent = (props: PageCardProps) => {
     <h2 className="h4 card__heading">{props.headingText}</h2>
   ) : null;
 
-  const banner = props.page.bannerUrl ? (
-    <div
-      className="card__image"
-      style={{ backgroundImage: `url(${props.page.bannerUrl})` }}
-    >
-      <span className="sr-only">{props.page.bannerAlt}></span>
-    </div>
-  ) : null;
-
   return (
     <Link className="card card--link" to={props.page.path}>
       {heading}
@@ -34,7 +25,6 @@ export const PageCardComponent = (props: PageCardProps) => {
           <DateComponent date={props.page.created} className="date--small page-title__date" />
           <span dangerouslySetInnerHTML={title} />
         </h3>
-        {banner}
       </div>
       <p className="card__summary">{props.page.summary}</p>
     </Link>
