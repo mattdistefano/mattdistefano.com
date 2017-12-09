@@ -4,6 +4,20 @@
 
 .page-content__body {
   margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.page-content__body:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  width: 2.5rem;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--color-lighter-grey);
 }
 
 .page-header {

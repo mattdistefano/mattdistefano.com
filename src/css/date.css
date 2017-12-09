@@ -20,6 +20,10 @@
   white-space: nowrap;
 }
 
+.date.date--small .date__day {
+  margin-bottom: 0;
+}
+
 @media (--medium-viewport) {
   .date__day { 
     font-size: 3rem;
