@@ -24,7 +24,13 @@ export const PageContentComponent = (props: PageContentProps) => {
   const title = { __html: props.title };
 
   if (!props.bannerUrl && !props.content) {
-    return <h1 dangerouslySetInnerHTML={title} />;
+    return (
+      <div className={`page-content ${props.className || ''}`}>
+        <div className="page-header page-content__header">
+          <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
+        </div>
+      </div>
+    );
   }
 
   const banner = props.bannerUrl ? (
