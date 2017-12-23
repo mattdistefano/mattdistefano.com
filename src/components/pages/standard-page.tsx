@@ -33,6 +33,7 @@ export const StandardPageComponent = (props: StandardPageProps) => {
     <div className="standard-page container">
       <PageContentComponent
         title={page.title}
+        summary={page.summary}
         content={page.type !== 'summary' ? page.content : null}
         date={page.created}
         bannerUrl={page.bannerUrl}

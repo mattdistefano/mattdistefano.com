@@ -10,6 +10,7 @@
   min-width: 8rem;
   text-align: center;
   display: inline-block;
+  font-family: var(--font-accent);
 }
 
 .button::after {

@@ -24,7 +24,9 @@ const visitQueries = (page: IndexPage, onItem: walkPageOnItem) => {
   if (page.queries) {
     Object.keys(page.queries).forEach(key =>
       page.queries[key].results.forEach(item => {
-        visitDescendants(item, onItem);
+        if (item.type === 'index' || item.type === 'summary') {
+          visitDescendants(item, onItem);
+        }
         onItem(item);
       })
     );

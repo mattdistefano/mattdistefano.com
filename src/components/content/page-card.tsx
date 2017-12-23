@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { PageSummary } from '@mattdistefano/site-generator';
+import { PageSummary, Page, IndexPage } from '@mattdistefano/site-generator';
 import { DateComponent } from './date';
 
 export interface PageCardProps {
-  page?: PageSummary;
+  page?: PageSummary | Page | IndexPage;
   className?: string;
   headingText?: string;
 }
@@ -20,12 +20,8 @@ export const PageCardComponent = (props: PageCardProps) => {
   return (
     <Link className="card card--link" to={props.page.path}>
       {heading}
-      <div className="page-header">
-        <h3 className="page-title page-title--small">
-          <DateComponent date={props.page.created} className="date--small page-title__date" />
-          <span dangerouslySetInnerHTML={title} />
-        </h3>
-      </div>
+      <h3 className="card__title" dangerouslySetInnerHTML={title} />
+      <DateComponent className="card__date" date={props.page.created} />
       <p className="card__summary">{props.page.summary}</p>
     </Link>
   );

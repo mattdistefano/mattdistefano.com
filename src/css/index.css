@@ -1,7 +1,6 @@
 @import "variables";
 @import "globals";
 @import "site";
-@import "date";
 @import "card";
 @import "button";
 @import "utility";
@@ -11,14 +10,4 @@
 @import "query";
 @import "page-content";
 
-/* .page-list::before {
-  position: absolute;
-  top: 0;
-  left: -1000px;
-  right: -1000px;
-  bottom: 0;
-  background-color: #fafafa;
-  z-index: 1;
-  content: '';
-} */
 

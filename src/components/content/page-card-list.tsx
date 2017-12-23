@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { PageSummary } from '@mattdistefano/site-generator';
+import { PageSummary, Page, IndexPage } from '@mattdistefano/site-generator';
 import { PageCardComponent } from './page-card';
 
 export interface PageCardListProps {
-  pages: PageSummary[];
+  pages: Array<PageSummary | Page | IndexPage>;
 }
 
 // tslint:disable-next-line:variable-name

@@ -6,13 +6,15 @@
   --color-lighter-grey: #efefef;
   --color-light-grey: #ddd;
   --color-gray: #707070;
+  --color-gray-dark: #505050;
   --color-gray-darker: #404040;
   --color-text: var(--color-gray-darker);
   --color-text-light: var(--color-gray);
   --font-size-base: 16px;
-  --line-height-base: 1.6;
-  --font-heading: 'Georgia', sans-serif;
-  --font-copy: 'Tahoma', sans-serif;
+  --line-height-base: 1.71;
+  --font-heading: 'Georgia', serif;
+  --font-copy: 'Georgia', serif;
+  --font-accent: 'Tahoma', sans-serif;
   --transition-duration: 0.3s;
   --transition-timing-function: ease;
 }

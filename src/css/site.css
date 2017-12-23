@@ -26,6 +26,7 @@
   background: rgba(255, 255, 255, 0.95);
   z-index: 10;
   flex-grow: 0;
+  font-family: var(--font-accent);
 }
 
 .site-header__link {

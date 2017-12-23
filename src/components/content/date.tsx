@@ -1,18 +1,18 @@
 import * as React from 'react';
 
 export const months = [
-  'jan',
-  'feb',
-  'mar',
-  'apr',
-  'may',
-  'jun',
-  'jul',
-  'aug',
-  'sep',
-  'oct',
-  'nov',
-  'dec'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
 
 export interface DateProps {
@@ -32,10 +32,7 @@ export const DateComponent = (props: DateProps) => {
 
   return isValid ? (
     <time dateTime={props.date} className={`date ${props.className}`}>
-      <span className="date__day">{day}</span>
-      <span className="date__month-year">
-        {month} '{year}
-      </span>
+      {day} {month} '{year}
     </time>
   ) : null;
 };

@@ -6,6 +6,7 @@ import { StaticContentComponent } from './static-content';
 
 export interface PageContentProps {
   title?: string;
+  summary?: string;
   date?: string;
   bannerUrl?: string;
   bannerAlt?: string;
@@ -23,27 +24,39 @@ export const PageContentComponent = (props: PageContentProps) => {
   const title = { __html: props.title };
 
   if (!props.bannerUrl && !props.content) {
-    return <h1 dangerouslySetInnerHTML={title}></h1>;
+    return <h1 dangerouslySetInnerHTML={title} />;
   }
 
   const banner = props.bannerUrl ? (
     <div className="page-header__img-container">
-      <img src={props.bannerUrl} alt={props.bannerAlt} className="page-header__img" />
+      <img
+        src={props.bannerUrl}
+        alt={props.bannerAlt}
+        className="page-header__img"
+      />
       <div className="page-header__img-meta">{props.bannerAlt}</div>
     </div>
   ) : null;
 
   return (
     <div className={`page-content ${props.className || ''}`}>
-      <div className="page-header">
-        <h1 className="page-title">
-          <DateComponent date={props.date} className="page-title__date" />
-          <span dangerouslySetInnerHTML={title} />
-        </h1>
+      <div className="page-header page-content__header">
+        <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
+        <p className="page-header__summary">{props.summary}</p>
+        <div className="page-header__date">
+          <span className="page-header__date-label">Published: </span>
+          <DateComponent
+            date={props.date}
+            className="page-header__date-value"
+          />
+        </div>
         {banner}
       </div>
       {props.content ? (
-        <StaticContentComponent className="page-content__body" html={props.content} />
+        <StaticContentComponent
+          className="page-content__body"
+          html={props.content}
+        />
       ) : null}
       {props.children}
     </div>
