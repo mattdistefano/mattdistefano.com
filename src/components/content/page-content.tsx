@@ -15,23 +15,21 @@ export interface PageContentProps {
   children?: JSX.Element;
 }
 
+export interface PageHeaderProps {
+  title?: string;
+  summary?: string;
+  date?: string;
+  bannerUrl?: string;
+  bannerAlt?: string;
+}
+
 // tslint:disable-next-line:variable-name
-export const PageContentComponent = (props: PageContentProps) => {
+const PageHeaderComponent = (props: PageHeaderProps) => {
   if (!props.title) {
-    return <div>{props.children}</div>;
+    return null;
   }
 
   const title = { __html: props.title };
-
-  if (!props.bannerUrl && !props.content) {
-    return (
-      <div className={`page-content ${props.className || ''}`}>
-        <div className="page-header page-content__header">
-          <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
-        </div>
-      </div>
-    );
-  }
 
   const banner = props.bannerUrl ? (
     <div className="page-header__img-container">
@@ -44,26 +42,44 @@ export const PageContentComponent = (props: PageContentProps) => {
     </div>
   ) : null;
 
+  const date = props.date ? (
+    <div className="page-header__date">
+      <span className="page-header__date-label">Published: </span>
+      <DateComponent date={props.date} className="page-header__date-value" />
+    </div>
+  ) : null;
+
+  const summary = props.summary ? (
+    <p className="page-header__summary">{props.summary}</p>
+  ) : null;
+
+  return (
+    <div className="page-header page-content__header">
+      <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
+      {summary}
+      {date}
+      {banner}
+    </div>
+  );
+};
+
+// tslint:disable-next-line:variable-name
+export const PageContentComponent = (props: PageContentProps) => {
+  if (!props.title) {
+    return <div>{props.children}</div>;
+  }
+
+  const content = props.content ? (
+    <StaticContentComponent
+      className="page-content__body"
+      html={props.content}
+    />
+  ) : null;
+
   return (
     <div className={`page-content ${props.className || ''}`}>
-      <div className="page-header page-content__header">
-        <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
-        <p className="page-header__summary">{props.summary}</p>
-        <div className="page-header__date">
-          <span className="page-header__date-label">Published: </span>
-          <DateComponent
-            date={props.date}
-            className="page-header__date-value"
-          />
-        </div>
-        {banner}
-      </div>
-      {props.content ? (
-        <StaticContentComponent
-          className="page-content__body"
-          html={props.content}
-        />
-      ) : null}
+      <PageHeaderComponent {...props} />
+      {content}
       {props.children}
     </div>
   );
