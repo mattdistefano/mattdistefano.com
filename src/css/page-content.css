@@ -10,7 +10,7 @@
 
 .page-content__body p:first-of-type::first-letter {
   font-size: calc((var(--line-height-base) * 2) * 1rem);
-  line-height: calc((var(--line-height-base) * 2) * .98rem);
+  line-height: calc((var(--line-height-base) * 2) * 1rem);
   padding-right: 0.25rem;
   float: left;
 }
