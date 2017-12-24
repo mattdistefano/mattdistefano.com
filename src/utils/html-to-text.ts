@@ -2,13 +2,13 @@ export default (html: string) => {
   let text = '';
   let inTag = false;
 
-  for (let i = 0; i < html.length; i++) {
-    if (html[i] === '<') {
+  for (const char of html) {
+    if (char === '<') {
       inTag = true;
-    } else if (html[i] === '>') {
+    } else if (char === '>') {
       inTag = false;
     } else if (!inTag) {
-      text += html[i];
+      text += char;
     }
   }
 
