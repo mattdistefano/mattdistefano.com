@@ -29,7 +29,7 @@ interface BlogArchiveDayProps {
 const BlogArchiveDayComponent = (props: BlogArchiveDayProps) => (
   <div>
     <h2>{props.title}</h2>
-    <PageCardListComponent pages={props.pages} />
+    <PageCardListComponent pages={props.pages} headingLevel={3} />
   </div>
 );
 
@@ -42,7 +42,7 @@ interface BlogArchiveMonthProps {
 const BlogArchiveMonthComponent = (props: BlogArchiveMonthProps) => (
   <div>
     <h2>{props.title}</h2>
-    <PageCardListComponent pages={props.pages} />
+    <PageCardListComponent pages={props.pages} headingLevel={3} />
   </div>
 );
 

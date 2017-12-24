@@ -25,13 +25,15 @@ export const PageFooterComponent = (props: PageFooterProps) => {
 
   const prev = prevPage ? (
     <div className="card-list__item">
-      <PageCardComponent page={prevPage} headingText="Previous..." />
+      <h2 className="h4 card__heading">Previous...</h2>
+      <PageCardComponent page={prevPage} headingLevel={3} />
     </div>
   ) : null;
 
   const next = nextPage ? (
     <div className="card-list__item">
-      <PageCardComponent page={nextPage} headingText="Next..." />
+      <h2 className="h4 card__heading">Next...</h2>
+      <PageCardComponent page={nextPage} headingLevel={3} />
     </div>
   ) : null;
 

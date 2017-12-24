@@ -4,6 +4,7 @@ import { PageCardComponent } from './page-card';
 
 export interface PageCardListProps {
   pages: Array<PageSummary | Page | IndexPage>;
+  headingLevel?: number;
 }
 
 // tslint:disable-next-line:variable-name
@@ -12,7 +13,7 @@ export const PageCardListComponent = (props: PageCardListProps) =>
     <ul className="card-list">
       {props.pages.map((page, index) => (
         <li className="card-list__item" key={index}>
-          <PageCardComponent page={page} />
+          <PageCardComponent page={page} headingLevel={props.headingLevel} />
         </li>
       ))}
     </ul>

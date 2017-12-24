@@ -17,7 +17,7 @@ const QueryComponent = (props: QueryProps) =>
   props.query && props.query.results && props.query.results.length > 0 ? (
     <div className="query">
       <h2 className="h3 text-center">{props.title}</h2>
-      <PageCardListComponent pages={props.query.results} />
+      <PageCardListComponent pages={props.query.results} headingLevel={3} />
       <div className="text-center query__more">
         {props.query.linkText && (
           <Link
