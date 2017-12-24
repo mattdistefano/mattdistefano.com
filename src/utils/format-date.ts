@@ -15,7 +15,7 @@ export const months = [
   'December'
 ];
 
-export const formatDate = (d: Date | string) => {
+export const formatDate = (d: Date | string, includeTime = true) => {
   if (!d) {
     return '';
   }
@@ -31,11 +31,11 @@ export const formatDate = (d: Date | string) => {
   const minutes = d.getMinutes();
   const ampm = hours > 12 ? 'PM' : 'AM';
   const time =
-    hours === 0 && minutes === 0
+    !includeTime || (hours === 0 && minutes === 0)
       ? ''
-      : ` ${hours > 12 ? hours - 12 : hours}:${minutes > 9
-          ? minutes
-          : '0' + minutes} ${ampm}`;
+      : ` ${hours > 12 ? hours - 12 : hours}:${
+          minutes > 9 ? minutes : '0' + minutes
+        } ${ampm}`;
 
   return `${month} ${date}, ${year}${time}`;
 };

@@ -1,4 +1,4 @@
-export default (html: string) => {
+export const htmlToText = (html: string) => {
   let text = '';
   let inTag = false;
 

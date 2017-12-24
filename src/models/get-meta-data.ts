@@ -1,7 +1,7 @@
 import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 import { AsyncData } from './async-data';
 import { HtmlMetaData } from './html-meta-data';
-import htmlToText from '../utils/html-to-text';
+import { htmlToText } from '../utils';
 
 export const getMetaData = (page: AsyncData<Page | IndexPage| PageSummary>): HtmlMetaData => {
   let title: string;

@@ -25,7 +25,7 @@ import {
   HomePageComponent,
 } from '../pages';
 
-import isBrowserEnv from '../../utils/is-browser-env';
+import { IS_BROWSER_ENV } from '../../utils';
 
 import { wrapPageComponent, WrappedProps } from './wrap-page-component';
 
@@ -67,7 +67,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _trackPageView(page: AsyncData<Page | IndexPage | PageSummary>) {
-    if (!isBrowserEnv) {
+    if (!IS_BROWSER_ENV) {
       return;
     }
 
@@ -76,7 +76,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _restoreScroll() {
-    if (!isBrowserEnv) {
+    if (!IS_BROWSER_ENV) {
       return;
     }
 

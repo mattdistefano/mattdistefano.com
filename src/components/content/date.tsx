@@ -1,19 +1,6 @@
 import * as React from 'react';
 
-export const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
+import { formatDate } from '../../utils';
 
 export interface DateProps {
   date: string;
@@ -26,13 +13,9 @@ export const DateComponent = (props: DateProps) => {
 
   const isValid = !isNaN(date.getTime());
 
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = `${date.getFullYear()}`.slice(-2);
-
   return isValid ? (
     <time dateTime={props.date} className={`date ${props.className}`}>
-      {day} {month} '{year}
+      {formatDate(props.date)}
     </time>
   ) : null;
 };
