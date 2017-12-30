@@ -1,5 +1,13 @@
 RewriteEngine on
 
+# redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www [NC]
+RewriteRule ^(.*)$ https://mattdistefano.com/$1 [L,R=301]
+
+# redirect http to https
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 #if foo requested, return foo.html contents
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}\.html -f
