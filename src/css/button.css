@@ -1,6 +1,6 @@
 .button {
-  border: 1px solid var(--color-primary-alt);
-  color: var(--color-primary-alt);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
   border-radius: 3px;
   padding: 0.5rem 2rem;
   text-decoration: none;
@@ -11,6 +11,7 @@
   text-align: center;
   display: inline-block;
   font-family: var(--font-accent);
+  letter-spacing: 0.2px;
 }
 
 .button::after {
@@ -22,15 +23,17 @@
   content: '';
   border-style: solid;
   border-width: 5px 0 5px 6px;
-  border-color: transparent transparent transparent var(--color-primary-alt);
+  border-color: transparent transparent transparent var(--color-primary);
   opacity: 0;
   transition: all var(--transition-timing-function) var(--transition-duration);
 }
 
 .button:hover,
 .button:focus {
-  padding: 0.5rem 2.5rem 0.5rem 1.5rem;
+  color: var(--color-primary);
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
   text-decoration: none;
+  letter-spacing: -0.5px;
 }
 
 .button:hover::after,
