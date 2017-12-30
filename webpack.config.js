@@ -55,19 +55,19 @@ module.exports = (env = {}) => ({
               name: `${assets}/[name].[hash].[ext]`
             }
           },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              bypassOnDebug: true,
-              optipng: {
-                optimizationLevel: 7
-              },
-              gifsicle: {
-                interlaced: false
-              },
-              mozjpeg: mozjpegOptions
-            }
-          }
+          // {
+          //   loader: 'image-webpack-loader',
+          //   options: {
+          //     bypassOnDebug: true,
+          //     optipng: {
+          //       optimizationLevel: 7
+          //     },
+          //     gifsicle: {
+          //       interlaced: false
+          //     },
+          //     mozjpeg: mozjpegOptions
+          //   }
+          // }
         ]
       },
       {
@@ -131,6 +131,9 @@ module.exports = (env = {}) => ({
         from: path.resolve(__dirname, 'data'),
         // TODO ignore dotfiles?
         ignore: ['*.md']
+      },
+      {
+        from: path.resolve(__dirname, 'src/.htaccess'),
       }
     ]),
     new CleanWebpackPlugin(['dist']),
@@ -160,10 +163,10 @@ module.exports = (env = {}) => ({
             minChunks: (module, count) =>
               module.getChunks().some(chunk => chunk.name === 'main')
           }),
-          new ImageminPlugin({
-            test: '!_assets/**',
-            plugins: [imageminMozjpeg(mozjpegOptions)]
-          }),
+          // new ImageminPlugin({
+          //   test: '!_assets/**',
+          //   plugins: [imageminMozjpeg(mozjpegOptions)]
+          // }),
           new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
