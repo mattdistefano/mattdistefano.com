@@ -12,8 +12,8 @@
   --color-text-light: var(--color-gray);
   --font-size-base: 16px;
   --line-height-base: 1.71;
-  --font-heading: 'Georgia', serif;
-  --font-copy: 'Georgia', serif;
+  --font-heading: 'Lora', serif;
+  --font-copy: 'Lora', serif;
   --font-accent: 'Tahoma', sans-serif;
   --transition-duration: 0.3s;
   --transition-timing-function: ease;
