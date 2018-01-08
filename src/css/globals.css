@@ -18,6 +18,13 @@ html {
   line-height: var(--line-height-base);
 }
 
+@media (--medium-viewport) {
+  body,
+  html {
+    font-size: var(--font-size-lg);
+  }
+}
+
 p {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -140,7 +147,7 @@ code {
 }
 
 pre > code {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   display: block;
   margin: 0 -1rem;
   padding: 0.5rem 1rem;
