@@ -17,12 +17,6 @@ queries:
     type: page
     summarize: true
     linkText: View all
-  Recent articles: 
-    root: '/articles/'
-    limit: 4
-    type: page
-    summarize: true
-    linkText: View all
 ---
 
 # mattdistefano.com

@@ -5,7 +5,7 @@ summary: A brief overview of creating dynamic heading levels in React.
 
 # Quick hit: dynamic heading levels in React
 
-As I discussed in my previous article on [accessible headings](/articles/accessibility-101-using-headings-effectively), it's sometimes necessary to utilize different heading levels on the same component or piece of content. At first glance, this might seem like it would require code duplication, but we can get around that quite easily in React.
+As I discussed in my previous article on [accessible headings](/blog/2017/12/06/accessibility-101-using-headings-effectively), it's sometimes necessary to utilize different heading levels on the same component or piece of content. At first glance, this might seem like it would require code duplication, but we can get around that quite easily in React.
 
 ## Code example
 
