@@ -7,7 +7,8 @@ import { StaticContentComponent } from './static-content';
 export interface PageContentProps {
   title?: string;
   summary?: string;
-  date?: string;
+  created?: string;
+  modified?: string;
   bannerUrl?: string;
   bannerAlt?: string;
   content?: string;
@@ -18,10 +19,14 @@ export interface PageContentProps {
 export interface PageHeaderProps {
   title?: string;
   summary?: string;
-  date?: string;
+  created?: string;
+  modified?: string;
   bannerUrl?: string;
   bannerAlt?: string;
 }
+
+const hasRevisions = (created: string, modified: string) =>
+  created && modified && created.slice(0, 10) !== modified.slice(0, 10);
 
 // tslint:disable-next-line:variable-name
 const PageHeaderComponent = (props: PageHeaderProps) => {
@@ -42,10 +47,20 @@ const PageHeaderComponent = (props: PageHeaderProps) => {
     </div>
   ) : null;
 
-  const date = props.date ? (
-    <div className="page-header__date">
+  const created = props.created ? (
+    <div className="page-header__date page-header__date-created">
       <span className="page-header__date-label">Published: </span>
-      <DateComponent date={props.date} className="page-header__date-value" />
+      <DateComponent date={props.created} className="page-header__date-value" />
+    </div>
+  ) : null;
+
+  const modified = hasRevisions(props.created, props.modified) ? (
+    <div className="page-header__date page-header__date-modified">
+      <span className="page-header__date-label">Revised: </span>
+      <DateComponent
+        date={props.modified}
+        className="page-header__date-value"
+      />
     </div>
   ) : null;
 
@@ -57,7 +72,8 @@ const PageHeaderComponent = (props: PageHeaderProps) => {
     <div className="page-header page-content__header">
       <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
       {summary}
-      {date}
+      {created}
+      {modified}
       {banner}
     </div>
   );

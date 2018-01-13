@@ -40,7 +40,8 @@ export const HomePageComponent = (props: HomePageProps) => {
         title={mostRecentPost.title}
         summary={mostRecentPost.summary}
         content={mostRecentPost.content}
-        date={mostRecentPost.created}
+        created={mostRecentPost.created}
+        modified={mostRecentPost.modified}
         bannerUrl={mostRecentPost.bannerUrl}
         bannerAlt={mostRecentPost.bannerAlt}
       >

@@ -35,7 +35,8 @@ export const StandardPageComponent = (props: StandardPageProps) => {
         title={page.title}
         summary={page.summary}
         content={page.type !== 'summary' ? page.content : null}
-        date={page.created}
+        created={page.created}
+        modified={page.modified}
         bannerUrl={page.bannerUrl}
         bannerAlt={page.bannerAlt}
       >
