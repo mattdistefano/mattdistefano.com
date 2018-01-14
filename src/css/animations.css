@@ -7,8 +7,23 @@
   }
 }
 
+@keyframes slide-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .animation-fade-in {
   animation: fade .3s ease-in both;
+}
+
+.animation-slide-fade-in {
+  animation: slide-fade .3s ease-in both;
 }
 
 .animation-delay-1 {

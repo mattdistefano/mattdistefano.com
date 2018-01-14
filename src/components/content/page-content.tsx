@@ -70,7 +70,7 @@ const PageHeaderComponent = (props: PageHeaderProps) => {
   ) : null;
 
   return (
-    <div className="page-header page-content__header animation-fade-in animation-delay-1">
+    <div className="page-header page-content__header animation-slide-fade-in animation-delay-1">
       <h1 className="page-header__title" dangerouslySetInnerHTML={title} />
       {summary}
       {created}
@@ -88,7 +88,7 @@ export const PageContentComponent = (props: PageContentProps) => {
 
   const content = props.content ? (
     <StaticContentComponent
-      className="page-content__body animation-fade-in animation-delay-2"
+      className="page-content__body animation-slide-fade-in animation-delay-2"
       html={props.content}
     />
   ) : null;
