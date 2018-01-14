@@ -54,7 +54,7 @@ module.exports = (env = {}) => ({
               limit: 7000,
               name: `${assets}/[name].[hash].[ext]`
             }
-          },
+          }
           // {
           //   loader: 'image-webpack-loader',
           //   options: {
@@ -90,19 +90,24 @@ module.exports = (env = {}) => ({
         loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader']
       },
       {
-        test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: {
-          configFile: 'tslint.json'
-        }
-      },
-      {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader'
       }
-    ]
+    ].concat(
+      env.production
+        ? []
+        : [
+            {
+              test: /\.tsx?$/,
+              enforce: 'pre',
+              loader: 'tslint-loader',
+              options: {
+                configFile: 'tslint.json'
+              }
+            }
+          ]
+    )
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -133,7 +138,7 @@ module.exports = (env = {}) => ({
         ignore: ['*.md']
       },
       {
-        from: path.resolve(__dirname, 'src/.htaccess'),
+        from: path.resolve(__dirname, 'src/.htaccess')
       }
     ]),
     new CleanWebpackPlugin(['dist']),
