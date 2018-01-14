@@ -80,7 +80,7 @@ export class AppComponent extends Component<AppProps, AppState> {
       return;
     }
 
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    window.scroll({ top: 0, left: 0 });
   }
 
   private _ensurePage(path: string) {
@@ -138,9 +138,8 @@ export class AppComponent extends Component<AppProps, AppState> {
       <PageComponent
         onEnter={this._onRouteEnter}
         page={page}
+        key={path}
         {...props}
-        animDelay={1}
-        animKey={path}
       />
     );
   }
