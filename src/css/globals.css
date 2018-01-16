@@ -110,7 +110,7 @@ h6,
 ul,
 ol {
   padding-left: 1rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -122,8 +122,13 @@ li {
 
 li ul,
 li ol {
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
   font-size: 0.8rem;
+}
+
+ul code,
+ol code {
+  font-size: 0.85rem;
 }
 
 blockquote {
@@ -140,7 +145,7 @@ pre {
 
 code {
   background: var(--color-lighter-grey);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-family: monospace;
   border-radius: 2px;
   padding: 2px 4px;
