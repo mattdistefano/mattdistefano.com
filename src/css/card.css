@@ -53,6 +53,11 @@
   background-color: var(--color-lighter-grey);
 }
 
+.card.card--link:hover .card__summary,
+.card.card--link:focus .card__summary {
+  color: var(--color-gray-dark);
+}
+
 .card__heading {
   margin-top: 0;
   margin-left: 1rem;
@@ -76,7 +81,7 @@
 
 .card__summary {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--color-gray);
   margin-bottom: 0;
   order: 2;
 }
