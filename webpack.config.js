@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const Visualizer = require('webpack-visualizer-plugin');
@@ -126,7 +127,8 @@ module.exports = (env = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
-      excludeChunks: ['prerender']
+      excludeChunks: ['prerender'],
+      inlineSource: '.css$'
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
@@ -172,6 +174,7 @@ module.exports = (env = {}) => ({
           //   test: '!_assets/**',
           //   plugins: [imageminMozjpeg(mozjpegOptions)]
           // }),
+          new HtmlWebpackInlineSourcePlugin(),
           new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
