@@ -1,6 +1,6 @@
 ---
 created: February 11, 2018
-summary: A couple practices to help improve frontend development workflows.
+summary: Decoupling code to decouple our workflows
 ---
 
 # Better frontend workflows with mocking and UI components
@@ -96,182 +96,283 @@ Third, creating and maintaining mocks can add some overhead to the project.
 
 ## Using container and UI components
 
-Let's assume that, in the login example above, we need to spend some time fine-tuning the UI. Maybe we need to animate the entry of certain error messages, or perhaps we're inserting some dynamic content into the error messages and want to experiment with a variety of content lengths. Ideally, much of this would be baked into our standard component library, but let's assume we need to do *something* that requires exercising all the different states and functionality of the UI.
+Let's assume that, in the login example above, we need to spend some time fine-tuning the UI. Maybe we need to animate the entry of certain error messages, or perhaps we're inserting some dynamic content into the error messages and want to experiment with a variety of content lengths. Ideally, much of this would be baked into our standard component library, but let's assume we need to do *something* that requires exercising all the different states and functionality of the UI. Again, it's easy to see where we'd have problems using a real remote login API, so let's assume we're using a mock API.
 
-Again, it's easy to see where we'd have problems using a real remote login API. Using a mock API solves many of those problems, but let's take a step back here and ask: from a user interface standpoint, do we even care that there's an API involved? After all, our user isn't interacting with an API --- they're interacting with our form. And, if we think about it, if our form has a hard dependency a specific remote API, aren't we mixing concerns and creating tight couplings that might hurt us down the road?
-
-So let's separate our concerns a bit.
-
-Just looking over our requirements, we can see that our form can be in a couple different states. There's a resting state, a loading state, and a variety of error states. Our form also has at least 1 action, that of "submitting" when the user clicks the button or hits enter. Based on this, we can easily define an interface for our form that encapsulates only the UI concerns:
+We might have something like this:
 
 ```typescript
-type LoginFormComponentError = 'InvalidUsername'
+import * as React from 'react';
+
+/** Our mock data service. */
+export class DataService {
+  private errorTypes = [
+    'InvalidUsername',
+    'InvalidPassword',
+    'TemporarilyLocked',
+    'PermanentlyLocked',
+    'Other'
+  ];
+
+  login(credentials: { username: string; password: string }) {
+    return new Promise((resolve, reject) =>
+      setTimeout(() => {
+        if (this.errorTypes.indexOf(credentials.username) !== -1) {
+          return reject(credentials.username);
+        }
+        resolve({});
+      }, Math.random() * 3000)
+    );
+  }
+}
+
+/* String union type containing all possible login error codes */
+export type LoginError = 'InvalidUsername'
   |'InvalidPassword'
   |'TemporarilyLocked'
   |'PermanentlyLocked'
-  |'Other';
+  | 'Other';
 
-type SubmitLoginCallback = (username: string, password: string) => void;
+/* Login component props */
+export interface LoginProps {}
 
-interface LoginFormComponent {
-  /** Render new UI based on specified state */
-  render: (loading: boolean, 
-    error: LoginFormComponentError, 
-    onSubmitLogin: SubmitLoginCallback) => void;
+/** Login component state */
+export interface LoginState {
+  username: string;
+  password: string;
+  loading: boolean;
+  error: LoginError;
+}
+
+/** Login component */
+export class LoginComponent extends React.Component<LoginProps, LoginState> {
+  /* 
+   * In a real-world app, we'd expect this to be injected in some manner.
+   * For the purpose of this example, we're hard-coding it.
+   */
+  private _dataService = new DataService();
+
+  constructor(props: LoginProps) {
+    super(props);
+
+    this.state = {
+      username: '',
+      password: '',
+      loading: false,
+      error: null
+    };
+
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /** Event handler for login form submit */
+  onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (this.state.loading) {
+      return;
+    }
+
+    this.setState({ loading: true, error: null });
+
+    this._dataService
+      .login({ username: this.state.username, password: this.state.password })
+      .then(
+        () => this.setState({ loading: false, error: null }),
+        (err: LoginError) => this.setState({ loading: true, error: err })
+      );
+  }
+
+  /** Event handler for username field change */
+  onUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ username: event.target.value, error: null });
+  }
+
+  /** Event handler for password field change */
+  onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ password: event.target.value, error: null });
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.onSubmit}>
+        {this.state.error && <div>{this.state.error}</div>}
+        <label>
+          Username
+          <input
+            type="text"
+            value={this.state.username}
+            readOnly={this.state.loading}
+            onChange={this.onUsernameChange}
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={this.state.password}
+            readOnly={this.state.loading}
+            onChange={this.onPasswordChange}
+          />
+        </label>
+        <button type="submit">
+          {this.state.loading ? 'Loading' : 'Login'}
+        </button>
+      </form>
+    );
+  }
 }
 ```
 
-This example is given in TypeScript and does not reflect any particular framework's conventions. The important part isn't the actual declaration of an interface in code, it's that we've modeled a *conceptual* interface for our login form as UI component that is decoupled from the application logic of actually logging in to anything. We need not be using TypeScript at all; we don't even need to be using a component-based framework (though it helps).
+The mock API makes development much simpler, but let's take a step back here and ask: from a user interface standpoint, do we even care that there's an API involved? After all, our user isn't interacting with an API --- they're interacting with our form. 
+
+So let's separate our concerns a bit.
+
+```typescript
+/* Login form component props */
+export interface LoginFormProps {
+  loading: boolean;
+  error: LoginError;
+  onSubmit: (credentials: { username: string; password: string }) => void;
+}
+
+/** Login form component state */
+export interface LoginFormState extends Credentials {}
+
+/** Login form component */
+export class LoginFormComponent extends React.Component<
+  LoginFormProps,
+  LoginFormState
+> {
+  constructor(props: LoginFormProps) {
+    super(props);
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /** Event handler for login form submit */
+  onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    this.props.onSubmit({
+      username: this.state.username,
+      password: this.state.password
+    });
+  }
+
+  /** Event handler for username field change */
+  onUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ username: event.target.value });
+  }
+
+  /** Event handler for password field change */
+  onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ password: event.target.value });
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.onSubmit}>
+        {this.props.error && <div>{this.props.error}</div>}
+        <label>
+          Username
+          <input
+            type="text"
+            value={this.state.username}
+            readOnly={this.props.loading}
+            onChange={this.onUsernameChange}
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={this.state.password}
+            readOnly={this.props.loading}
+            onChange={this.onPasswordChange}
+          />
+        </label>
+        <button type="submit">
+          {this.props.loading ? 'Loading' : 'Login'}
+        </button>
+      </form>
+    );
+  }
+}
+
+/* Login container component props */
+export interface LoginContainerProps {}
+
+/** Login container component state */
+export interface LoginContainerState {
+  loading: boolean;
+  error: LoginError;
+}
+
+/** Login container component */
+export class LoginContainerComponent extends React.Component<
+  LoginContainerProps,
+  LoginContainerState
+> {
+  /* 
+   * In a real-world app, we'd expect this to be injected in some manner.
+   * For the purpose of this example, we're hard-coding it.
+   */
+  private _dataService = new DataService();
+
+  constructor(props: LoginProps) {
+    super(props);
+
+    this.state = {
+      loading: false,
+      error: null
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /** Event handler for login form submit */
+  onSubmit(credentials: Credentials) {
+    event.preventDefault();
+
+    if (this.state.loading) {
+      return;
+    }
+
+    this.setState({ loading: true, error: null });
+
+    this._dataService
+      .login(credentials)
+      .then(
+        () => this.setState({ loading: false, error: null }),
+        (err: LoginError) => this.setState({ loading: true, error: err })
+      );
+  }
+
+  render() {
+    return <LoginFormComponent onSubmit={this.onSubmit} {...this.state} />;
+  }
+}
+```
 
 Let's compare what has changed.
 
-Remember, our original sequence looked something like this:
+In our original implementation with a single form component, clicking the 'login' button immediately fired off an async call to the login API, and the loading/error states were hard-bound to the lifecycle of that async call. 
 
-```
-@startuml
-
-actor User
-participant Form
-participant "JS Data" as Data
-participant "Dev API" as DevAPI
-participant "Dev User Store" as DevUserStore
-
-User->Form: click login
-Form-->User: loading screen
-Form->Data: login
-Data->DevAPI: POST {username, password} /remote/api/login
-DevAPI->DevUserStore: attempt login
-DevUserStore-->DevAPI: response
-DevAPI-->Data: response
-Data-->Form: response
-alt 20x (success)
-  Form-->User: redirect
-else 4xx/5xx (failure)
-  Form-->User: error screen
-end
-@enduml
-```
-
-In some psuedocode:
-
-```typescript
-class Form {
-  private loading = false;
-  private error = null;
-
-  constructor(private data: any) { }
-
-  private parseError(err) {
-    // do something here to map the error to a LoginFormComponentError
-    return '';
-  }
-
-  render() {
-    // do something to manipulate the DOM
-  }
-
-  submit() {
-    this.loading = true;
-    this.error = null;
-    this.render();
-
-    this.data
-      .login({ username, password })
-      .then(
-        () => { /* redirect */ },
-        err => {
-          this.loading = true;
-          this.error = parseError(err);
-          this.render();
-        }
-      );
-  }
-}
-```
-
-In this implementation, with a single form component, clicking the 'login' button immediately fired off an async call to the login API, and the loading/error states were hard-bound to the lifecycle of that async call. 
-
-In our new implementation, we've separated our concerns:
-
-```
-@startuml
-
-actor User
-participant "Login Form UI Component" as Form
-participant "Login Form Container Component" as Container
-participant "JS Data" as Data
-participant "Dev API" as DevAPI
-participant "Dev User Store" as DevUserStore
-
-User->Form: click login
-Form->Container: onLoginSubmit({username, password})
-Container->Form: render({ error: null, loading: true})
-Form-->User: loading screen
-Container->Data: login
-Data->DevAPI: POST {username, password} /remote/api/login
-DevAPI->DevUserStore: attempt login
-DevUserStore-->DevAPI: response
-DevAPI-->Data: response
-Data-->Container: response
-Container->Container: parse response
-alt 20x (success)
-  Container-->User: redirect
-else 4xx/5xx (failure)
-  Container->Form: render({ error: error, loading: false})
-  Form-->User: error screen
-end
-@enduml
-```
-
-And again, some psuedocode:
-
-```typescript
-class FormContainerComponent {
-  private loading = false;
-  private error = null;
-
-  constructor(private data: any, private uiComponent: LoginFormComponent) { }
-
-  private parseError(err) {
-    // do something here to map the error to a LoginFormComponentError
-    return '';
-  }
-
-  login(username: string, password: string) {
-    this.loading = true;
-    this.error = null;
-    this.render();
-
-    this.data
-      .login({ username, password })
-      .then(
-        () => { /* redirect */ }, 
-        err => {
-          this.loading = false;
-          this.error = parseError(err);
-          this.render();
-        }
-      );
-  }
-
-  render() {
-    this.uiComponent.render(this.loading, this.error, this.login);
-  }
-}
-
-class FormUIComponent implements LoginFormComponent {
-  render(loading: boolean, error: LoginFormComponentError, onSubmitLogin: SubmitLoginCallback) {
-    // do something to manipulate the DOM and call onSubmitLogin when the login form is submitted
-  }
-}
-```
-
-Now, the application logic necessary to actually log in (making the API call, parsing the response, catching errors), and the associated state, is managed by a container. The container doesn't directly handle any user input or render any user interface; rather, it delegates those concerns to the UI component, which is responsible for rendering the appropriate user interface based on the `loading` and `error` state and raising the `onSubmitLogin` when the user clicks the 'login' button. (Note that, in most contemporary frameworks, the container would be another component, but it could also be a route, controller, page, etc; the key point here is the division of responsibilities.)
+In our new implementation, the application logic necessary to actually log in (making the API call, parsing the response, catching errors), and the associated state, is managed by a container. The container doesn't directly handle any user input or render any user interface; rather, it delegates those concerns to the UI component, which is responsible for rendering the appropriate user interface based on the `loading` and `error` state and invoking the `onSubmit` callback when the user clicks the 'login' button. 
 
 By separating these concerns, we've opened up some interesting avenues for development:
 
 - We can develop the UI component inside a mock container on any page that is convenient, rather than having to work on it where it would appear in our real-life application. For a login screen, this may be a meaningless distinction, but for screens buried inside an authenticated workflow, being able to develop outside of that workflow can be a major time-saver.
-- If we want to test the whole lifecycle of the UI component, we can easily make the mock container that handles `onSubmit` and manipulates `loading` and `error`.
+- Instead of mocking success/failure at the API level, we can implement it within our mock container.
 - If we want to fine-tune a particular state of the UI component, can default the mock container to that state.
 - If we want to validate all states of the UI component, we can place multiple instances - one for each possible state --- in the mock container and review them side by side. We can even create a living storyboard showing an entire workflow through multiple states or multiple components.
 - If we want to unit test the UI component, we need only a simple test fixture that satisfies its interface (vs. mocking an entire API dependency). Likewise, if we want to unit test the container component, we can do so without needing to worry about any UI.
@@ -282,30 +383,53 @@ By separating these concerns, we've opened up some interesting avenues for devel
 An example mock container to simulate all the error and loading states might look like this:
 
 ```typescript
-const errorTypes = ['InvalidUsername','InvalidPassword','TemporarilyLocked','PermanentlyLocked','Other'];
 
-class MockFormContainerComponent {
-  private loading = false;
-  private error = null;
+/** Mock login container component */
+export class MockLoginContainerComponent extends React.Component<
+  LoginContainerProps,
+  LoginContainerState
+  > {
+  private errorTypes = [
+    'InvalidUsername',
+    'InvalidPassword',
+    'TemporarilyLocked',
+    'PermanentlyLocked',
+    'Other'
+  ];
 
-  constructor(private uiComponent: LoginFormComponent) { }
+  constructor(props: LoginProps) {
+    super(props);
 
-  login(username: string, password: string) {
-    this.loading = true;
-    this.error = null;
-    this.render();
+    this.state = {
+      loading: false,
+      error: null
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /** Event handler for login form submit */
+  onSubmit(credentials: Credentials) {
+    event.preventDefault();
+
+    if (this.state.loading) {
+      return;
+    }
+
+    this.setState({ loading: true, error: null });
 
     setTimeout(() => {
-      if (errorTypes.contains(username)) {
-        this.error = userName;
+      if (this.errorTypes.indexOf(credentials.username) !== -1) {
+        return this.setState({ loading: false, error: credentials.username as LoginError })
       }
-      this.loading = false;
-      this.render();
-    }, Math.random() * 3000);
+      this.setState({ loading: false, error: null });
+    }, Math.random() * 3000)
   }
 
   render() {
-    this.uiComponent.render(this.loading, this.error, this.login);
+    return <LoginFormComponent onSubmit={this.onSubmit} {...this.state} />;
   }
 }
 ```
+
+These examples are given in React and TypeScript, but the concepts are applicable to other technologies. 
