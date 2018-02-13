@@ -17,7 +17,7 @@ RewriteRule ^(.*)$ $1.html [L]
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
 RewriteRule ^(.+)\.html$ $1 [R,L]
 
-<FilesMatch "\.html$">
+<FilesMatch "\.(html|json)$">
   ExpiresActive On
   ExpiresDefault A1
   Header append Cache-Control must-revalidate
