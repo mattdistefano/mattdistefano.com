@@ -73,26 +73,33 @@ end
 
 Because the `MockData` code lives in ourcodebase, we can easily build logic into it to simulate just about everything we expect from the real-world login API, without having to wait for that API to be built or stabilized. 
 
-## Mock logic and state
+### What do we expect from a mock?
 
-A very basic implementation of a mock would have it immediately return a hard-coded response on every call. This can be useful for some types of APIs, but typically we expect that:
+A very basic implementation of a mock might have it immediately return a hard-coded response on every call. This can be useful for some types of APIs, but typically we expect that:
 
 1) The mock will add a random delay before responding, so as to simulate network latency and processing time.
-2) The mock will have some way to trigger any error responses.
-3) The mock will have some way to trigger any conditional success responses.
+2) The mock will have some way to trigger error responses.
+3) The mock will have some way to trigger conditional success responses.
 4) When mocking a full CRUD API, our CUD operations are reflected in R operations.
+5) The mock can be activated for development and excluded from production builds.
 
 The details of implementing all of this will depend a lot on the project's overall technology stack and architecture. If we have specific data access services, we can swap in a mock implementation through DI  config, or just overwrite methods on the original object (this works with `$.ajax` and `window.fetch` too). Some frameworks --- Angular, for example --- have built-in support for mocking backend APIs. We may even choose to run a "real" server in a separate process and make actual network requests.
 
-## Dangers of mocking
+### What does mocking gain us?
 
-Of course, there's some risks involved.
+Working off a mock during development ensures that:
 
-First, without a strict data contract, it can be easy to find your mock implementation of an API varies from the real one.
+- Our frontend work doesn't get held up by downtime in a remote API.
+- We can exercise all the edge cases and error conditions that might be difficult to produce reliably in a real API running on a remote server.
+- Frontend and backend teams can develop in parallel off an agreed-upon data contract.
 
-Second, while mocking enables simulation of API errors, it's not very good for simulating browser errors. For example, you may still run into CORS, CSP, etc errors once you're making a real network request.
+### Dangers of mocking
 
-Third, creating and maintaining mocks can add some overhead to the project.
+Of course, there's some risks involved:
+
+- Without a strict data contract, it can be easy to find your mock implementation of an API varies from the real one.
+- While mocking enables simulation of API errors, it's not very good for simulating browser errors. For example, you may still run into CORS, CSP, etc errors once you're making a real network request.
+- Creating and maintaining mocks can add some overhead to the project.
 
 ## Using container and UI components
 
