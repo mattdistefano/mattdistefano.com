@@ -27,12 +27,7 @@ const buildCache = (page: Page) =>
   } as PageCache);
 
 export const __PRERENDERER = (pages: Page[]) =>
-  pages.concat([
-    {
-      title: 'Style guide',
-      path: '/style-guide'
-    } as Page
-  ]).reduce((prev: Prerendered, curr: Page) => {
+  pages.reduce((prev: Prerendered, curr: Page) => {
     const initialPageCache = buildCache(curr);
 
     const url = pathToUrl(curr.path);

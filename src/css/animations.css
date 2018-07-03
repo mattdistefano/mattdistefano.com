@@ -18,43 +18,12 @@
   }
 }
 
-@keyframes slide-fade-left {
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
-
-@keyframes slide-fade-right {
-  0% {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
 .animation-fade-in {
   animation: fade .4s ease-out both;
 }
 
 .animation-slide-fade-in {
   animation: slide-fade .4s ease-out both;
-}
-
-.animation-slide-fade-left-in {
-  animation: slide-fade-left .3s ease both;
-}
-
-.animation-slide-fade-right-in {
-  animation: slide-fade-right .3s ease both;
 }
 
 .animation-delay-1 {

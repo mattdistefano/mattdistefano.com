@@ -1,10 +1,9 @@
 ---
-summary: Now with better typography.
+summary: Now with even more redesignyness.
 skipPages: true
 skipChildren: true
-bannerUrl: /home-banner.jpg
-bannerAlt: Rain-filled light bar at Seattle waterfront construction site, January 2016.
-created: December 22, 2017
+created: August 7, 2017
+modified: July 3, 2018
 queries:
   Recent blog posts: 
     root: '/blog/'

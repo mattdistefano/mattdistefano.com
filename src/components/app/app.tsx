@@ -105,8 +105,6 @@ export class AppComponent extends Component<AppProps, AppState> {
   }
 
   private _onRouteEnter(path: string) {
-    this._restoreScroll();
-
     this._ensurePage(path);
   }
 

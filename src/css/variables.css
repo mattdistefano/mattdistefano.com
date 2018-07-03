@@ -5,17 +5,12 @@
   --color-text: #5a5959;
   --color-text-dark: #111;
 
-
   --color-primary: #ff004e;
   --color-primary-alt: #e00043;
   --color-white: #fff;
-  --color-lightest-grey: #f4f6f7;
-  --color-lighter-grey: #efefef;
-  --color-light-grey: #ddd;
-  --color-gray: #707070;
-  --color-gray-darker: #404040;
 
   --font-size-base: 16px;
+  --font-size-large-up: 18px;
   --line-height-base: 1.71;
   --font-heading: 'Raleway', sans-serif;
   --font-copy: 'Open Sans', sans-serif;
