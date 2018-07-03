@@ -49,7 +49,7 @@ const isClientRoutable = (anchor: HTMLAnchorElement) =>
 // tslint:disable-next-line:variable-name
 export class StaticContentComponent extends React.Component<
   StaticContentProps
-> {
+  > {
   constructor(props: StaticContentProps, context: RouterChildContext<{}>) {
     super(props, context);
   }

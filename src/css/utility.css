@@ -8,12 +8,39 @@
 
 .list-unstyled {
   list-style: none;
-  margin: 0;
+  margin-left: 0;
   padding: 0;
 }
 
 .list-unstyled > li {
   margin-bottom: 0;
+}
+
+.list-flex {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.list-flex > li {
+  margin: 0;
+  flex: 0 0 20%;
+  padding: 0.5rem;
+}
+
+.list-flex--square > li {
+  display: flex;
+  flex: 0 1 20%;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-flex--square > li::after {
+  display: block;
+  content: '';
+  padding-bottom: 100%;
 }
 
 .sr-only {
@@ -25,4 +52,20 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.bg-light {
+  background-color: var(--color-bg-light);
+}
+
+.bg-dark {
+  background-color: var(--color-bg-light);
+}
+
+.text-light {
+  color: var(--color-text-light);
+}
+
+.text-dark {
+  color: var(--color-text-dark);
 }

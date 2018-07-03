@@ -30,7 +30,7 @@ export const StandardPageComponent = (props: StandardPageProps) => {
     page.type === 'page' ? <PageFooterComponent page={page} /> : null;
 
   return (
-    <div className="standard-page container">
+    <div>
       <PageContentComponent
         title={page.title}
         summary={page.summary}

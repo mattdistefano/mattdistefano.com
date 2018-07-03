@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component, ComponentType } from 'react';
 import { Route, RouteProps, RouteComponentProps, Switch } from 'react-router';
-import { Link } from 'react-router-dom';
 
 import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 
@@ -18,30 +17,26 @@ import {
 
 import { SiteFooterComponent } from './site-footer';
 
+import { SiteHeaderComponent } from './site-header';
+
 import {
   StandardPageComponent,
   StandardPageProps,
   BlogArchiveIndexPageComponent,
   HomePageComponent,
+  StyleGuidePageComponent
 } from '../pages';
 
 import { IS_BROWSER_ENV } from '../../utils';
 
 import { wrapPageComponent, WrappedProps } from './wrap-page-component';
 
-import {
-  AppState,
-  onPageLoaded,
-  onPageLoading,
-  onPageLoadingFailed
-} from './app-state';
+import { AppState, onPageLoaded, onPageLoading, onPageLoadingFailed } from './app-state';
 
 // tslint:disable:variable-name
 const WrappedStandardPage = wrapPageComponent(StandardPageComponent);
 
-const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(
-  BlogArchiveIndexPageComponent
-);
+const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(BlogArchiveIndexPageComponent);
 
 const WrappedHomePageComponent = wrapPageComponent(HomePageComponent);
 
@@ -59,7 +54,9 @@ export class AppComponent extends Component<AppProps, AppState> {
     super(props);
 
     // TODO autobind
-    this._onRouteEnter = this._onRouteEnter.bind(this);
+    this._onRouteEnter = this
+      ._onRouteEnter
+      .bind(this);
 
     this.state = {
       pageCache: props.initialPageCache || {}
@@ -115,8 +112,7 @@ export class AppComponent extends Component<AppProps, AppState> {
   private _renderPage<T extends WrappedProps>(
     // tslint:disable-next-line:variable-name
     PageComponent: ComponentType<T>,
-    props: RouteComponentProps<any>
-  ) {
+    props: RouteComponentProps<any>) {
     const path = props.match.url || '/';
 
     if (path !== this._lastPath) {
@@ -131,51 +127,40 @@ export class AppComponent extends Component<AppProps, AppState> {
     }
 
     if (this.props.onMeta) {
-      this.props.onMeta(getMetaData(page));
+      this
+        .props
+        .onMeta(getMetaData(page));
     }
 
-    return (
-      <PageComponent
-        onEnter={this._onRouteEnter}
-        page={page}
-        key={path}
-        {...props}
-      />
-    );
+    return (<PageComponent onEnter={this._onRouteEnter} page={page} key={path} {...props} />);
   }
 
   render() {
     return (
-      <div className="site">
-        <header className="site-header">
-          <Link to="/" className="site-header__link">
-            <span className="site-header__first">matt</span>distefano.com
-          </Link>
-        </header>
-
-        <main className="site-main">
-          <Switch>
+      <div>
+        <Route
+          path="/:any+"
+          component={SiteHeaderComponent}
+        />
+        <Switch>
           <Route
-              path="/"
-              exact
-              render={props =>
-                this._renderPage(WrappedHomePageComponent, props)
-              }
-            />
-            <Route
-              path="/blog/:year?/:month?/:day?/"
-              exact
-              render={props =>
-                this._renderPage(WrappedBlogArchiveIndexPageComponent, props)
-              }
-            />
-            <Route
-              path="*"
-              render={props => this._renderPage(WrappedStandardPage, props)}
-            />
-          </Switch>
-        </main>
-        <SiteFooterComponent />
+            path="/"
+            exact
+            render={props => this._renderPage(WrappedHomePageComponent, props)} />
+          <Route
+            path="/blog/:year?/:month?/:day?/"
+            exact
+            render={props => this._renderPage(WrappedBlogArchiveIndexPageComponent, props)} />
+          <Route
+            path="/style-guide"
+            component={StyleGuidePageComponent}
+          />
+          <Route path="*" render={props => this._renderPage(WrappedStandardPage, props)} />
+        </Switch>
+        <Route
+          path="/:any+"
+          component={SiteFooterComponent}
+        />
       </div>
     );
   }
