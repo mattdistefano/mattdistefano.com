@@ -40,6 +40,8 @@ const WrappedBlogArchiveIndexPageComponent = wrapPageComponent(BlogArchiveIndexP
 
 const WrappedHomePageComponent = wrapPageComponent(HomePageComponent);
 
+const WrappedStyleGuidePageComponent = wrapPageComponent(StyleGuidePageComponent);
+
 // tslint:enable:variable-name
 
 export interface AppProps {
@@ -153,8 +155,7 @@ export class AppComponent extends Component<AppProps, AppState> {
             render={props => this._renderPage(WrappedBlogArchiveIndexPageComponent, props)} />
           <Route
             path="/style-guide"
-            component={StyleGuidePageComponent}
-          />
+            render={props => this._renderPage(WrappedStyleGuidePageComponent, props)} />
           <Route path="*" render={props => this._renderPage(WrappedStandardPage, props)} />
         </Switch>
         <Route
