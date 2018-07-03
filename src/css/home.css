@@ -1,0 +1,97 @@
+
+.home {
+  min-height: 100vh;
+  position: relative;
+}
+
+.home__logo {
+  background-color: var(--color-bg-light);
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.home__about {
+  margin-top: 1rem;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.home__about-heading {
+  margin: 0;
+}
+
+.home__about-content {
+  margin-top: 0.5rem;
+}
+
+.home__index {
+  margin-top: 1rem;
+  padding: 0 1rem;
+  color: var(--color-text-light);
+}
+
+.home__index-heading {
+  margin: 0;
+}
+
+.home__index-item {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.home__index-link {
+  color: var(--color-text);
+}
+
+.home__index-link:hover,
+.home__index-link:focus {
+  color: var(--color-text-light);
+}
+
+@media (--medium-viewport) {
+  .home::before {
+    position: absolute;
+    left: 0;
+    right: 55%;
+    top: 0;
+    bottom: 0;
+    content: '';
+    display: block;
+    background-color: var(--color-bg-light);
+    z-index: 0;
+  }
+
+  .home__logo {
+    padding: 0;
+    font-size: 2rem;
+    position: absolute;
+    top: 25%;
+    right: 65%;
+    z-index: 1;
+  }
+
+  .home__about {
+    position: absolute;
+    top: 35%;
+    right: 55%;
+    max-width: 25rem;
+    margin-top: 3rem;
+    margin-right: 3rem;
+    z-index: 1;
+    padding: 0 1rem;
+  }
+
+  .home__index {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    margin-top: 0;
+    margin-left: 3rem;
+    z-index: 1;
+    padding: 0 1rem;
+  }
+}

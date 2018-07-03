@@ -28,8 +28,15 @@ interface BlogArchiveDayProps {
 // tslint:disable-next-line:variable-name
 const BlogArchiveDayComponent = (props: BlogArchiveDayProps) => (
   <div>
-    <h2>{props.title}</h2>
-    <PageCardListComponent pages={props.pages} headingLevel={3} />
+    <div className="page__header">
+      <div className="container animation-slide-fade-in animation-delay-1">
+        <h1 className="page__title">Blog Archive</h1>
+        <p className="page__summary">{props.title}</p>
+      </div>
+    </div>
+    <div className="container animation-slide-fade-in animation-delay-2">
+      <PageCardListComponent pages={props.pages} headingLevel={3} />
+    </div>
   </div>
 );
 
@@ -41,8 +48,15 @@ interface BlogArchiveMonthProps {
 // tslint:disable-next-line:variable-name
 const BlogArchiveMonthComponent = (props: BlogArchiveMonthProps) => (
   <div>
-    <h2>{props.title}</h2>
-    <PageCardListComponent pages={props.pages} headingLevel={3} />
+    <div className="page__header">
+      <div className="container animation-slide-fade-in animation-delay-1">
+        <h1 className="page__title">Blog Archive</h1>
+        <p className="page__summary">{props.title}</p>
+      </div>
+    </div>
+    <div className="container animation-slide-fade-in animation-delay-2">
+      <PageCardListComponent pages={props.pages} headingLevel={3} />
+    </div>
   </div>
 );
 
@@ -54,19 +68,23 @@ interface BlogArchiveYearProps {
 // tslint:disable-next-line:variable-name
 const BlogArchiveYearComponent = (props: BlogArchiveYearProps) => (
   <div>
-    {props.pages.map((page, idx) => {
-      const monthPath = page.path.substr(11, 2);
+    <div className="page__header">
+      <div className="container animation-slide-fade-in animation-delay-1">
+        <h1 className="page__title">Blog Archive</h1>
+        <p className="page__summary">Archive for {props.year}</p>
+      </div>
+    </div>
+    <div className="container animation-slide-fade-in animation-delay-2">
+      {props.pages.map((page, idx) => {
+        const monthPath = page.path.substr(11, 2);
 
-      const month = months[parseInt(monthPath, 10) - 1];
+        const month = months[parseInt(monthPath, 10) - 1];
 
-      return (
-        <BlogArchiveMonthComponent
-          key={idx}
-          title={`${month}, ${props.year}`}
-          pages={flattenChildren(page)}
-        />
-      );
-    })}
+        return (
+          <PageCardListComponent key={idx} pages={flattenChildren(page)} headingLevel={3} />
+        );
+      })}
+    </div>
   </div>
 );
 
@@ -132,8 +150,7 @@ export const BlogArchiveIndexPageComponent = (
   }
 
   return (
-    <div className="blog-archive-index-page container">
-      <h1 className="text-center">Blog archive</h1>
+    <div className="blog-archive-index-page">
       {componentForMatch(props)}
     </div>
   );

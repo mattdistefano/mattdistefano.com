@@ -1,0 +1,32 @@
+.page-header {
+  background-color: var(--color-lightest-grey);
+  padding: 0 0 2rem 0;
+}
+
+.page-header__title {
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 0.6666rem;
+  font-size: 3rem;
+  line-height: 1.5;
+}
+
+.page-header__summary {
+  color: var(--color-text-light);
+  font-weight: 300;
+  font-size: 1.3333rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.page-header__date {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--color-text-light);
+}
+
+.page-header__time {
+  color: var(--color-text);
+  font-weight: 500;
+}
