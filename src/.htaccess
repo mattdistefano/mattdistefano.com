@@ -8,14 +8,21 @@ RewriteRule ^(.*)$ https://mattdistefano.com/$1 [L,R=301]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-#if foo requested, return foo.html contents
+# if foo requested, return foo.html contents
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}\.html -f
 RewriteRule ^(.*)$ $1.html [L]
 
-#redirect foo.html to foo
+# strip .html extensions
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
 RewriteRule ^(.+)\.html$ $1 [R,L]
+
+# rewrite to index.html
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^ /index.html
 
 <FilesMatch "\.(html|json)$">
   ExpiresActive On

@@ -12,6 +12,7 @@ const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpac
 const precacheConfig = {
   staticFileGlobsIgnorePatterns: [
     /polyfills(\..*)?\.js$/,
+    /\.htaccess$/,
     /\.map$/,
     /blog\//,
     // ignore all JSON files since we generate them
