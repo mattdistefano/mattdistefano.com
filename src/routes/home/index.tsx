@@ -17,7 +17,7 @@ export const HomeRouteComponent = (props: HomeRouteProps) => {
 
   return (
     <div className="home">
-      <h1 className="logo home__logo animation-slide-fade-in">mattdistefano</h1>
+      <h1 className="logo home__logo">mattdistefano</h1>
       <div className="home__about animation-slide-fade-in animation-delay-2">
         <h2 className="h3 home__about-heading">about</h2>
         <p className="home__about-content">
