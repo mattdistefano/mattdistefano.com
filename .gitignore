@@ -1,6 +1,6 @@
 .vscode
 .DS_Store
-todo.txt
 node_modules/
-dist/
+build/
 drafts/
+/*.log

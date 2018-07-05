@@ -24,6 +24,8 @@ export const formatDate = (d: Date | string, includeTime = true) => {
     d = new Date(d);
   }
 
+  // TODO adjust timezone to pacific
+
   const month = months[d.getMonth()];
   const date = d.getDate();
   const year = d.getFullYear();
