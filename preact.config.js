@@ -13,6 +13,7 @@ const precacheConfig = {
   staticFileGlobsIgnorePatterns: [
     /polyfills(\..*)?\.js$/,
     /\.htaccess$/,
+    /\.robots\.txt$/,
     /\.map$/,
     /blog\//,
     // ignore all JSON files since we generate them
@@ -48,6 +49,9 @@ export default function (config, env, helpers) {
     },
     {
       from: path.resolve(__dirname, 'src/.htaccess')
+    },
+    {
+      from: path.resolve(__dirname, 'src/robots.txt')
     }
   ]);
 
