@@ -4,6 +4,7 @@ const preactCliTypeScript = require('preact-cli-plugin-typescript');
 const preactCliSwPrecachePlugin = require('preact-cli-sw-precache');
 const preactCliPostCSS = require('preact-cli-postcss');
 
+const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpack-plugin')
@@ -41,6 +42,7 @@ export default function (config, env, helpers) {
     prerender: false,
   });
 
+  // TODO use existing instance
   const copyPlugin = new CopyWebpackPlugin([
     {
       from: path.resolve(__dirname, 'data'),
@@ -56,6 +58,10 @@ export default function (config, env, helpers) {
   ]);
 
   config.plugins.push(siteGenPlugin, copyPlugin);
+ 
+  if (env.production) {
+    config.plugins.push(new StyleExtHtmlWebpackPlugin());
+  }
 
   return config;
 }
