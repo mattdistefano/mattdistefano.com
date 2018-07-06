@@ -45,26 +45,21 @@ const addPageToCache = (
   status: asyncDataStatus,
   data?: Page | IndexPage
 ) => {
-  const cloned = Object.assign({}, cache);
+  const cacheClone = { ...cache };
 
-  if (status === 'loading') {
-    cloned[path] = {
-      ...cloned[path] || {},
-      status: 'loading',
-      timestamp: Date.now(),
-      path,
-    };
-  } else if (status === 'notfound') {
-    cloned[path] = {
-      status: 'notfound',
-      timestamp: Date.now(),
-      path,
-    };
-  } else if (status === 'loaded') {
-    walkPage(data, item => addToCache(cloned, item, 'loaded'));
+  cacheClone[path] = {
+    ...cacheClone[path] || {},
+    timestamp: Date.now(),
+    status,
+    path,
+    data,
+  };
+
+  if (data) {
+    walkPage(data, item => addToCache(cacheClone, data, status));
   }
 
-  return cloned;
+  return cacheClone;
 };
 
 /** Returns a new state representing the start of loading of the specified post */
