@@ -1,0 +1,20 @@
+.image {
+  text-align: right;
+  margin: 0 -1rem 2rem -1rem;
+}
+
+.image__img {
+  margin-bottom: 0;
+  display: block;
+}
+
+.image__link {
+  color: var(--color-text);
+  font-size: 0.75rem;
+  padding-right: 1rem;
+}
+
+.image__link:hover,
+.image__link:focus {
+  color: var(--color-text-light);
+}

@@ -43,15 +43,6 @@
   margin-top: 0.5rem;
 }
 
-.home__index-link {
-  color: var(--color-text);
-}
-
-.home__index-link:hover,
-.home__index-link:focus {
-  color: var(--color-text-light);
-}
-
 @media (--medium-viewport) {
   .home::before {
     position: absolute;

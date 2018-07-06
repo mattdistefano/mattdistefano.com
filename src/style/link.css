@@ -1,0 +1,8 @@
+.link-muted{
+  color: var(--color-text);
+}
+
+.link-muted:hover,
+.link-muted:focus {
+  color: var(--color-text-light);
+}

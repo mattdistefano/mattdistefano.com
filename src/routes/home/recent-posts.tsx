@@ -18,7 +18,7 @@ export const RecentPostsComponent = (props: RecentPostsProps) => {
       {
         props.posts && props.posts.map(result => (
           <li className="home__index-item" key={result.path}>
-            <Link href={result.path} className="home__index-link">
+            <Link href={result.path} className="link-muted">
               {formatDate(result.created)} - {result.title}
             </Link>
           </li>

@@ -7,3 +7,4 @@ export * from './icon';
 export * from './queries';
 export * from './date';
 export * from './icon';
+export * from './image';

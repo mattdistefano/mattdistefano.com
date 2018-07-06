@@ -1,11 +1,13 @@
 import { h } from 'preact';
 import { RoutableProps } from 'preact-router';
-import Markup from 'preact-markup';
-import { Page, PageSummary } from '@mattdistefano/site-generator';
-import { AsyncData, PageCache } from '../../models';
+import { PageCache } from '../../models';
 import {
   PageHeaderComponent,
 } from '../../components/page-header';
+
+import { MarkupComponent } from '../../components/markup';
+
+import { ImageComponent } from '../../components/image';
 
 export interface StyleGuideRouteProps extends RoutableProps {
   pageCache?: PageCache;
@@ -28,10 +30,9 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
     return <div className="container">Loading!</div>;
   }
 
-  console.log('yo');
-
   const content = page.type === 'page' ? (
-    <Markup trim={false} type="html" class="page-content container animation-slide-fade-in animation-delay-2" markup={page.content} />
+    <MarkupComponent
+      markup={page.content} />
   ) : null;
 
   return <div>
@@ -39,7 +40,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       title={page.title}
       summary={page.summary}
       created={page.created} />
-    <div className="container">
+    <div className="page-content container animation-slide-fade-in animation-delay-2">
       <h2>Colors</h2>
 
       <h3>Palette</h3>
@@ -205,10 +206,17 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nullam eget felis eget nunc. Tortor consequat id porta nibh venenatis cras sed felis.</p>
       <p>Vitae congue eu consequat ac felis. Rhoncus urna neque viverra justo nec. Vestibulum lorem sed risus ultricies tristique nulla aliquet enim. Feugiat nibh sed pulvinar proin gravida hendrerit lectus. Quis vel eros donec ac odio tempor orci. Enim facilisis gravida neque convallis a. Sem viverra aliquet eget sit amet tellus cras adipiscing enim.</p>
 
-      <h3>Links &amp; buttons</h3>
+      <h3>Links</h3>
+
+      <h4>Standard</h4>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <a href="#">labore et dolore</a> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
+      <h4>Muted</h4>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <a href="#" class="link-muted">labore et dolore</a> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#" class="link-muted">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      <h3>Buttons</h3>
       <p><button type="button" className="button">Button</button></p>
 
       <h3>Lists</h3>
@@ -251,9 +259,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
 
       <h3>Images</h3>
 
-      <div className="image-container">
-        <img src="/blog/2017/11/26/flowers.jpg" alt="Some pretty pretty flowers" />
-      </div>
+      <img src="/blog/2017/11/26/flowers.jpg" alt="Some pretty pretty flowers" />
 
       <h3>Video embeds</h3>
 
@@ -261,10 +267,18 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
         <iframe src="//www.youtube.com/embed/XoYu7K6Ywkg" width="640" height="390" frameBorder="0" allowFullScreen></iframe>
       </div>
 
-      {/* tslint:enable */}
+      <h2>Components</h2>
 
-      <h3>Combinations</h3>
+      <h3>Image</h3>
+      
+      <blockquote><p>Wraps an image with additional markup and behavior.</p></blockquote>
 
+      <ImageComponent src="/blog/2017/11/26/flowers.jpg" alt="Some pretty pretty flowers" />
+
+      <h3>Markup</h3>
+
+      <blockquote><p>Processes markup into Preact components (using <a href="https://github.com/developit/preact-markup" target="_blank">Preact Markup</a>) w/ pre-configured component substitution.</p></blockquote>
+       
       {content}
     </div>
   </div>;

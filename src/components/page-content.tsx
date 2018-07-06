@@ -1,7 +1,7 @@
 import { h } from 'preact';
-import Markup from 'preact-markup';
-import { Page } from '@mattdistefano/site-generator';
+import { MarkupComponent } from './markup';
 import { PageHeaderComponent } from './page-header';
+import { ImageComponent } from './image';
 
 export interface PageContentProps {
   title?: string;
@@ -13,14 +13,21 @@ export interface PageContentProps {
   children?: JSX.Element;
 }
 
+const components = {
+  img: ImageComponent,
+};
+
 // tslint:disable-next-line:variable-name
 export const PageContentComponent = (props: PageContentProps) => {
   if (!props.title) {
     return <div>{props.children}</div>;
   }
 
+  // TODO support server-side rendering
   const content = props.content ? (
-    <Markup trim={false} type="html" class="page-content container animation-slide-fade-in animation-delay-2" markup={props.content} />
+    <MarkupComponent
+      class="page-content container animation-slide-fade-in animation-delay-2"
+      markup={props.content} />
   ) : null;
 
   return (
