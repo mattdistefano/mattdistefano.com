@@ -3,12 +3,8 @@ import { Router, RouterOnChangeArgs } from 'preact-router';
 import AsyncRoute from 'preact-async-route';
 import Match from 'preact-router/match';
 
-import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
-
 import {
 	HtmlMetaData,
-	AsyncData,
-	PageCache,
 	HttpError,
 	getPage,
 	getMetaData,
@@ -19,14 +15,15 @@ import {
 import { restoreScroll, trackPageView, IS_BROWSER_ENV } from '../utils';
 
 import { HomeRouteComponent } from '../routes/home';
-import { PageRouteComponent } from '../routes/pages';
+import { PageRouteComponent } from '../routes/page';
 
 import { AppState, onPageLoaded, onPageLoading, onPageLoadingFailed } from './app-state';
 import { SiteHeaderComponent } from './site-header';
 import { SiteFooterComponent } from './site-footer';
+import { MetaProxyComponent } from './meta-proxy';
 
 export interface AppProps {
-	onMeta?: (meta: HtmlMetaData) => void;
+
 }
 
 const getBlogArchiveComponent = () => import('../routes/blog-archive/index').then(m => {
@@ -46,28 +43,13 @@ export default class App extends Component<AppProps, AppState> {
 		this.state = {
 			pageCache: {},
 		};
-
-		if (IS_BROWSER_ENV) {
-			// TODO move this elsewhere
-			this._descriptionElem = document.head.querySelector(
-				'meta[name="description"]'
-			) as HTMLMetaElement;
-
-			if (!this._descriptionElem) {
-				this._descriptionElem = document.createElement('meta');
-				this._descriptionElem.setAttribute('name', 'description');
-				document.head.appendChild(this._descriptionElem);
-			}
-		}
 	}
 
 	private _onMetaChange(meta: HtmlMetaData) {
-		if (!IS_BROWSER_ENV) {
-			return;
-		}
-
-		document.title = meta.title;
-		this._descriptionElem.content = meta.description;
+		this.setState({
+			...this.state,
+			...meta
+		});
 	}
 
 	private _loadPageData(path: string) {
@@ -115,6 +97,7 @@ export default class App extends Component<AppProps, AppState> {
 	render() {
 		return (
 			<div id="app">
+				<MetaProxyComponent description={this.state.description} title={this.state.title} />
 				<Match
 					path="/">
 					{({ matches }) => matches ? null : <SiteHeaderComponent />}

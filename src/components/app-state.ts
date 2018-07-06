@@ -8,6 +8,8 @@ import {
 
 export interface AppState {
   pageCache: PageCache;
+  title?: string;
+  description?: string;
 }
 
 const addToCache = (
