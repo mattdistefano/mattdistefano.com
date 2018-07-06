@@ -17,8 +17,9 @@ const precacheConfig = {
     /\.robots\.txt$/,
     /\.map$/,
     /blog\//,
+    /push-manifest\.json$/,
     // ignore all JSON files since we generate them
-    /\.json$/,
+    /(^manifest)\.json$/,
     /.DS_Store/,
     /\.git/
   ]

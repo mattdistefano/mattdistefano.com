@@ -35,3 +35,7 @@ RewriteRule ^ /index.html
   ExpiresActive On
   ExpiresDefault "access plus 1 year"
 </FilesMatch>
+
+<FilesMatch "sw\.js$">
+  Header set Cache-Control "max-age=0"
+</FilesMatch>
