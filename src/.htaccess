@@ -9,9 +9,9 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # if foo requested, return foo.html contents
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}\.html -f
-RewriteRule ^(.*)$ $1.html [L]
+# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}\.html -f
+# RewriteRule ^(.*)$ $1.html [L]
 
 # strip .html extensions
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
