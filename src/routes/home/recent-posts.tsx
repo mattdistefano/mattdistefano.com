@@ -4,6 +4,7 @@ import { PageSummary, Page, IndexPage } from '@mattdistefano/site-generator';
 
 export interface RecentPostsProps {
   posts?: Array<PageSummary | Page | IndexPage>;
+  moreUrl?: string;
 }
 
 const formatDate = (dateString: string) => dateString.slice(0, 10);
@@ -24,6 +25,11 @@ export const RecentPostsComponent = (props: RecentPostsProps) => {
           </li>
         ))
       }
+      <li className="home__index-item">
+        <Link href={props.moreUrl} className="link-muted">
+          More posts...
+        </Link>
+      </li>
     </ul>
   </div>
 };

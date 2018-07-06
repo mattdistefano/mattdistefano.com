@@ -26,7 +26,7 @@ export const HomeRouteComponent = (props: HomeRouteProps) => {
           with a focus on modern frontend stacks, accessibility, and UX design.
         </p>
       </div>
-      <RecentPostsComponent posts={recentPosts && recentPosts.results} />
+      <RecentPostsComponent posts={recentPosts && recentPosts.results} moreUrl={recentPosts && recentPosts.root} />
     </div>
   );
 };
