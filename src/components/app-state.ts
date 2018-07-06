@@ -3,7 +3,8 @@ import { IndexPage, Page, PageSummary } from '@mattdistefano/site-generator';
 import {
   PageCache,
   walkPage,
-  asyncDataStatus
+  asyncDataStatus,
+  AsyncData
 } from '../models';
 
 export interface AppState {
@@ -12,33 +13,6 @@ export interface AppState {
   description?: string;
 }
 
-const addToCache = (
-  cache: PageCache,
-  page: Page | IndexPage | PageSummary,
-  status: asyncDataStatus
-) => {
-  walkPage(page, item => {
-    const cached = cache[item.path];
-
-    if (
-      cached &&
-      cached.status === 'loaded' &&
-      cached.data.type !== 'summary'
-    ) {
-      // don't bother replacing any fully-loaded pages
-      return;
-    }
-
-    cache[item.path] = {
-      timestamp: Date.now(),
-      data: item,
-      path: item.path,
-      status
-    };
-  });
-};
-
-// TODO just combine these?
 const addPageToCache = (
   cache: PageCache,
   path: string,
@@ -46,17 +20,29 @@ const addPageToCache = (
   data?: Page | IndexPage
 ) => {
   const cacheClone = { ...cache };
+  const existing = cacheClone[path] || {} as AsyncData<Page | IndexPage | PageSummary>;
 
   cacheClone[path] = {
-    ...cacheClone[path] || {},
+    ...existing,
     timestamp: Date.now(),
+    data: data || existing.data,
     status,
     path,
-    data,
   };
 
   if (data) {
-    walkPage(data, item => addToCache(cacheClone, data, status));
+    walkPage(data, item => {
+      if (cache[item.path]) {
+        return;
+      }
+
+      cacheClone[item.path] = {
+        timestamp: Date.now(),
+        data: item,
+        path: item.path,
+        status: 'loaded',
+      };
+    });
   }
 
   return cacheClone;
