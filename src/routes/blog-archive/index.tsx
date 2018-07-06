@@ -60,7 +60,7 @@ const BlogArchiveYearComponent = (props: BlogArchiveYearProps) => (
   <div>
     <PageHeaderComponent
       title="Blog Archive"
-      summary={`Archive for ${props.year}}`} />
+      summary={`Archive for ${props.year}.`} />
     <div className="container animation-slide-fade-in animation-delay-2">
       {props.pages.map((page, idx) =>
         <PageCardListComponent pages={flattenChildren(page)} headingLevel={2} />
@@ -79,7 +79,7 @@ const componentForMatch = (props: BlogArchiveIndexPageProps) => {
 
     return (
       <BlogArchiveDayComponent
-        title={`${month} ${props.day}, ${props.year}`}
+        title={`${month} ${props.day}, ${props.year}.`}
         pages={pages}
       />
     );
@@ -94,7 +94,7 @@ const componentForMatch = (props: BlogArchiveIndexPageProps) => {
 
     return (
       <BlogArchiveMonthComponent
-        title={`${month}, ${props.year}`}
+        title={`${month}, ${props.year}.`}
         pages={pages}
       />
     );
@@ -108,7 +108,7 @@ const componentForMatch = (props: BlogArchiveIndexPageProps) => {
     );
   }
 
-  const years = (page => ({
+  const years = page.children.map(page => ({
     page,
     year: page.path.substr(props.url.length, 4)
   }));
@@ -117,13 +117,19 @@ const componentForMatch = (props: BlogArchiveIndexPageProps) => {
     <div>
       <PageHeaderComponent
         title="Blog Archive"
-        summary="Complete archive of posts" />
+        summary="Complete archive of posts." />
 
       <div className="container animation-slide-fade-in animation-delay-2">
-        {page.children.map(page =>
-          page.children.map((childPage, idx) =>
-            <PageCardListComponent pages={flattenChildren(childPage)} headingLevel={2} />
-          ))}
+        {
+          years.map(year => (
+            <div key={year.year}>
+              <h2>{year.year}</h2>
+              {year.page.children.map((childPage, idx) =>
+                <PageCardListComponent pages={flattenChildren(childPage)} headingLevel={2} />
+              )}
+            </div>
+          ))
+        }
       </div>
     </div>
   );
@@ -139,9 +145,5 @@ export const BlogArchiveIndexPageComponent = (
     return <div className="container">Loading!</div>;
   }
 
-  return (
-    <div className="blog-archive-index-page">
-      {componentForMatch(props)}
-    </div>
-  );
+  return componentForMatch(props);
 };
