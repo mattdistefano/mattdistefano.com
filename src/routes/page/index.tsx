@@ -45,5 +45,3 @@ export const PageRouteComponent = (props: PageRouteProps) => {
     </PageContentComponent>
   );
 };
-
-PageRouteComponent['__load'] = true;
