@@ -1,0 +1,5 @@
+.logo {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-text-light);
+}

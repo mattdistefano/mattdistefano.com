@@ -8,17 +8,17 @@
   margin: 0;
 }
 
-.btn.pre__expand {
+.pre__expand {
   position: absolute;
   top: 1rem;
   right: 1rem;
   font-size: 0.75rem !important;
-  display: none;
+  display: none !important;
 }
 
 @media (--container-viewport) {
   /* TODO move this logic into component */
-  .btn.pre__expand {
-    display: inline;
+  .pre__expand {
+    display: inline !important;
   }
 }

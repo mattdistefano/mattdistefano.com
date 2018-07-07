@@ -96,31 +96,33 @@ export default class App extends Component<AppProps, AppState> {
 
 	render() {
 		return (
-			<div id="app">
+			<div class="site">
 				<MetaProxyComponent description={this.state.description} title={this.state.title} />
 				<Match
 					path="/">
 					{({ matches }) => matches ? null : <SiteHeaderComponent />}
 				</Match>
-				<Router onChange={this._onRouteChange}>
-					<HomeRouteComponent
-						path="/"
-						pageCache={this.state.pageCache} />
+				<main class="site-content">
+					<Router onChange={this._onRouteChange}>
+						<HomeRouteComponent
+							path="/"
+							pageCache={this.state.pageCache} />
 
-					<AsyncRoute
-						path="/style-guide/"
-						getComponent={getStyleGuideComponent}
-						pageCache={this.state.pageCache} />
+						<AsyncRoute
+							path="/style-guide/"
+							getComponent={getStyleGuideComponent}
+							pageCache={this.state.pageCache} />
 
-					<AsyncRoute
-						path="/blog/:year?/:month?/:day?/"
-						getComponent={getBlogArchiveComponent}
-						pageCache={this.state.pageCache} />
+						<AsyncRoute
+							path="/blog/:year?/:month?/:day?/"
+							getComponent={getBlogArchiveComponent}
+							pageCache={this.state.pageCache} />
 
-					<PageRouteComponent
-						default
-						pageCache={this.state.pageCache} />
-				</Router>
+						<PageRouteComponent
+							default
+							pageCache={this.state.pageCache} />
+					</Router>
+				</main>
 				<Match
 					path="/">
 					{({ matches }) => matches ? null : <SiteFooterComponent />}

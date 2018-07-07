@@ -1,0 +1,17 @@
+.site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  flex: 0 0;
+}
+
+.site-content {
+  flex: 1 0;
+}
+
+.site-footer {
+  flex: 0 0;
+}

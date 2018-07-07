@@ -32,19 +32,17 @@ export const PageRouteComponent = (props: PageRouteProps) => {
     page.type === 'page' ? <PageFooterComponent page={page} /> : null;
 
   return (
-    <div>
-      <PageContentComponent
-        title={page.title}
-        summary={page.summary}
-        content={page.type !== 'summary' ? page.content : null}
-        created={page.created}
-        modified={page.modified}
-      >
-        {footer}
-      </PageContentComponent>
+    <PageContentComponent
+      title={page.title}
+      summary={page.summary}
+      content={page.type !== 'summary' ? page.content : null}
+      created={page.created}
+      modified={page.modified}
+    >
+      {footer}
       {pageCardList}
       {queries}
-    </div>
+    </PageContentComponent>
   );
 };
 
