@@ -11,6 +11,8 @@ import { ImageComponent } from '../../components/image';
 
 import { PreComponent } from '../../components/pre';
 
+import { IconComponent } from '../../components/icon';
+
 export interface StyleGuideRouteProps extends RoutableProps {
   pageCache?: PageCache;
   url?: string;
@@ -273,10 +275,6 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
         {codeString}
       </code></pre>
 
-      <h3>Images</h3>
-
-      <img src="/blog/2017/11/26/flowers.jpg" alt="Some pretty pretty flowers" />
-
       <h3>Video embeds</h3>
 
       <div className="video-embed video-embed--youtube">
@@ -284,6 +282,17 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       </div>
 
       <h2>Components</h2>
+
+      <h2>Icon</h2>
+
+      <blockquote><p>Renders the specified icon as an inline SVG.</p></blockquote>
+
+      <ul class="list-flex list-flex--square">
+        <li><IconComponent title="Twitter" name="twitter" size={22} /></li>
+        <li><IconComponent title="Github" name="github" size={22} /></li>
+        <li><IconComponent title="LinkedIn" name="linkedin" size={22} /></li>
+        <li><IconComponent title="RSS" name="rss" size={22} /></li>
+      </ul>
 
       <h3>Image</h3>
 

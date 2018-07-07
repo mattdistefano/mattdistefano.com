@@ -20,8 +20,16 @@
   display: inline-block;
 }
 
-.contact-links__action-icon {
+.contact-links__action-icon > svg {
   fill: var(--color-primary);
+  transform: scale(1);
+  transition: transform ease 0.15s;
+}
+
+.contact-links__action-icon:hover > svg,
+.contact-links__action-icon:focus > svg {
+  fill: var(--color-primary-alt);
+  transform: scale(1.1);
 }
 
 .contact-links__item + .contact-links__item {
