@@ -29,5 +29,9 @@
     "style-ext-html-webpack-plugin": "^3.4.7",
     "typescript": "2.9.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "browserslist": [
+    "last 3 versions",
+    "not ie < 11"
+  ]
 }
