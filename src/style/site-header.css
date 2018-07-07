@@ -4,15 +4,12 @@
 }
 
 .site-header__inner {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
 
 .site-header__logo {
-  flex: 1 0;
+  font-size: 1.25rem;
   line-height: 1;
   transition: linear 0.3s color;
   text-decoration: none;
@@ -21,4 +18,10 @@
 .site-header__logo:hover,
 .site-header__logo:focus {
   color: var(--color-text-dark);
+}
+
+@media (--medium-viewport) {
+  .site-header__logo {
+    font-size: 2rem;
+  }
 }
