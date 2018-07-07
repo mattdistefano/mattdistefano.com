@@ -16,13 +16,13 @@ interface QueryProps {
 // tslint:disable-next-line:variable-name
 const QueryComponent = (props: QueryProps) =>
   props.query && props.query.results && props.query.results.length > 0 ? (
-    <div className="query">
-      <h2 className="h3">{props.title}</h2>
+    <div class="query">
+      <h2 class="h3">{props.title}</h2>
       <PageCardListComponent pages={props.query.results} headingLevel={3} />
-      <div className="query__more">
+      <div class="query__more">
         {props.query.linkText && (
           <Link
-            className="button"
+            class="button"
             href={props.query.root || props.query.path}
           >
             {props.query.linkText}
@@ -34,7 +34,7 @@ const QueryComponent = (props: QueryProps) =>
 
 // tslint:disable-next-line:variable-name
 export const QueriesComponent = (props: QueriesProps) => (
-  <div className="container">
+  <div class="container">
     {props.queries
       ? Object.keys(props.queries).map(key => (
         <QueryComponent title={key} query={props.queries[key]} key={key} />

@@ -5,7 +5,7 @@ import { DateComponent } from './date';
 
 export interface PageCardProps {
   page?: PageSummary | Page | IndexPage;
-  className?: string;
+  class?: string;
   headingLevel?: number;
 }
 
@@ -17,10 +17,10 @@ export const PageCardComponent = (props: PageCardProps) => {
   const Heading = `h${props.headingLevel || 2}`;
 
   return (
-    <Link className="card card--link" href={props.page.path}>
-      <Heading className="card__title" dangerouslySetInnerHTML={title} />
-      <DateComponent className="card__date" date={props.page.created} />
-      <p className="card__summary">{props.page.summary}</p>
+    <Link class="card card--link" href={props.page.path}>
+      <Heading class="card__title" dangerouslySetInnerHTML={title} />
+      <DateComponent class="card__date" date={props.page.created} />
+      <p class="card__summary">{props.page.summary}</p>
     </Link>
   );
 };

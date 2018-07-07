@@ -4,7 +4,7 @@ import { formatDate } from '../utils';
 
 export interface DateProps {
   date: string;
-  className?: string;
+  class?: string;
 }
 
 // tslint:disable-next-line:variable-name
@@ -15,7 +15,7 @@ export const DateComponent = (props: DateProps) => {
   const isValid = !isNaN(date.getTime());
 
   return isValid ? (
-    <time dateTime={props.date} className={`date ${props.className}`}>
+    <time dateTime={props.date} class={`date ${props.class}`}>
       {formatDate(props.date, false)}
     </time>
   ) : null;

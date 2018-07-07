@@ -9,7 +9,7 @@ export interface PageContentProps {
   created?: string;
   modified?: string;
   content?: string;
-  className?: string;
+  class?: string;
   children?: JSX.Element;
 }
 
@@ -31,7 +31,7 @@ export const PageContentComponent = (props: PageContentProps) => {
   ) : null;
 
   return (
-    <div className={`page ${props.className || ''}`}>
+    <div class={`page ${props.class || ''}`}>
       <PageHeaderComponent
         title={props.title}
         summary={props.summary}

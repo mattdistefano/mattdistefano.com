@@ -19,7 +19,7 @@ export const PageRouteComponent = (props: PageRouteProps) => {
   const page = props.pageCache && props.pageCache[props.url] && props.pageCache[props.url].data;
 
   if (!page) {
-    return <div className="container">Loading!</div>;
+    return <div class="container">Loading!</div>;
   }
 
   const pageCardList =

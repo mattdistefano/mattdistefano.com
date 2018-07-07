@@ -7,7 +7,7 @@ interface SiteFooterContactLinkProps {
 }
 
 interface SiteFooterProps {
-  className?: string;
+  class?: string;
 }
 
 const footerLinks: SiteFooterContactLinkProps[] = [
@@ -27,7 +27,7 @@ const footerLinks: SiteFooterContactLinkProps[] = [
 
 // tslint:disable-next-line:variable-name
 const SiteFooterContactLink = (props: SiteFooterContactLinkProps) => (
-  <a className="action-icon contact-links__action-icon" href={props.href}>
+  <a class="action-icon contact-links__action-icon" href={props.href}>
     <IconComponent
       name={props.icon}
       title={`matt distefano on ${props.icon}`}
@@ -42,8 +42,8 @@ const year = new Date().getFullYear();
 export class SiteFooterComponent extends Component<SiteFooterProps> {
   render() {
     return (
-      <footer className={`site-footer container ${this.props.className || ''}`}>
-        <h2 className="site-footer__heading h5">&copy; {year} Matt Distefano</h2>
+      <footer class={`site-footer container ${this.props.class || ''}`}>
+        <h2 class="site-footer__heading h5">&copy; {year} Matt Distefano</h2>
         <p>
           I'm a web developer with 12 years of experience in the financial
           industry. I write about many aspects of web development, with a focus
@@ -55,9 +55,9 @@ export class SiteFooterComponent extends Component<SiteFooterProps> {
             Check it out on github
           </a>.
         </p>
-        <ul className="contact-links list-unstyled">
+        <ul class="contact-links list-unstyled">
           {footerLinks.map((link, index) => (
-            <li key={index} className="contact-links__item">
+            <li key={index} class="contact-links__item">
               <SiteFooterContactLink {...link} />
             </li>
           ))}

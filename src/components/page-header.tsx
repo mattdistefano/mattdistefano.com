@@ -6,7 +6,7 @@ export interface PageHeaderProps {
   summary?: string;
   created?: string;
   modified?: string;
-  className?: string;
+  class?: string;
 }
 
 interface PageSummaryProps {
@@ -16,7 +16,7 @@ interface PageSummaryProps {
 interface PageDateProps {
   date?: string;
   label?: string;
-  className?: string;
+  class?: string;
 }
 
 // tslint:disable-next-line:variable-name
@@ -27,7 +27,7 @@ const PageHeaderSummaryComponent = (props: PageSummaryProps) => {
 
   const summaryHtml = { __html: props.summary };
 
-  return <p className="page-header__summary" dangerouslySetInnerHTML={summaryHtml}></p>;
+  return <p class="page-header__summary" dangerouslySetInnerHTML={summaryHtml}></p>;
 };
 
 // tslint:disable-next-line:variable-name
@@ -38,8 +38,8 @@ const PageHeaderDateComponent = (props: PageDateProps) => {
 
   const label = props.label ? `${props.label} :` : '';
 
-  return <div className={`page-header__date ${props.className || ''}`}>
-    {label} <DateComponent date={props.date} className="page-header__time" />
+  return <div class={`page-header__date ${props.class || ''}`}>
+    {label} <DateComponent date={props.date} class="page-header__time" />
   </div>;
 };
 
@@ -52,9 +52,9 @@ export const PageHeaderComponent = (props: PageHeaderProps) => {
   const titleHtml = { __html: props.title };
 
   return (
-    <div className={`page-header ${props.className || ''}`}>
-      <div className="container animation-slide-fade-in animation-delay-1">
-        <h1 className="page-header__title" dangerouslySetInnerHTML={titleHtml}></h1>
+    <div class={`page-header ${props.class || ''}`}>
+      <div class="container animation-slide-fade-in animation-delay-1">
+        <h1 class="page-header__title" dangerouslySetInnerHTML={titleHtml}></h1>
         <PageHeaderSummaryComponent summary={props.summary} />
         <PageHeaderDateComponent label="Published" date={props.created} />
       </div>

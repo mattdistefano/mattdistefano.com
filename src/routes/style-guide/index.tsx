@@ -31,7 +31,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
   const page = props.pageCache && props.pageCache[props.url] && props.pageCache[props.url].data;
 
   if (!page || page.type === 'summary') {
-    return <div className="container">Loading!</div>;
+    return <div class="container">Loading!</div>;
   }
 
   const content = page.type === 'page' ? (
@@ -44,12 +44,12 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       title={page.title}
       summary={page.summary}
       created={page.created} />
-    <div className="page-content container animation-slide-fade-in animation-delay-2">
+    <div class="page-content container animation-slide-fade-in animation-delay-2">
       <h2>Colors</h2>
 
       <h3>Palette</h3>
 
-      <ul className="list-flex list-flex--square">
+      <ul class="list-flex list-flex--square">
         <li style={{ backgroundColor: '#ffffff' }}>
           #ffffff
       </li>
@@ -78,7 +78,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
 
       <h3>Backgrounds</h3>
 
-      <ul className="list-flex list-flex--square">
+      <ul class="list-flex list-flex--square">
         <li style={{ backgroundColor: '#ffffff' }}>
           #ffffff
       </li>
@@ -112,7 +112,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
 
       <h3>Combinations</h3>
 
-      <ul className="list-flex list-flex--square">
+      <ul class="list-flex list-flex--square">
         <li style={{ backgroundColor: '#ffffff', color: '#6F6D6D' }}>
           #ffffff
         <br />
@@ -196,12 +196,12 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
 
       <h3>Headings</h3>
 
-      <div className="h1">h1 - Raleway 400</div>
-      <div className="h2">h2 - Raleway 700</div>
-      <div className="h3">h3 - Raleway 700</div>
-      <div className="h4">h4 - Raleway 700</div>
-      <div className="h5">h5 - Raleway 700</div>
-      <div className="h6">h6 - Raleway 700</div>
+      <div class="h1">h1 - Raleway 400</div>
+      <div class="h2">h2 - Raleway 700</div>
+      <div class="h3">h3 - Raleway 700</div>
+      <div class="h4">h4 - Raleway 700</div>
+      <div class="h5">h5 - Raleway 700</div>
+      <div class="h6">h6 - Raleway 700</div>
 
       <h3>Copy</h3>
       <p>Open Sans 1rem (16px)</p>
@@ -280,7 +280,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
 
       <h3>Video embeds</h3>
 
-      <div className="video-embed video-embed--youtube">
+      <div class="video-embed video-embed--youtube">
         <iframe src="//www.youtube.com/embed/XoYu7K6Ywkg" width="640" height="390" frameBorder="0" allowFullScreen></iframe>
       </div>
 

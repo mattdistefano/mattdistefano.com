@@ -10,10 +10,10 @@ export interface PageCardListProps {
 // tslint:disable-next-line:variable-name
 export const PageCardListComponent = (props: PageCardListProps) =>
   props.pages ? (
-    <div className="container">
-      <ul className="card-list">
+    <div class="container">
+      <ul class="card-list">
         {props.pages.map((page, index) => (
-          <li className="card-list__item" key={index}>
+          <li class="card-list__item" key={index}>
             <PageCardComponent page={page} headingLevel={props.headingLevel} />
           </li>
         ))}

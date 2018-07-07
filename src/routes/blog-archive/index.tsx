@@ -27,7 +27,7 @@ const BlogArchiveDayComponent = (props: BlogArchiveDayProps) => (
     <PageHeaderComponent
       title="Blog Archive"
       summary={props.title} />
-    <div className="container animation-slide-fade-in animation-delay-2">
+    <div class="container animation-slide-fade-in animation-delay-2">
       <PageCardListComponent pages={props.pages} headingLevel={2} />
     </div>
   </div>
@@ -44,7 +44,7 @@ const BlogArchiveMonthComponent = (props: BlogArchiveMonthProps) => (
     <PageHeaderComponent
       title="Blog Archive"
       summary={props.title} />
-    <div className="container animation-slide-fade-in animation-delay-2">
+    <div class="container animation-slide-fade-in animation-delay-2">
       <PageCardListComponent pages={props.pages} headingLevel={2} />
     </div>
   </div>
@@ -61,7 +61,7 @@ const BlogArchiveYearComponent = (props: BlogArchiveYearProps) => (
     <PageHeaderComponent
       title="Blog Archive"
       summary={`Archive for ${props.year}.`} />
-    <div className="container animation-slide-fade-in animation-delay-2">
+    <div class="container animation-slide-fade-in animation-delay-2">
       {props.pages.map((page, idx) =>
         <PageCardListComponent pages={flattenChildren(page)} headingLevel={2} />
       )}
@@ -119,7 +119,7 @@ const componentForMatch = (props: BlogArchiveIndexPageProps) => {
         title="Blog Archive"
         summary="Complete archive of posts." />
 
-      <div className="container animation-slide-fade-in animation-delay-2">
+      <div class="container animation-slide-fade-in animation-delay-2">
         {
           years.map(year => (
             <div key={year.year}>
@@ -142,7 +142,7 @@ export const BlogArchiveIndexPageComponent = (
   const page = props.pageCache && props.pageCache[props.url] && props.pageCache[props.url].data;
 
   if (!page || page.type === 'summary') {
-    return <div className="container">Loading!</div>;
+    return <div class="container">Loading!</div>;
   }
 
   return componentForMatch(props);
