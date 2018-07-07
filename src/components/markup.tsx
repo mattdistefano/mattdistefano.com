@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import Markup from 'preact-markup';
 import { ImageComponent } from './image';
+import { PreComponent } from './pre';
 
 export interface MarkupProps {
   markup?: string;
@@ -9,6 +10,7 @@ export interface MarkupProps {
 
 const components = {
   img: ImageComponent,
+  pre: PreComponent,
 };
 
 // tslint:disable-next-line:variable-name

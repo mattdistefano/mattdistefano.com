@@ -9,6 +9,8 @@ import { MarkupComponent } from '../../components/markup';
 
 import { ImageComponent } from '../../components/image';
 
+import { PreComponent } from '../../components/pre';
+
 export interface StyleGuideRouteProps extends RoutableProps {
   pageCache?: PageCache;
   url?: string;
@@ -217,7 +219,21 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <a href="#" class="link-muted">labore et dolore</a> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#" class="link-muted">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
       <h3>Buttons</h3>
-      <p><button type="button" className="button">Button</button></p>
+      <p>
+        <button type="button" class="btn">Button</button>
+        <button type="button" class="btn btn--muted">Muted Button</button>
+        <button type="button" class="btn btn--arrow">Arrow Button</button>
+      </p>
+
+      <h3>Link Buttons</h3>
+      <p>
+        <button type="button" class="btn btn--link">Link Button</button>
+        <button type="button" class="btn btn--link btn--link-inline">Inline Link Button</button>
+        <button type="button" class="btn btn--link btn--muted">Muted Link Button</button>
+        <button type="button" class="btn btn--link btn--link-inline btn--muted">Muted Inline Link Button</button>
+      </p>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <button type="button" class="btn btn--link btn--link-inline">labore et dolore</button> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <button type="button" class="btn btn--link btn--link-inline btn--muted">laboris nisi ut aliquip</button> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
       <h3>Lists</h3>
 
@@ -270,15 +286,23 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       <h2>Components</h2>
 
       <h3>Image</h3>
-      
+
       <blockquote><p>Wraps an image with additional markup and behavior.</p></blockquote>
 
       <ImageComponent src="/blog/2017/11/26/flowers.jpg" alt="Some pretty pretty flowers" />
 
+      <h3>Pre</h3>
+
+      <blockquote><p>Wraps pre-formatted content in additional markup and behavior.</p></blockquote>
+
+      <PreComponent>
+        <code>{codeString}</code>
+      </PreComponent>
+
       <h3>Markup</h3>
 
       <blockquote><p>Processes markup into Preact components (using <a href="https://github.com/developit/preact-markup" target="_blank">Preact Markup</a>) w/ pre-configured component substitution.</p></blockquote>
-       
+
       {content}
     </div>
   </div>;

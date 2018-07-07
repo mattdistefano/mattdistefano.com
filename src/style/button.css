@@ -1,4 +1,4 @@
-.button {
+.btn {
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
   font-size: 0.875rem;
@@ -11,10 +11,56 @@
   min-width: 8rem;
   text-align: center;
   display: inline-block;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus {
+  color: var(--color-primary-alt);
+  border-color: var(--color-primary-alt);
+  text-decoration: underline;
+  outline: none;
+}
+
+.btn.btn--muted {
+  color: var(--color-text);
+  border-color: var(--color-text-light);
+}
+
+.btn.btn--muted:hover,
+.btn.btn--muted:focus {
+  color: var(--color-text-light);
+  border-color: var(--color-text-light);
+}
+
+.btn.btn--link {
+  background-color: transparent;
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.btn.btn--link:hover,
+.btn.btn--link:focus {
+  text-decoration: none;
+  border-color: transparent;
+}
+
+.btn.btn--link.btn--link-inline {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  font-size: inherit;
+  line-height: inherit;
+  display: inline;
+}
+
+.btn.btn--arrow {
+  min-width: 10rem;
   letter-spacing: 0.2px;
 }
 
-.button::after {
+.btn.btn--arrow::after {
   position: absolute;
   right: 1rem;
   top: 50%;
@@ -28,17 +74,15 @@
   transition: all var(--transition-timing-function) var(--transition-duration);
 }
 
-.button:hover,
-.button:focus {
-  color: var(--color-primary);
+.btn.btn--arrow:hover,
+.btn.btn--arrow:focus {
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  text-decoration: none;
   letter-spacing: -0.5px;
-  outline: none;
+  text-decoration: none;
 }
 
-.button:hover::after,
-.button:focus::after {
+.btn.btn--arrow:hover::after,
+.btn.btn--arrow:focus::after {
   right: 10px;
   opacity: 1;
 }

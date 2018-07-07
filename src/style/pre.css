@@ -1,0 +1,24 @@
+.pre {
+  transition: margin ease 0.2s;
+  position: relative;
+  margin: 1rem -1rem;
+}
+
+.pre__inner {
+  margin: 0;
+}
+
+.btn.pre__expand {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem !important;
+  display: none;
+}
+
+@media (--container-viewport) {
+  /* TODO move this logic into component */
+  .btn.pre__expand {
+    display: inline;
+  }
+}

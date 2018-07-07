@@ -1,6 +1,6 @@
 .image {
-  text-align: right;
   margin: 0 -1rem 2rem -1rem;
+  transition: margin ease 0.2s;
 }
 
 .image__img {
@@ -8,13 +8,20 @@
   display: block;
 }
 
-.image__link {
-  color: var(--color-text);
+.img__controls {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.75rem;
-  padding-right: 1rem;
+  margin: 0 1rem;
 }
 
-.image__link:hover,
-.image__link:focus {
-  color: var(--color-text-light);
+.image__expand {
+  display: none !important;
+}
+
+@media (--container-viewport) {
+  /* TODO move this logic into component */
+  .image__expand {
+    display: block !important;
+  }
 }

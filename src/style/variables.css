@@ -16,6 +16,7 @@
   --font-copy: 'Open Sans', sans-serif;
   --transition-duration: 0.3s;
   --transition-timing-function: ease;
+  --container-width: 45rem;
 }
 
 @custom-media --small-viewport (min-width: 35em);
@@ -25,3 +26,5 @@
 @custom-media --large-viewport (min-width: 70em);
 
 @custom-media --xlarge-viewport (min-width: 90em);
+
+@custom-media --container-viewport (min-width: 45em);
