@@ -8,7 +8,7 @@
 
 @media (--container-viewport) {
   .full-bleed {
-    margin-left: calc((100vw - var(--container-width) - 1rem) / -2);
-    margin-right: calc((100vw - var(--container-width) - 1rem) / -2);
+    margin-left: calc((100vw - var(--container-width) - 1rem) / -2) !important;
+    margin-right: calc((100vw - var(--container-width) - 1rem) / -2) !important;
   }
 }

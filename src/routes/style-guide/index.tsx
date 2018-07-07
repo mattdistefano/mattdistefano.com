@@ -221,18 +221,21 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <a href="#" class="link-muted">labore et dolore</a> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#" class="link-muted">laboris nisi ut aliquip</a> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
       <h3>Buttons</h3>
-      <p>
-        <button type="button" class="btn">Button</button>
-        <button type="button" class="btn btn--muted">Muted Button</button>
-        <button type="button" class="btn btn--arrow">Arrow Button</button>
+      <p style="margin-left: -1rem; margin-right: -1rem;">
+        <button style="margin: 1rem" type="button" class="btn">Button</button>
+        <button style="margin: 1rem" type="button" class="btn btn--muted">Muted Button</button>
+        <button style="margin: 1rem" type="button" class="btn btn--arrow">Arrow Button</button>
       </p>
 
       <h3>Link Buttons</h3>
       <p>
         <button type="button" class="btn btn--link">Link Button</button>
-        <button type="button" class="btn btn--link btn--link-inline">Inline Link Button</button>
         <button type="button" class="btn btn--link btn--muted">Muted Link Button</button>
-        <button type="button" class="btn btn--link btn--link-inline btn--muted">Muted Inline Link Button</button>
+      </p>
+
+      <h3>Inline Link Buttons</h3>
+      <p>
+        <button type="button" class="btn btn--link btn--link-inline">Inline Link Button</button> <button type="button" class="btn btn--link btn--link-inline btn--muted">Muted Inline Link Button</button>
       </p>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <button type="button" class="btn btn--link btn--link-inline">labore et dolore</button> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <button type="button" class="btn btn--link btn--link-inline btn--muted">laboris nisi ut aliquip</button> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -283,7 +286,7 @@ export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
 
       <h2>Components</h2>
 
-      <h2>Icon</h2>
+      <h3>Icon</h3>
 
       <blockquote><p>Renders the specified icon as an inline SVG.</p></blockquote>
 
