@@ -28,10 +28,14 @@ const codeString = `code {
 
 // tslint:disable-next-line:variable-name
 export const StyleGuideRouteComponent = (props: StyleGuideRouteProps) => {
-  const page = props.pageCache && props.pageCache[props.url] && props.pageCache[props.url].data;
+  const cached = props.pageCache && props.pageCache[props.url];
 
-  if (!page || page.type === 'summary') {
-    return <div class="container">Loading!</div>;
+  const page = cached && cached.data;
+
+  const type = page && page.type;
+
+  if (!cached || cached.status === 'loading' || type === 'summary') {
+    return <div class="page-content container animation-fade-in animation-delay-1">Loading!</div>;
   }
 
   const content = page.type === 'page' ? (

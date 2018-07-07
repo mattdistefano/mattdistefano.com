@@ -16,10 +16,22 @@ export interface PageRouteProps extends RoutableProps {
 
 // tslint:disable-next-line:variable-name
 export const PageRouteComponent = (props: PageRouteProps) => {
-  const page = props.pageCache && props.pageCache[props.url] && props.pageCache[props.url].data;
+  const cached = props.pageCache && props.pageCache[props.url];
 
-  if (!page) {
-    return <div class="container">Loading!</div>;
+  const page = cached && cached.data;
+
+  const type = page && page.type;
+
+  // TODO consolidate this into a HOC
+  if (!cached || cached.status === 'loading' || type === 'summary') {
+    return <div class="page-content container animation-fade-in animation-delay-1">Loading!</div>;
+  }
+
+  if (cached.status === 'notfound') {
+    return <div class="page-content container animation-fade-in">
+      <h1>Ugh.</h1>
+      <p>It's broken. Maybe try again later or refresh or back or something.</p>
+    </div>
   }
 
   const pageCardList =
