@@ -36,5 +36,6 @@ RewriteRule ^ /index.html
 </FilesMatch>
 
 <FilesMatch "sw\.js$">
-  Header set Cache-Control "max-age=0"
+  ExpiresActive Off
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
 </FilesMatch>
