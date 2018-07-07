@@ -10,20 +10,22 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpack-plugin')
   .SiteGeneratorWebpackPlugin;
 
-const precacheConfig = {
-  staticFileGlobsIgnorePatterns: [
-    /polyfills(\..*)?\.js$/,
-    /\.htaccess$/,
-    /\.robots\.txt$/,
-    /\.map$/,
-    /blog\//,
-    /push-manifest\.json$/,
-    // ignore all JSON files since we generate them
-    /(^manifest)\.json$/,
-    /.DS_Store/,
-    /\.git/
-  ]
-};
+  const precacheConfig = {
+    staticFileGlobsIgnorePatterns: [
+      /polyfills(\..*)?\.js$/,
+      /\.htaccess$/,
+      /robots\.txt$/,
+      /\.map$/,
+      /blog\//,
+      /favicon\.ico$/,
+      /push-manifest\.json$/,
+      // ignore all JSON files other than the manifest since we generate them
+      /^((?!manifest).)*\.json$/,
+      /.DS_Store/,
+      /\.git/
+    ],
+    skipWaiting: false,
+  };
 
 /**
  * Function that mutates original webpack config.
@@ -59,7 +61,7 @@ export default function (config, env, helpers) {
   ]);
 
   config.plugins.push(siteGenPlugin, copyPlugin);
- 
+
   if (env.production) {
     config.plugins.push(new StyleExtHtmlWebpackPlugin());
   }
