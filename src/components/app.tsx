@@ -9,7 +9,8 @@ import {
 	getPage,
 	getMetaData,
 	isStale,
-	isLoaded
+	isLoaded,
+	PageCache
 } from '../models';
 
 import { restoreScroll, trackPageView, IS_BROWSER_ENV } from '../utils';
@@ -23,7 +24,7 @@ import { SiteFooterComponent } from './site-footer';
 import { MetaProxyComponent } from './meta-proxy';
 
 export interface AppProps {
-
+	initialPageCache?: PageCache;
 }
 
 const getBlogArchiveComponent = () => import('../routes/blog-archive/index').then(m => {
@@ -41,7 +42,7 @@ export default class App extends Component<AppProps, AppState> {
 		super(props);
 
 		this.state = {
-			pageCache: {},
+			pageCache: props.initialPageCache || {},
 		};
 	}
 
@@ -86,8 +87,10 @@ export default class App extends Component<AppProps, AppState> {
 	}
 
 	private _onRouteChange = (e: RouterOnChangeArgs) => {
-		trackPageView(e.url);
-		restoreScroll();
+		if (process.env.NODE_ENV !== 'development') {
+			trackPageView(e.url);
+			restoreScroll();
+		}
 
 		if (e.current && 'pageCache' in e.current.attributes) {
 			this._loadPageData(e.url);
