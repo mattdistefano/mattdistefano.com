@@ -9,13 +9,15 @@ import {
   QueriesComponent
 } from '../../components';
 
+import { withCleanDom } from '../../hocs/clean-dom';
+
 export interface PageRouteProps extends RoutableProps {
   pageCache?: PageCache;
   url?: string;
 }
 
 // tslint:disable-next-line:variable-name
-export const PageRouteComponent = (props: PageRouteProps) => {
+const UnWrappedPageRouteComponent = (props: PageRouteProps) => {
   const cached = props.pageCache && props.pageCache[props.url];
 
   const page = cached && cached.data;
@@ -57,3 +59,5 @@ export const PageRouteComponent = (props: PageRouteProps) => {
     </PageContentComponent>
   );
 };
+
+export const PageRouteComponent = withCleanDom<PageRouteProps>(UnWrappedPageRouteComponent, 'url');
