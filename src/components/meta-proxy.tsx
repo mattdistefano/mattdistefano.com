@@ -1,4 +1,6 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
+
+import { withPure } from '../hocs/pure';
 
 import {
 	IS_BROWSER_ENV
@@ -25,7 +27,7 @@ export interface MetaProxyProps extends HtmlMetaData {
 
 }
 
-export const MetaProxyComponent = (props: MetaProxyProps) => {
+const UnwrappedMetaProxyComponent = (props: MetaProxyProps) => {
 	if (IS_BROWSER_ENV) {
 		const descriptionElem = getMetaDescription();
 
@@ -35,3 +37,5 @@ export const MetaProxyComponent = (props: MetaProxyProps) => {
 
 	return null;
 }
+
+export const MetaProxyComponent = withPure<MetaProxyProps>(UnwrappedMetaProxyComponent);
