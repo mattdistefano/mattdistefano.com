@@ -18,11 +18,6 @@ export const ImageComponent = (props: ImageProps) => {
 
   return <figure class="figure">
     <img {...props} class="figure__img" />
-    <figcaption class="figure__caption">
-      <a class="link-muted image__link" href={props.src} target="_blank">
-        {props.alt}
-        <span class="sr-only">(Download)</span>
-      </a>
-    </figcaption>
+    <figcaption class="figure__caption">{props.alt}</figcaption>
   </figure>
 };
