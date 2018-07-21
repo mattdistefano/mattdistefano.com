@@ -72,10 +72,22 @@ export default function (config, env, helpers) {
     }
   ]);
 
+  const hotUpdateRegEx = /\.hot-update\.js(on)?$/;
+
   config.plugins.push(siteGenPlugin, copyPlugin);
 
   if (env.production) {
     config.plugins.push(new StyleExtHtmlWebpackPlugin());
+  }
+
+  config.devServer.before = (app) => {
+    app.use((req, res, next) => {
+      if (hotUpdateRegEx.test(req.url)) {
+        next();
+      } else {
+        setTimeout(() => next(), 1500 * Math.random());
+      }
+    });
   }
 
   return config;
