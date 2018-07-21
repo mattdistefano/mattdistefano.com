@@ -1,51 +1,28 @@
-import { h, Component, ComponentChildren } from 'preact';
+import { h } from 'preact';
 
 export interface ImageProps {
   src?: string;
   alt?: string;
 }
 
-interface ImageState {
-  expanded: boolean;
-}
 
 // tslint:disable-next-line:variable-name
-export class ImageComponent extends Component<ImageProps, ImageState> {
-  constructor(props: ImageProps) {
-    super(props);
-
-    this.state = {
-      expanded: false,
-    };
-
-    this.onExpandClick = this.onExpandClick.bind(this);
+export const ImageComponent = (props: ImageProps) => {
+  if (!props.src) {
+    return null;
   }
 
-  onExpandClick() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
-  }
+  // TODO add icon to link
+  // TODO lazy-load
+  // TODO re-implement expand when scaled dimensions < native dimensions && scaled dimensions < vh/vw
 
-  render(props: ImageProps) {
-    if (!props.src) {
-      return null;
-    }
-  
-    // TODO add icon to link
-    // TODO lazy-load
-    // TODO only show expand if scaledWidth < nativeWidth
-
-  
-    return <div class={ `image ${this.state.expanded ? 'full-bleed' : ''}` }>
-      <img {...props} class="image__img" />
-      <div class="img__controls">
-        <a class="link-muted image__link" href={props.src} target="_blank">Open in new window</a>
-        <button type="button" class="btn btn--link btn--link-inline btn--muted image__expand" onClick={this.onExpandClick}>
-          {this.state.expanded ? 'Collapse' : 'Expand'}
-        </button>
-      </div>
-    </div>
-  }
+  return <figure class="figure">
+    <img {...props} class="figure__img" />
+    <figcaption class="figure__caption">
+      <a class="link-muted image__link" href={props.src} target="_blank">
+        {props.alt}
+        <span class="sr-only">(Download)</span>
+      </a>
+    </figcaption>
+  </figure>
 };
-
