@@ -45,6 +45,7 @@ export default class App extends Component<AppProps, AppState> {
 	}
 
 	private _onMetaChange(meta: HtmlMetaData) {
+		// TODO just move this into the state fns
 		this.setState({
 			...this.state,
 			...meta
@@ -58,9 +59,7 @@ export default class App extends Component<AppProps, AppState> {
 
 		const page = this.state.pageCache[path];
 
-		if (page) {
-			this._onMetaChange(getMetaData(page));
-		}
+		this._onMetaChange(getMetaData(page));
 
 		if (isLoaded(page) && !isStale(page)) {
 			return;
