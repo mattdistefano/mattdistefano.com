@@ -1,6 +1,5 @@
 export * from './page-card-list';
 export * from './page-card';
-export * from './page-content';
 export * from './page-footer';
 export * from './page-header';
 export * from './icon';
@@ -8,3 +7,4 @@ export * from './queries';
 export * from './date';
 export * from './icon';
 export * from './image';
+export * from './markup';

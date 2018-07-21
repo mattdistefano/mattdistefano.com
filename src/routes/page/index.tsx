@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { RoutableProps } from 'preact-router';
-import { Page, PageSummary, IndexPage } from '@mattdistefano/site-generator';
-import { AsyncData, PageCache } from '../../models';
+import { PageCache } from '../../models';
 import {
   PageFooterComponent,
   PageCardListComponent,
-  PageContentComponent,
+  MarkupComponent,
+  PageHeaderComponent,
   QueriesComponent
 } from '../../components';
 
@@ -24,17 +24,30 @@ const UnWrappedPageRouteComponent = (props: PageRouteProps) => {
 
   const type = page && page.type;
 
-  // TODO consolidate this into a HOC
-  if (!cached || cached.status === 'loading' || type === 'summary') {
-    return <div class="page-content container animation-fade-in animation-delay-1">Loading!</div>;
-  }
-
-  if (cached.status === 'notfound') {
+  if (cached && cached.status === 'notfound') {
     return <div class="page-content container animation-fade-in">
       <h1>Ugh.</h1>
       <p>It's broken. Maybe try again later or refresh or back or something.</p>
     </div>
   }
+
+  if (!cached || !page) {
+    return <div class="page-content container animation-fade-in animation-delay-1">Loading!</div>;
+  }
+
+  // TODO better loading state
+  const header = <PageHeaderComponent
+    title={page.title}
+    summary={page.summary}
+    created={page.created}
+    modified={page.modified} />;
+
+  // TODO support server-side rendering
+  const content = page.type !== 'summary' ? (
+    <MarkupComponent
+      class="page-content container animation-slide-fade-in animation-delay-2"
+      markup={page.content} />
+  ) : null;
 
   const pageCardList =
     page.type === 'index' ? <PageCardListComponent pages={page.pages} /> : null;
@@ -46,17 +59,13 @@ const UnWrappedPageRouteComponent = (props: PageRouteProps) => {
     page.type === 'page' ? <PageFooterComponent page={page} /> : null;
 
   return (
-    <PageContentComponent
-      title={page.title}
-      summary={page.summary}
-      content={page.type !== 'summary' ? page.content : null}
-      created={page.created}
-      modified={page.modified}
-    >
+    <div class="page">
+      {header}
+      {content}
       {footer}
       {pageCardList}
       {queries}
-    </PageContentComponent>
+    </div>
   );
 };
 
