@@ -36,8 +36,6 @@ const getStyleGuideComponent = () => import('../routes/style-guide/index').then(
 });
 
 export default class App extends Component<AppProps, AppState> {
-	private _descriptionElem: HTMLMetaElement;
-
 	constructor(props: AppProps) {
 		super(props);
 
