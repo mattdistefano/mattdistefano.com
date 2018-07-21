@@ -16,5 +16,5 @@ On a bench not far from the river:
 ![Bride and groom on a bench in the woods.](/blog/2017/08/25/bench.jpg)
 
 Practically in the river.
-![Bridge and groom on a log in the Sandy River.](/blog/2017/08/25/river.jpg)
+![Bride and groom on a log in the Sandy River.](/blog/2017/08/25/river.jpg)
 
