@@ -28,7 +28,7 @@ export interface MetaProxyProps extends HtmlMetaData {
 }
 
 const UnwrappedMetaProxyComponent = (props: MetaProxyProps) => {
-	if (IS_BROWSER_ENV) {
+	if (IS_BROWSER_ENV && typeof props.title !== 'undefined') {
 		const descriptionElem = getMetaDescription();
 
 		document.title = props.title;

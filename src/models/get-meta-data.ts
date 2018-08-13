@@ -7,11 +7,11 @@ export const getMetaData = (page: AsyncData<Page | IndexPage| PageSummary>): Htm
   let title: string;
   let description: string;
 
-  if (!page || page.status === 'notfound') {
-    title = 'mattdistefano.com | Not Found!';
-    description = '';
-  } else if (page.status === 'loading') {
+  if (!page || page.status === 'loading') {
     title = 'mattdistefano.com | Loading...';
+    description = '';
+  } else if (page.status === 'notfound') {
+    title = 'mattdistefano.com | Not Found!';
     description = '';
   } else if (page.status === 'loaded') {
     title = `mattdistefano.com | ${htmlToText(page.data.title || '')}`;

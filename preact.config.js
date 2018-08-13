@@ -10,22 +10,34 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SiteGeneratorWebpackPlugin = require('@mattdistefano/site-generator-webpack-plugin')
   .SiteGeneratorWebpackPlugin;
 
-  const precacheConfig = {
-    staticFileGlobsIgnorePatterns: [
-      /polyfills(\..*)?\.js$/,
-      /\.htaccess$/,
-      /robots\.txt$/,
-      /\.map$/,
-      /blog\//,
-      /favicon\.ico$/,
-      /push-manifest\.json$/,
-      // ignore all JSON files other than the manifest since we generate them
-      /^((?!manifest).)*\.json$/,
-      /.DS_Store/,
-      /\.git/
-    ],
-    skipWaiting: false,
-  };
+const precacheConfig = {
+  staticFileGlobsIgnorePatterns: [
+    /polyfills(\..*)?\.js$/,
+    /\.htaccess$/,
+    /robots\.txt$/,
+    /\.map$/,
+    /blog\//,
+    /favicon\.ico$/,
+    /push-manifest\.json$/,
+    // ignore all JSON files other than the manifest since we generate them
+    /^((?!manifest).)*\.json$/,
+    /.DS_Store/,
+    /\.git/
+  ],
+  skipWaiting: false,
+  // don't try to serve index.html for images
+  navigateFallbackWhitelist: [/^(?!.*\.jpg$|.*\.png$)*$/],
+  runtimeCaching: [{
+    urlPattern: /\.(jpg|png)$/,
+    handler: 'fastest',
+    options: {
+      cache: {
+        maxEntries: 10,
+        name: 'images-cache'
+      }
+    }
+  }],
+};
 
 /**
  * Function that mutates original webpack config.
@@ -60,10 +72,22 @@ export default function (config, env, helpers) {
     }
   ]);
 
+  const hotUpdateRegEx = /\.hot-update\.js(on)?$/;
+
   config.plugins.push(siteGenPlugin, copyPlugin);
 
   if (env.production) {
     config.plugins.push(new StyleExtHtmlWebpackPlugin());
+  } else {
+    config.devServer.before = (app) => {
+      app.use((req, res, next) => {
+        if (hotUpdateRegEx.test(req.url)) {
+          next();
+        } else {
+          setTimeout(() => next(), 1500 * Math.random());
+        }
+      });
+    }
   }
 
   return config;
