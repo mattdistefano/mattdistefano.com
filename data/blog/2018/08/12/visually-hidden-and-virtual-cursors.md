@@ -57,7 +57,7 @@ So, what's the problem?
 
 For sighted users not using a screen reader, or non-sighted users who are using one, there is no problem. It actually just works. Even if only using a keyboard, both will be able to operate the control and perceive its state correctly. 
 
-Where we run int issues is with low-vision users using a screen-reader to *aid* but not *replace* their visual interaction. 
+Where we run into issues is with low-vision users using a screen-reader to *aid* but not *replace* their visual interaction. 
 
 If you've used a screen reader while observing the screen, you've probably noticed it draw a box around the element currently under the virtual cursor. This box is controlled entirely by the screen reader and is distinct from keyboard focus, meaning it will not trigger the `:focus` styles we've provided.
 
