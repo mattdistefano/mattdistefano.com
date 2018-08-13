@@ -28,7 +28,7 @@ export class PreComponent extends Component<PreProps, PreState> {
 
   render(props: PreProps) {
     return <div class={ `pre ${this.state.expanded ? 'full-bleed' : ''}` }>
-      <pre class="pre__inner">{...props.children}</pre>
+      <pre class="pre__inner">{props.children}</pre>
       <button type="button" class="btn btn--link btn--link-inline pre__expand" onClick={this.onExpandClick}>
         {this.state.expanded ? 'Collapse' : 'Expand'}
       </button>
