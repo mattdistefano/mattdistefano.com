@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 import { DateComponent } from './date';
 
 export interface PageHeaderProps {
@@ -7,6 +7,10 @@ export interface PageHeaderProps {
   created?: string;
   modified?: string;
   class?: string;
+}
+
+interface PageTitleProps {
+  title?: string;
 }
 
 interface PageSummaryProps {
@@ -43,18 +47,43 @@ const PageHeaderDateComponent = (props: PageDateProps) => {
   </div>;
 };
 
+class PageTitleComponent extends Component<PageTitleProps> {
+  private ref: HTMLHeadingElement;
+
+  constructor() {
+    super();
+
+    this.trackRef = this.trackRef.bind(this);
+  }
+
+  private trackRef(elem: HTMLHeadingElement) {
+    this.ref = elem;
+  }
+
+  componentDidMount() {
+    this.ref && this.ref.focus();
+  }
+
+  render(props: PageTitleProps) {
+    const titleHtml = { __html: props.title };
+
+    return (
+      <h1 class="page-header__title" tabIndex={-1} ref={this.trackRef} dangerouslySetInnerHTML={titleHtml}></h1>
+    );
+  }
+}
+
+
 // tslint:disable-next-line:variable-name
 export const PageHeaderComponent = (props: PageHeaderProps) => {
   if (!props.title) {
     return null;
   }
 
-  const titleHtml = { __html: props.title };
-
   return (
     <div class={`page-header ${props.class || ''}`}>
       <div class="container animation-slide-fade-in animation-delay-1">
-        <h1 class="page-header__title" dangerouslySetInnerHTML={titleHtml}></h1>
+        <PageTitleComponent title={props.title} />
         <PageHeaderSummaryComponent summary={props.summary} />
         <PageHeaderDateComponent label="Published" date={props.created} />
       </div>
