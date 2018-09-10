@@ -86,8 +86,9 @@ export default class App extends Component<AppProps, AppState> {
 	private _onRouteChange = (e: RouterOnChangeArgs) => {
 		if (process.env.NODE_ENV !== 'development') {
 			trackPageView(e.url);
-			restoreScroll();
 		}
+
+		restoreScroll();
 
 		if (e.current && 'pageCache' in e.current.attributes) {
 			this._loadPageData(e.url);
