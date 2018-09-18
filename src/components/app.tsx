@@ -13,7 +13,7 @@ import {
 	PageCache
 } from '../models';
 
-import { restoreScroll, trackPageView, IS_BROWSER_ENV } from '../utils';
+import { restoreScroll, IS_BROWSER_ENV } from '../utils';
 
 import { HomeRouteComponent } from '../routes/home';
 import { PageRouteComponent } from '../routes/page';
@@ -84,10 +84,6 @@ export default class App extends Component<AppProps, AppState> {
 	}
 
 	private _onRouteChange = (e: RouterOnChangeArgs) => {
-		if (process.env.NODE_ENV !== 'development') {
-			trackPageView(e.url);
-		}
-
 		restoreScroll();
 
 		if (e.current && 'pageCache' in e.current.attributes) {
